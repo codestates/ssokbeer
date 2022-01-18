@@ -1,5 +1,5 @@
 import db from "../../models/index";
-import verify from "../token/verify";
+import { verify } from "../token/verify";
 
 // db.sequelize.sync();
 const content = db.contents;
