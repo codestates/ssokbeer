@@ -2,27 +2,43 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 const Section = styled.section`
+  max-width: 1280px;
   padding-top: 100px;
   margin: 0 auto;
   background-color: rgba(255, 255, 255);
-  border: 1px solid blue;
-  height: 330px;
+  /* border: 1px solid blue; */
 `;
 const RecommendText = styled.h3`
   margin: 25px 0px;
-  padding: 10px;
-  border: 1px solid red;
+  /* padding: 10px 10px 0px 20px; */
+  /* border: 1px solid red; */
 `;
 
 const RecommendConatiner = styled.div`
+  width: 100%;
+  margin: auto;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 15px;
-  padding: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: 250px;
+  grid-gap: 24px;
+  /* padding: 10px; */
 `;
 const RecommendPost = styled.div`
-  background-color: wheat;
-  height: 200px;
+  /* background-color: wheat; */
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+const PostImage = styled.img`
+  width: 100%;
+  height: 80%;
+`;
+
+const PostTitle = styled.div`
+  margin: 10px;
+  text-align: center;
 `;
 
 const Recommendation = () => {
@@ -30,10 +46,22 @@ const Recommendation = () => {
     <Section>
       <RecommendText>이달의 추천 TOP</RecommendText>
       <RecommendConatiner>
-        <RecommendPost>1</RecommendPost>
-        <RecommendPost>2</RecommendPost>
-        <RecommendPost>3</RecommendPost>
-        <RecommendPost>4</RecommendPost>
+        <RecommendPost>
+          <PostImage src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"></PostImage>
+          <PostTitle>천국의맛</PostTitle>
+        </RecommendPost>
+        <RecommendPost>
+          <PostImage src="https://cdn.mindgil.com/news/photo/202103/70839_7148_1250.jpg"></PostImage>
+          <PostTitle>환상특급 삼겹살파티</PostTitle>
+        </RecommendPost>
+        <RecommendPost>
+          <PostImage src="https://sjnfzdfjrjgl1655541.cdn.ntruss.com/goods/3/2019/07/156_tmp_483b4b1bfca8c851ddea5f338f83fa928451view.jpg"></PostImage>
+          <PostTitle>감바스 레시피 감잡앗으</PostTitle>
+        </RecommendPost>
+        <RecommendPost>
+          <PostImage src="https://cdn.mindgil.com/news/photo/202103/70839_7148_1250.jpg"></PostImage>
+          <PostTitle>환상특급 삼겹살파티</PostTitle>
+        </RecommendPost>
       </RecommendConatiner>
     </Section>
   );
