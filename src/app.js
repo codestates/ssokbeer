@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import contentRouter from "./router/contentRouter";
 
 const app = express();
 const logger = morgan("dev");
@@ -23,5 +24,5 @@ app.use(
 );
 
 app.use(logger);
-
+app.use("/content", contentRouter);
 export default app;
