@@ -30,6 +30,8 @@ export const getProfile = async (req, res) => {
   res.status(200).json(userInfo);
 };
 
+export const editProfile = async (req, res) => {};
+
 export const getUserList = async (req, res) => {
   const usersInfo = await users.findAll({});
   res.status(200).json(usersInfo);
@@ -42,7 +44,7 @@ export const postLogin = async (req, res) => {
     const {
       user,
       user: { dataValues },
-    } = users.findOne({ where: { email, password } });
+    } = users.findOne({ where: { email } });
     if (!user) {
       return res.status(400).json({ message: "An account with this username does not exists." });
     }
