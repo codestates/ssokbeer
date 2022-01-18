@@ -4,17 +4,17 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Community from "../pages/Community";
 import GlobalStyles from "./GlobalStyles";
-import Join from "../pages/Join";
+import Signup from "../pages/Signup";
 
 const Routers = () => (
   <BrowserRouter>
     <GlobalStyles />
     <Navbar />
     <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/join' element={<Join />} />
-      <Route path='/community' element={<Community />} />
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/community" element={<Community />} />
     </Routes>
   </BrowserRouter>
 );
