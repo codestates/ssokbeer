@@ -45,28 +45,28 @@ const Button = styled.button`
   transition: 0.4s;
 `;
 
-const Join = () => (
+const Signup = () => (
   <Container>
     <Form>
       <FormColumn>
         <Label>이메일</Label>
-        <Input placeholder='이메일을 입력해주세요' />
+        <Input placeholder="이메일을 입력해주세요" />
       </FormColumn>
       <FormColumn>
         <Label>비밀번호</Label>
-        <Input placeholder='8자이상 / 영문 / 숫자를 조합해주세요' />
+        <Input placeholder="8자이상 / 영문 / 숫자를 조합해주세요" />
       </FormColumn>
       <FormColumn>
         <Label>비밀번호 확인</Label>
-        <Input placeholder='비밀번호를 한번 더 입력해 주세요' />
+        <Input placeholder="비밀번호를 한번 더 입력해 주세요" />
       </FormColumn>
       <FormColumn>
         <Label>닉네임</Label>
-        <Input placeholder='2~10글자' />
+        <Input placeholder="2~10글자" />
       </FormColumn>
       <Button>가입하기</Button>
     </Form>
   </Container>
 );
 
-export default Join;
+export default Signup;
