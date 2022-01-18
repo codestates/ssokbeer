@@ -4,7 +4,7 @@ import {
   getContent,
   postContent,
   updateContent,
-} from "../controller/contentController";
+} from "../controllers/contentController";
 const contentRouter = express.Router();
 
 contentRouter.route("/").get(getAllContent).post(postContent);
