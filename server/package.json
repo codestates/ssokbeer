@@ -21,6 +21,7 @@
   "homepage": "https://github.com/codestates/ssokbeer#readme",
   "dependencies": {
     "axios": "^0.24.0",
+    "bcrypt": "^5.0.1",
     "cookie-parser": "^1.4.6",
     "core-js": "^3.20.2",
     "cors": "^2.8.5",
@@ -28,9 +29,9 @@
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
+    "mysql2": "^2.1.0",
     "regenerator-runtime": "^0.13.9",
-    "sequelize": "^6.13.0",
-    "mysql2": "^2.1.0"
+    "sequelize": "^6.13.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.8",
