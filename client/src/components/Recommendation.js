@@ -59,8 +59,8 @@ const Recommendation = () => {
           <PostTitle>감바스 레시피 감잡앗으</PostTitle>
         </RecommendPost>
         <RecommendPost>
-          <PostImage src="https://cdn.mindgil.com/news/photo/202103/70839_7148_1250.jpg"></PostImage>
-          <PostTitle>환상특급 삼겹살파티</PostTitle>
+          <PostImage src="https://ssproxy.ucloudbiz.olleh.com/v1/AUTH_e59809eb-bdc9-44d7-9d8f-2e7f0e47ba91/post_card/76016_1610066802_LMWyrZIu.PNG"></PostImage>
+          <PostTitle>say 치즈</PostTitle>
         </RecommendPost>
       </RecommendConatiner>
     </Section>
