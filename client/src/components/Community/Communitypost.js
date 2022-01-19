@@ -33,7 +33,7 @@ const Button = styled.button`
   cursor: pointer;
   border: 1px solid #bcbcbc;
   font-size: 15px;
-  &:hover {``
+  &:hover {
     background-color: #fed969;
   }
 `;
@@ -140,7 +140,7 @@ const CommunityPost = () => {
       <CommunityNav>
         <CommunityHeader>
           오늘은 뭐먹을래?
-          <i class="fas fa-utensils"></i>
+          <i className="fas fa-utensils"></i>
         </CommunityHeader>
         <WritingLink to="/writing">
           <Button>글쓰기</Button>
