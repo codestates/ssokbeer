@@ -4,6 +4,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import contentRouter from "./routers/contentRouter";
 import userRouter from "./routers/userRouter";
+import commentRouter from "./routers/commentRouter";
+import oAuthRotuer from "./routers/oauthRouter";
 
 const app = express();
 const logger = morgan("dev");
@@ -25,7 +27,13 @@ app.use(
 );
 
 app.use(logger);
+
 app.use("/content", contentRouter);
+
+app.use("/comment", commentRouter);
+
 app.use("/user", userRouter);
+
+// app.use("/oauth", oAuthRotuer);
 
 export default app;
