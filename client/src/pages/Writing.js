@@ -68,6 +68,7 @@ const Button = styled.button`
 `;
 
 const Writing = () => {
+  const handleChangeClick = () => {};
   return (
     <Container>
       <Form>
