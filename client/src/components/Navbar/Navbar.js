@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import logo from "../img/ssokbeerlogo.png";
+import logo from "../../img/ssokbeerlogo.png";
 import RigthNav from "./RigthNav";
 
 const Nav = styled.nav`
