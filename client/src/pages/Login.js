@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 const Container = styled.div`
   padding-top: 100px;
@@ -129,6 +132,7 @@ const OauthButton = styled.a`
 `;
 
 const Login = () => {
+  const [isLogin, setIsLogin] = useState(false);
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -136,6 +140,24 @@ const Login = () => {
 
   const handleInputValue = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
+  };
+
+  const handleResponseSuccess = () => {
+    axios.get(`http://localhost:4000/user`).then((res) => {
+      console.log(res);
+      setIsLogin(true);
+      //토큰 인증..? //
+    });
+  };
+  const handleLogin = () => {
+    axios
+      .post(`http://localhost:4000/user/login`, {
+        email: loginInfo.email,
+        password: loginInfo.password,
+      })
+      .then(() => {
+        handleResponseSuccess();
+      });
   };
 
   const isPc = useMediaQuery({ query: "(min-width: 768px)" });
@@ -159,7 +181,9 @@ const Login = () => {
             placeholder="Password"
             onChange={handleInputValue("password")}
           ></LoginInput>
-          <Button pc={isPc}>로그인</Button>
+          <Button type="submit" onClick={handleLogin} pc={isPc}>
+            로그인
+          </Button>
           <SignUpLink to="/signup">
             <SignUp>아직 회원이 아니신가요?</SignUp>
           </SignUpLink>

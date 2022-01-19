@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-
 import styled from "styled-components";
 
 const Container = styled.div`
   max-width: 1280px;
-  padding: 0px 15px;
+  width: 100%;
   margin: 0 auto;
+  padding: 10px 15px;
   background-color: rgba(255, 255, 255);
 `;
 
@@ -35,8 +35,8 @@ const Button = styled.button`
 `;
 
 const PostSection = styled.section`
+  width: 100%;
   padding: 0px 15px;
-  margin: 0 auto;
   background-color: rgba(255, 255, 255);
   /* border: 1px solid blue; */
 `;
@@ -46,12 +46,13 @@ const PostConatiner = styled.div`
   margin: auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-  grid-auto-rows: 300px;
+  grid-auto-rows: 370px;
   grid-gap: 24px;
   /* border: 1px solid red; */
 `;
 
 const Post = styled.div`
+  width: 100%;
   border: 1px solid grey;
   display: flex;
   justify-content: space-evenly;
@@ -59,8 +60,8 @@ const Post = styled.div`
 `;
 
 const FoodImg = styled.img`
-  width: 240px;
-  height: 240px;
+  width: 50%;
+  height: 70%;
   border-radius: 50%;
 `;
 
