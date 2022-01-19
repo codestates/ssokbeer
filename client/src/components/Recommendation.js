@@ -2,9 +2,11 @@ import styled from "styled-components";
 
 const Section = styled.section`
   max-width: 1280px;
+  width: 100%;
   padding: 100px 15px 0px 15px;
   margin: 0 auto;
   background-color: rgba(255, 255, 255);
+  /* border: 1px solid black; */
 `;
 
 const RecommendText = styled.h1`
@@ -16,7 +18,7 @@ const RecommendText = styled.h1`
 
 const RecommendConatiner = styled.div`
   width: 100%;
-  margin: auto;
+  /* margin: auto; */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-auto-rows: 290px;
@@ -24,7 +26,8 @@ const RecommendConatiner = styled.div`
   /* padding: 10px; */
 `;
 const RecommendPost = styled.div`
-  height: 280px;
+  /* height: 280px; */
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

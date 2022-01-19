@@ -5,7 +5,7 @@ const Contaier = styled.div`
   display: flex;
   justify-content: center;
   /* border: 1px solid blue; */
-  /* margin: 30px 0px; */
+  padding-top: 100px;
   text-align: center;
 `;
 
@@ -23,7 +23,7 @@ const Input = styled.input`
 
 const Button = styled.button``;
 
-const SearchBar = () => {
+const MobileSearchBar = () => {
   const [choice, setChoice] = useState("");
   const [textSearch, setTextSearch] = useState("");
   console.log(choice);
@@ -62,4 +62,4 @@ const SearchBar = () => {
     </Contaier>
   );
 };
-export default SearchBar;
+export default MobileSearchBar;
