@@ -1,31 +1,33 @@
-import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 const Section = styled.section`
   max-width: 1280px;
-  padding-top: 100px;
+  width: 100%;
+  padding: 100px 15px 0px 15px;
   margin: 0 auto;
   background-color: rgba(255, 255, 255);
-  /* border: 1px solid blue; */
+  /* border: 1px solid black; */
 `;
-const RecommendText = styled.h3`
-  margin: 25px 0px;
-  /* padding: 10px 10px 0px 20px; */
+
+const RecommendText = styled.h1`
+  margin: 15px 0px;
+  font-size: 23px;
+  font-weight: 400;
   /* border: 1px solid red; */
 `;
 
 const RecommendConatiner = styled.div`
   width: 100%;
-  margin: auto;
+  /* margin: auto; */
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-auto-rows: 250px;
+  grid-auto-rows: 290px;
   grid-gap: 24px;
   /* padding: 10px; */
 `;
 const RecommendPost = styled.div`
-  /* background-color: wheat; */
-  height: 280px;
+  /* height: 280px; */
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
