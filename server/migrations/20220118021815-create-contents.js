@@ -14,7 +14,7 @@ module.exports = {
       content: {
         type: Sequelize.STRING,
       },
-      likeId: {
+      likesId: {
         type: Sequelize.INTEGER,
       },
       visits: {

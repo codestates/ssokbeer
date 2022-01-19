@@ -1,8 +1,11 @@
 import express from "express";
-import { googleLogin } from "../controllers/oAuth/googleController";
+import { githubLogin } from "../controllers/oauth/githubController";
+import { googleLogin } from "../controllers/oauth/googleController";
 
-const oAuthRotuer = express.Router();
+const oauthRotuer = express.Router();
 
-oAuthRotuer.post("/google", googleLogin);
+oauthRotuer.post("/google", googleLogin);
+
+oauthRotuer.post("/github", githubLogin);
 
 export default oAuthRotuer;

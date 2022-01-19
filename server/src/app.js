@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import contentRouter from "./routers/contentRouter";
 import userRouter from "./routers/userRouter";
 import commentRouter from "./routers/commentRouter";
+import likeRouter from "./routers/likeRouter";
 import oAuthRotuer from "./routers/oauthRouter";
 
 const app = express();
@@ -35,5 +36,7 @@ app.use("/comment", commentRouter);
 app.use("/user", userRouter);
 
 app.use("/oauth", oAuthRotuer);
+
+app.use("/like", likeRouter);
 
 export default app;
