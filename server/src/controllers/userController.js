@@ -7,6 +7,7 @@ db.sequelize.sync();
 
 const users = db.users;
 const contents = db.contents;
+
 export const nickCheck = async (req, res) => {
   let { nickname } = req.body;
   let isNick = await users.findOne({ where: { nickname } });
@@ -22,18 +23,25 @@ export const emailCheck = async (req, res) => {
 
   return res.status(200).json({ email: isEmail });
 };
-
+console.log("hello");
 export const postSignup = async (req, res) => {
-  let { nickname, email, password } = req.body;
-  try {
-    password = await bcrypt.hash(password, 5);
+  const { nickname, email, password } = req.body;
 
-    const { dataValues } = await users.create({
-      nickname,
-      email,
-      password,
+  try {
+    if (!nickname || !email || !password) {
+      return res.status(400).json({ message: "닉네임,이메일 또는 비밀번호가 공백입니다" });
+    }
+    Hashpassword = await bcrypt.hash(password, 5);
+
+    const [result, created] = await users.findOrCreate({
+      where: { email },
+      default: { nickname, email, Hashpassword },
     });
-    const token = jwt.sign(dataValues, process.env.ACCESS_SECRET, {
+
+    if (!created) {
+      return res.status(400).json({ message: "이미 가입된 회원입니다" });
+    }
+    const token = jwt.sign({ nickname, email }, process.env.ACCESS_SECRET, {
       expiresIn: "3h",
     });
 
@@ -43,7 +51,6 @@ export const postSignup = async (req, res) => {
     res.status(400).json({ message: "회원가입실패" });
   }
 };
-
 export const signout = async (req, res) => {
   try {
     const { token } = req.cookies;
