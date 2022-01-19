@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import logo from "../../img/ssokbeerlogo.png";
+import logo from "../../Img/ssokbeerlogo.png";
 import RigthNav from "./RigthNav";
 
 const Nav = styled.nav`
@@ -130,22 +130,22 @@ const Navbar = () => {
     <Nav>
       {isOpen ? (
         <SideNav ref={side}>
-          <i onClick={CloseSideNav} className='fas fa-times' icon></i>
-          <SideLink onClick={CloseSideNav} to='/drink'>
+          <i onClick={CloseSideNav} className="fas fa-times" icon></i>
+          <SideLink onClick={CloseSideNav} to="/drink">
             <Menu>주류</Menu>
           </SideLink>
-          <SideLink onClick={CloseSideNav} to='/food'>
+          <SideLink onClick={CloseSideNav} to="/food">
             <Menu>안주</Menu>
           </SideLink>
-          <SideLink onClick={CloseSideNav} to='/community'>
+          <SideLink onClick={CloseSideNav} to="/community">
             <Menu line>커뮤니티</Menu>
           </SideLink>
           {isLogin ? (
-            <SideLink onClick={CloseSideNav} to='/mypage'>
+            <SideLink onClick={CloseSideNav} to="/mypage">
               <Menu>마이페이지</Menu>
             </SideLink>
           ) : (
-            <SideLink onClick={CloseSideNav} to='/login'>
+            <SideLink onClick={CloseSideNav} to="/login">
               <Menu>로그인</Menu>
             </SideLink>
           )}
@@ -153,7 +153,7 @@ const Navbar = () => {
         </SideNav>
       ) : null}
       <Header>
-        <LogoLink to='/home'>
+        <LogoLink to="/home">
           <Logo src={logo} />
         </LogoLink>
         <RigthNav isVisible={isOpen} ChangeMenuVisibility={ChangeMenuVisibility} />

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   max-width: 1280px;
@@ -32,6 +33,14 @@ const Button = styled.button`
   cursor: pointer;
   border: 1px solid #bcbcbc;
   font-size: 15px;
+  &:hover {
+    background-color: #fed969;
+  }
+`;
+
+const WritingLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 `;
 
 const PostSection = styled.section`
@@ -131,9 +140,11 @@ const CommunityPost = () => {
       <CommunityNav>
         <CommunityHeader>
           오늘은 뭐먹을래?
-          <i class="fas fa-utensils"></i>
+          <i className="fas fa-utensils"></i>
         </CommunityHeader>
-        <Button>글쓰기</Button>
+        <WritingLink to="/writing">
+          <Button>글쓰기</Button>
+        </WritingLink>
       </CommunityNav>
       <PostSection>
         <PostConatiner>
