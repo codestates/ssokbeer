@@ -8,4 +8,4 @@ oauthRotuer.post("/google", googleLogin);
 
 oauthRotuer.post("/github", githubLogin);
 
-export default oAuthRotuer;
+export default oauthRotuer;
