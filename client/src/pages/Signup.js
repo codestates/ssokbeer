@@ -28,8 +28,7 @@ const FormColumn = styled.div`
 const Input = styled.input`
   all: unset;
   width: 100%;
-  border-bottom: 1px solid #aaa2a2;
-  margin-bottom: 10px;
+  border-bottom: 1px solid ${(props) => (props.error ? "red" : "#aaa2a2")};
   &::placeholder {
     font-size: 13px;
   }
@@ -49,8 +48,9 @@ const Button = styled.button`
   cursor: pointer;
   font-weight: bold;
   color: gray;
+  opacity: ${(props) => (props.disabled ? 0.6 : 1)};
   &:hover {
-    background-color: #ffdc77;
+    background-color: ${(props) => (props.disabled ? "" : "#ffdc77")};
   }
   transition: 0.4s;
 `;
@@ -62,8 +62,9 @@ const Valid = styled.button`
   cursor: pointer;
   font-weight: bold;
   color: gray;
+  opacity: ${(props) => (props.disabled ? 0.6 : 1)};
   &:hover {
-    background-color: #ffdc77;
+    background-color: ${(props) => (props.disabled ? "" : "#ffdc77")};
   }
   transition: 0.4s;
 `;
@@ -71,10 +72,11 @@ const Span = styled.span`
   font-size: 14px;
   font-weight: bold;
   color: #f45555;
+  margin: 10px 0;
 `;
 
 const Signup = () => {
-  const { register, handleSubmit, errors, getValues } = useForm({ mode: "onChange" });
+  const { register, handleSubmit, errors, getValues, watch, formState } = useForm({ mode: "onChange" });
   const [nickCheck, setNickCheck] = useState(false);
   const [emailCheck, setEmailCheck] = useState(false);
   const onSubmitValid = (data) => {
@@ -83,6 +85,11 @@ const Signup = () => {
   const onSubmitInvalid = (data) => {
     // console.log(data);
   };
+  const checkValid = () => {
+    const { email, nickname } = watch();
+    console.log(email, nickname);
+  };
+  console.log(watch());
   return (
     <Container>
       <Form onSubmit={handleSubmit(onSubmitValid, onSubmitInvalid)}>
@@ -92,15 +99,28 @@ const Signup = () => {
             ref={register({
               required: "이메일을 꼭 입력해주세요.",
               validate: {
-                email: () => emailCheck && "중복된 이메일이 있습니다",
+                check: (value) => {
+                  const regex = new RegExp(
+                    /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
+                  );
+                  const isValid = regex.test(value);
+                  if (!isValid) {
+                    return "이메일을 정확히 입력해주세요";
+                  }
+                  if (value === "") {
+                    return "이메일을 꼭 입력해주세요";
+                  }
+                },
               },
             })}
             name='email'
-            type='email'
             placeholder='이메일을 입력해주세요'
+            error={errors.email?.message}
           />
-          <Span>{errors?.email?.message}</Span>
-          <Valid onClick={() => setEmailCheck(true)}>중복검사</Valid>
+          <Span>{errors.email?.message}</Span>
+          <Valid onClick={checkValid} disabled={errors.email?.message}>
+            중복검사
+          </Valid>
         </FormColumn>
         <FormColumn>
           <Label>닉네임</Label>
@@ -111,18 +131,25 @@ const Signup = () => {
                 check: (value) => {
                   const regex = new RegExp(/[^A-Za-z0-9가-힣]/);
                   const isValid = regex.test(value);
-                  return isValid && "영어, 한글, 숫자만 입력해주세요";
+                  if (isValid) {
+                    return "숫자, 영어, 한글만 입력해주세요";
+                  }
+                  if (nickCheck) {
+                    return "중복된 닉네임이 있습니다";
+                  }
                 },
-                nickname: () => nickCheck && "중복된 닉네임이 있습니다",
               },
               minLength: { value: 2, message: "최소 2자 이상 입력해주세요" },
               maxLength: { value: 8, message: "최대 8자 이하로 입력해주세요" },
             })}
             name='nickname'
             placeholder='2~8글자'
+            error={errors.nickname?.message}
           />
-          <Span>{errors?.nickname?.message}</Span>
-          <Valid onClick={() => setNickCheck(false)}>중복검사</Valid>
+          <Span>{errors.nickname?.message}</Span>
+          <Valid onClick={checkValid} disabled={errors.nickname?.message}>
+            중복검사
+          </Valid>
         </FormColumn>
         <FormColumn>
           <Label>비밀번호</Label>
@@ -137,8 +164,9 @@ const Signup = () => {
             name='password'
             type='password'
             placeholder='8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요'
+            error={errors.password?.message}
           />
-          <Span>{errors?.password?.message}</Span>
+          <Span>{errors.password?.message}</Span>
         </FormColumn>
         <FormColumn>
           <Label>비밀번호 확인</Label>
@@ -148,18 +176,19 @@ const Signup = () => {
               validate: {
                 matchPassword: (value) => {
                   const { password } = getValues();
-                  return password !== value && "비밀번호가 일치하지 않습니다.";
+                  return password === value || "비밀번호가 일치하지 않습니다.";
                 },
               },
             })}
             name='password2'
             type='password'
             placeholder='비밀번호를 한번 더 입력해 주세요'
+            error={errors.password2?.message}
           />
-          <Span>{errors?.password2?.message}</Span>
+          <Span>{errors.password2?.message}</Span>
         </FormColumn>
 
-        <Button>가입하기</Button>
+        <Button disabled={!formState.isValid}>가입하기</Button>
       </Form>
     </Container>
   );
