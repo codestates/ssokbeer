@@ -1,4 +1,4 @@
-import db from "../../models/index";
+import db from "../models/index";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { verify } from "../token/verify";
@@ -11,6 +11,14 @@ const contents = db.contents;
 export const postJoin = async (req, res) => {
   let { nickname, email, password } = req.body;
   try {
+    let isNick = await users.findOne({ where: { nickname } });
+    let isEmail = await users.findOne({ where: { email } });
+    isEmail = Boolean(isEmail);
+    isNick = Boolean(isNick);
+    if (isNick || isEmail) {
+      return res.status(400).json({ email: isEmail, nickname: isNick });
+    }
+
     password = await bcrypt.hash(password, 5);
 
     const { dataValues } = await users.create({
@@ -18,8 +26,7 @@ export const postJoin = async (req, res) => {
       email,
       password,
     });
-    delete dataValues.password;
-    const token = jwt.sign({ dataValues }, process.env.ACCESS_SECRET, {
+    const token = jwt.sign(dataValues, process.env.ACCESS_SECRET, {
       expiresIn: "3h",
     });
 
