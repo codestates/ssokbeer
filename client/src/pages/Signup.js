@@ -2,6 +2,7 @@ import styled from "styled-components";
 /* eslint-disable */
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { postSignup } from "../api";
 
 const Container = styled.div`
   display: flex;
@@ -80,19 +81,16 @@ const Signup = () => {
   const [nickCheck, setNickCheck] = useState(false);
   const [emailCheck, setEmailCheck] = useState(false);
   const onSubmitValid = (data) => {
-    console.log(data);
-  };
-  const onSubmitInvalid = (data) => {
-    // console.log(data);
+    const { email, password, nickname } = data;
+    postSignup({ email, password, nickname });
   };
   const checkValid = () => {
-    const { email, nickname } = watch();
-    console.log(email, nickname);
+    const obj = watch();
+    console.log(obj);
   };
-  console.log(watch());
   return (
     <Container>
-      <Form onSubmit={handleSubmit(onSubmitValid, onSubmitInvalid)}>
+      <Form onSubmit={handleSubmit(onSubmitValid)}>
         <FormColumn>
           <Label>이메일</Label>
           <Input
@@ -188,7 +186,9 @@ const Signup = () => {
           <Span>{errors.password2?.message}</Span>
         </FormColumn>
 
-        <Button disabled={!formState.isValid}>가입하기</Button>
+        <Button onClick={onSubmitValid} disabled={!formState.isValid}>
+          가입하기
+        </Button>
       </Form>
     </Container>
   );

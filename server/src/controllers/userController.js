@@ -1,4 +1,4 @@
-import db from "../models/index";
+import db from "../../models/index";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { verify } from "../token/verify";
@@ -7,18 +7,25 @@ db.sequelize.sync();
 
 const users = db.users;
 const contents = db.contents;
+export const nickCheck = async (req, res) => {
+  let { nickname } = req.body;
+  let isNick = await users.findOne({ where: { nickname } });
+  isNick = Boolean(isNick);
 
-export const postJoin = async (req, res) => {
+  return res.status(200).json({ nickname: isNick });
+};
+
+export const emailCheck = async (req, res) => {
+  let { email } = req.body;
+  let isEmail = await users.findOne({ where: { email } });
+  isEmail = Boolean(isEmail);
+
+  return res.status(200).json({ email: isEmail });
+};
+
+export const postSignup = async (req, res) => {
   let { nickname, email, password } = req.body;
   try {
-    let isNick = await users.findOne({ where: { nickname } });
-    let isEmail = await users.findOne({ where: { email } });
-    isEmail = Boolean(isEmail);
-    isNick = Boolean(isNick);
-    if (isNick || isEmail) {
-      return res.status(400).json({ email: isEmail, nickname: isNick });
-    }
-
     password = await bcrypt.hash(password, 5);
 
     const { dataValues } = await users.create({
@@ -37,6 +44,17 @@ export const postJoin = async (req, res) => {
   }
 };
 
+export const signout = async (req, res) => {
+  try {
+    const { token } = req.cookies;
+    const { email } = verify(token);
+    await users.destroy({ where: { email } });
+    res.status(200).json({ message: "회원탈퇴 성공" });
+  } catch {
+    res.status(400).json({ message: "회원탈퇴 실패" });
+  }
+};
+
 export const getProfile = async (req, res) => {
   // let { id } = req.params;
   // id = parseInt(id);
@@ -45,7 +63,10 @@ export const getProfile = async (req, res) => {
 
     const { email } = verify(token);
 
-    const userInfo = await users.findOne({ where: { email }, include: { model: contents } });
+    const userInfo = await users.findOne({
+      where: { email },
+      include: { model: contents },
+    });
 
     res.status(200).json(userInfo);
   } catch {
@@ -103,4 +124,9 @@ export const postLogin = async (req, res) => {
   } catch {
     return res.status(400).json({ message: "로그인 실패" });
   }
+};
+
+export const logout = async (req, res) => {
+  res.clearCookie("token");
+  res.status(200).json({ message: "Logged out successfully" });
 };

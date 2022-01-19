@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       contents.belongsTo(models.users, { foreignKey: "usersId" });
       contents.hasMany(models.comments, { foreignKey: "contentsId" });
+      contents.hasMany(models.likes, { foreignKey: "contentId" });
     }
   }
   contents.init(
@@ -18,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       img: DataTypes.STRING,
       content: DataTypes.STRING,
       visits: { type: DataTypes.INTEGER, defaultValue: 0 },
-      likeId: DataTypes.INTEGER,
+      likesId: { type: DataTypes.INTEGER, defaultValue: 0 },
       commentsId: DataTypes.INTEGER,
       usersId: DataTypes.INTEGER,
     },

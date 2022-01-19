@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import logo from "../img/ssokbeerlogo.png";
+import logo from "../../img/ssokbeerlogo.png";
 import RigthNav from "./RigthNav";
 
 const Nav = styled.nav`
@@ -110,6 +110,7 @@ const Navbar = () => {
       CloseSideNav();
     }
   };
+<<<<<<< HEAD:client/src/components/Navbar.js
 
   useEffect(() => {
     //로걸스토리지에서 get 로그인이 안풀리게 islogin에 상태를 주기적으로 변경
@@ -119,6 +120,8 @@ const Navbar = () => {
     };
   }, [isOpen]);
 
+=======
+>>>>>>> 742495e7ea74e9f300a52a1ac1fee27f81e7add0:client/src/components/Navbar/Navbar.js
   const ChangeMenuVisibility = (input) => {
     setIsOpen(input);
   };
@@ -126,7 +129,15 @@ const Navbar = () => {
   const CloseSideNav = () => {
     setIsOpen(false);
   };
-
+  useEffect(() => {
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  });
+  useEffect(() => {
+    setIsLogin(localStorage.getItem("isLogin"));
+  }, []);
   return (
     <Nav>
       {isOpen ? (
