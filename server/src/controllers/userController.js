@@ -1,4 +1,4 @@
-import db from "../models/index";
+import db from "../../models/index";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { verify } from "../token/verify";
@@ -8,7 +8,7 @@ db.sequelize.sync();
 const users = db.users;
 const contents = db.contents;
 
-export const postJoin = async (req, res) => {
+export const postSignup = async (req, res) => {
   let { nickname, email, password } = req.body;
   try {
     let isNick = await users.findOne({ where: { nickname } });
@@ -34,6 +34,17 @@ export const postJoin = async (req, res) => {
     res.status(200).json({ token });
   } catch {
     res.status(400).json({ message: "회원가입실패" });
+  }
+};
+
+export const signout = async (req, res) => {
+  try {
+    const { token } = req.cookies;
+    const { email } = verify(token);
+    await users.destroy({ where: { email } });
+    res.status(200).json({ message: "회원탈퇴 성공" });
+  } catch {
+    res.status(400).json({ message: "회원탈퇴 실패" });
   }
 };
 
@@ -103,4 +114,9 @@ export const postLogin = async (req, res) => {
   } catch {
     return res.status(400).json({ message: "로그인 실패" });
   }
+};
+
+export const logout = async (req, res) => {
+  res.clearCookie("token");
+  res.status(200).json({ message: "Logged out successfully" });
 };

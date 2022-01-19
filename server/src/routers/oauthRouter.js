@@ -1,11 +1,8 @@
-// import express from "express";
-// import { githubLogin } from "../controllers/oAuth/githubController";
-// import { googleLogin } from "../controllers/oAuth/googleController";
+import express from "express";
+import { googleLogin } from "../controllers/oAuth/googleController";
 
-// const oAuthRotuer = express.Router();
+const oAuthRotuer = express.Router();
 
-// oAuthRotuer.post("/google", googleLogin);
+oAuthRotuer.post("/google", googleLogin);
 
-// oAuthRotuer.post("/github", githubLogin);
-
-// export default oAuthRotuer;
+export default oAuthRotuer;

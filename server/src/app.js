@@ -34,6 +34,6 @@ app.use("/comment", commentRouter);
 
 app.use("/user", userRouter);
 
-// app.use("/oauth", oAuthRotuer);
+app.use("/oauth", oAuthRotuer);
 
 export default app;
