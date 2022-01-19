@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
 import axios from "axios";
@@ -66,8 +66,7 @@ const LoginInput = styled.input`
   border: none;
   padding: 20px 0px;
   font-size: 15px;
-  border-bottom: ${(props) =>
-    props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red"};
+  border-bottom: ${(props) => (props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red")};
   margin-bottom: 15px;
   &:focus {
     outline: none;
@@ -137,11 +136,6 @@ const Messagebox = styled.div`
   color: grey;
 `;
 
-const Fullfillmentbox = styled.div`
-  font-size: 14px;
-  color: grey;
-`;
-
 const Login = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [isfullfilled, setIsFullfiled] = useState(true);
@@ -152,16 +146,13 @@ const Login = () => {
     password: "",
   });
 
-  console.log(isfullfilled);
-  console.log(loginInfo);
-
   const handleInputValue = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
 
   const handleResponseSuccess = () => {
-    localStorage.setItem("isLogin", true); //local 저장
     setIsLogin(true);
+    localStorage.setItem("isLogin", isLogin); //local 저장
   };
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -196,25 +187,21 @@ const Login = () => {
       <Screen>
         <LoginForm>
           <LoginInput
-            type="text"
+            type='text'
             placeholder={isfullfilled ? "Email" : "이메일을 입력해주세요"}
             fullfilled={isfullfilled}
-            onChange={handleInputValue("email")}
-          ></LoginInput>
+            onChange={handleInputValue("email")}></LoginInput>
           {invalid ? null : <Messagebox>이메일을 다시 확인해주세요</Messagebox>}
           <LoginInput
-            type="password"
+            type='password'
             placeholder={isfullfilled ? "password" : "비밀번호를 입력해주세요"}
             fullfilled={isfullfilled}
-            onChange={handleInputValue("password")}
-          ></LoginInput>
-          {invalid ? null : (
-            <Messagebox>비밀번호를 다시 확인해주세요</Messagebox>
-          )}
-          <Button type="submit" onClick={handleLogin} pc={isPc}>
+            onChange={handleInputValue("password")}></LoginInput>
+          {invalid ? null : <Messagebox>비밀번호를 다시 확인해주세요</Messagebox>}
+          <Button type='submit' onClick={handleLogin} pc={isPc}>
             로그인
           </Button>
-          <SignUpLink to="/signup">
+          <SignUpLink to='/signup'>
             <SignUp>아직 회원이 아니신가요?</SignUp>
           </SignUpLink>
         </LoginForm>
@@ -222,11 +209,11 @@ const Login = () => {
       <ButtonForm>
         <ButtonContainer>
           <OauthButton>
-            <i class="fab fa-google"></i>
+            <i className='fab fa-google'></i>
             Google로 로그인
           </OauthButton>
           <OauthButton>
-            <i class="fab fa-github"></i>
+            <i className='fab fa-github'></i>
             Github로 로그인
           </OauthButton>
         </ButtonContainer>

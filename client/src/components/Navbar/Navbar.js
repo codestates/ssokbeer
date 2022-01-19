@@ -110,14 +110,6 @@ const Navbar = () => {
       CloseSideNav();
     }
   };
-
-  useEffect(() => {
-    window.addEventListener("click", handleClickOutside);
-    return () => {
-      window.removeEventListener("click", handleClickOutside);
-    };
-  }, [isOpen]);
-
   const ChangeMenuVisibility = (input) => {
     setIsOpen(input);
   };
@@ -125,7 +117,15 @@ const Navbar = () => {
   const CloseSideNav = () => {
     setIsOpen(false);
   };
-
+  useEffect(() => {
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  });
+  useEffect(() => {
+    setIsLogin(localStorage.getItem("isLogin"));
+  }, []);
   return (
     <Nav>
       {isOpen ? (
