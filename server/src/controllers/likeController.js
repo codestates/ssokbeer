@@ -18,19 +18,19 @@ export const postLike = async (req, res) => {
   const { email } = verify(token);
   const { id } = req.params;
 
-  // try {
-  const userInfo = await users.findOne({ where: { email } });
-  const [notCreated, created] = await likes.findOrCreate({
-    where: { userId: userInfo.id },
-    defaults: { contentId: id, userId: userInfo.id },
-  });
-  if (created) {
-    await likes.destroy({ where: { usersId: userInfo.id } });
-    res.status(200).json({ message: "추천 취소" });
-  } else {
-    res.status(200).json({ message: "추천 성공", userInfo });
+  try {
+    const userInfo = await users.findOne({ where: { email } });
+    const [notCreated, created] = await likes.findOrCreate({
+      where: { userId: userInfo.id },
+      defaults: { contentId: id, userId: userInfo.id },
+    });
+    if (created) {
+      await likes.destroy({ where: { usersId: userInfo.id } });
+      res.status(200).json({ message: "추천 취소" });
+    } else {
+      res.status(200).json({ message: "추천 성공", userInfo });
+    }
+  } catch {
+    res.status(400).json({ message: "추천 요청 실패" });
   }
-  // } catch {
-  // res.status(400).json({ message: "추천 실패" });
-  // }
 };
