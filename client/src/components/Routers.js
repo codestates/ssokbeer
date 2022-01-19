@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./Navbar/Navbar";
-import Home from "../Pages/Home";
-import Login from "../Pages/Login";
-import Community from "../Pages/Community";
+import Home from "../pages/Home";
+import Login from "../pages/Login";
+import Community from "../pages/Community";
 import GlobalStyles from "./GlobalStyles";
-import Signup from "../Pages/Signup";
+import Signup from "../pages/Signup";
 
 const Routers = () => (
   <BrowserRouter>

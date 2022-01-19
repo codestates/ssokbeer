@@ -1,4 +1,4 @@
-import Routers from "./Components/Routers";
+import Routers from "./components/Routers";
 
 function App() {
   return <Routers />;
