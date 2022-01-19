@@ -40,8 +40,12 @@ const SearchBar = () => {
   };
 
   const lists = ["제목", "글쓴이", "내용", "작성한글"];
-  const options = lists.map((list) => {
-    return <option value={list}>{list}</option>;
+  const options = lists.map((list, i) => {
+    return (
+      <option key={i} value={list}>
+        {list}
+      </option>
+    );
   });
 
   const handleList = (event) => {
