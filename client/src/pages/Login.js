@@ -66,7 +66,8 @@ const LoginInput = styled.input`
   border: none;
   padding: 20px 0px;
   font-size: 15px;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  border-bottom: ${(props) =>
+    props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red"};
   margin-bottom: 15px;
   &:focus {
     outline: none;
@@ -131,33 +132,56 @@ const OauthButton = styled.a`
   }
 `;
 
+const Messagebox = styled.div`
+  font-size: 14px;
+  color: grey;
+`;
+
+const Fullfillmentbox = styled.div`
+  font-size: 14px;
+  color: grey;
+`;
+
 const Login = () => {
   const [isLogin, setIsLogin] = useState(false);
+  const [isfullfilled, setIsFullfiled] = useState(true);
+  const [invalid, setInvalid] = useState(true);
+
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
   });
+
+  console.log(isfullfilled);
+  console.log(loginInfo);
 
   const handleInputValue = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
 
   const handleResponseSuccess = () => {
-    axios.get(`http://localhost:4000/user`).then((res) => {
-      console.log(res);
-      setIsLogin(true);
-      //토큰 인증..? //
-    });
+    localStorage.setItem("isLogin", true); //local 저장
+    setIsLogin(true);
   };
-  const handleLogin = () => {
-    axios
-      .post(`http://localhost:4000/user/login`, {
-        email: loginInfo.email,
-        password: loginInfo.password,
-      })
-      .then(() => {
-        handleResponseSuccess();
-      });
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (!loginInfo.email || !loginInfo.password) {
+      return setIsFullfiled(false);
+    }
+
+    const data = await axios.post(`http://localhost:4000/user/login`, {
+      email: loginInfo.email,
+      password: loginInfo.password,
+    });
+
+    if (data.userInfo) {
+      handleResponseSuccess();
+    } else {
+      setInvalid(false);
+    }
+
+    //데이터에 따라 함수 실행을 다르게한다.
   };
 
   const isPc = useMediaQuery({ query: "(min-width: 768px)" });
@@ -173,14 +197,20 @@ const Login = () => {
         <LoginForm>
           <LoginInput
             type="text"
-            placeholder="Email"
+            placeholder={isfullfilled ? "Email" : "이메일을 입력해주세요"}
+            fullfilled={isfullfilled}
             onChange={handleInputValue("email")}
           ></LoginInput>
+          {invalid ? null : <Messagebox>이메일을 다시 확인해주세요</Messagebox>}
           <LoginInput
             type="password"
-            placeholder="Password"
+            placeholder={isfullfilled ? "password" : "비밀번호를 입력해주세요"}
+            fullfilled={isfullfilled}
             onChange={handleInputValue("password")}
           ></LoginInput>
+          {invalid ? null : (
+            <Messagebox>비밀번호를 다시 확인해주세요</Messagebox>
+          )}
           <Button type="submit" onClick={handleLogin} pc={isPc}>
             로그인
           </Button>
