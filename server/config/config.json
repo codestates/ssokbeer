@@ -1,23 +1,30 @@
 {
   "development": {
     "username": "root",
-    "password": "1",
+    "password": "1111",
     "database": "ssokbeer",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "1",
+    "password": "1111",
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": "1",
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "DB_USER",
+    "password": "DB_PASSWORD",
+    "database": "DB_DATABASE",
+    "host": "DB_HOST",
+    "dialect": "postgres",
+    "port": "DB_PORT",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
