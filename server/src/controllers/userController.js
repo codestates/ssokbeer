@@ -77,10 +77,7 @@ export const editProfile = async (req, res) => {
     let { nickname, password } = req.body;
     password = await bcrypt.hash(password, 5);
 
-    const userInfo = await users.update(
-      { nickname, password },
-      { where: { email } }
-    );
+    const userInfo = await users.update({ nickname, password }, { where: { email } });
 
     res.status(200).json({ message: "정보수정완료 ", userInfo });
   } catch {
