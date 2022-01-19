@@ -13,22 +13,6 @@ export const postJoin = async (req, res) => {
   try {
     password = await bcrypt.hash(password, 5);
 
-<<<<<<< HEAD
-  password = await bcrypt.hash(password, 5);
-
-  const { dataValues } = await users.create({
-    nickname,
-    email,
-    password,
-  });
-  delete dataValues.password;
-  console.log("1번");
-  console.log(dataValues);
-  const token = jwt.sign({ dataValues }, process.env.ACCESS_SECRET, {
-    expiresIn: "1h",
-  });
-  console.log("2번");
-=======
     const { dataValues } = await users.create({
       nickname,
       email,
@@ -38,7 +22,6 @@ export const postJoin = async (req, res) => {
     const token = jwt.sign({ dataValues }, process.env.ACCESS_SECRET, {
       expiresIn: "3h",
     });
->>>>>>> 47234ea4c9760dc0611574586d7cb6851856d188
 
     res.cookie("token", token);
     res.status(200).json({ token });
@@ -55,14 +38,10 @@ export const getProfile = async (req, res) => {
 
     const { email } = verify(token);
 
-<<<<<<< HEAD
-  const userInfo = await users.findOne({
-    where: { email },
-    include: { model: contents },
-  });
-=======
-    const userInfo = await users.findOne({ where: { email }, include: { model: contents } });
->>>>>>> 47234ea4c9760dc0611574586d7cb6851856d188
+    const userInfo = await users.findOne({
+      where: { email },
+      include: { model: contents },
+    });
 
     res.status(200).json(userInfo);
   } catch {
@@ -80,14 +59,10 @@ export const editProfile = async (req, res) => {
     let { nickname, password } = req.body;
     password = await bcrypt.hash(password, 5);
 
-<<<<<<< HEAD
-  const userInfo = await users.update(
-    { nickname, password },
-    { where: { email } }
-  );
-=======
-    const userInfo = await users.update({ nickname, password }, { where: { email } });
->>>>>>> 47234ea4c9760dc0611574586d7cb6851856d188
+    const userInfo = await users.update(
+      { nickname, password },
+      { where: { email } }
+    );
 
     res.status(200).json({ message: "정보수정완료 ", userInfo });
   } catch {
@@ -110,13 +85,7 @@ export const postLogin = async (req, res) => {
 
     const user = await users.findOne({ where: { email } });
     if (!user) {
-<<<<<<< HEAD
-      return res
-        .status(400)
-        .json({ message: "An account with this username does not exists." });
-=======
       return res.status(400).json({ message: "로그인 실패" });
->>>>>>> 47234ea4c9760dc0611574586d7cb6851856d188
     }
 
     const ok = await bcrypt.compare(password, user.dataValues.password);
@@ -131,12 +100,6 @@ export const postLogin = async (req, res) => {
     res.cookie("token", token);
     res.json({ userInfo: user.dataValues, token });
   } catch {
-<<<<<<< HEAD
-    return res
-      .status(400)
-      .json({ message: "An account with this username does not exists." });
-=======
     return res.status(400).json({ message: "로그인 실패" });
->>>>>>> 47234ea4c9760dc0611574586d7cb6851856d188
   }
 };

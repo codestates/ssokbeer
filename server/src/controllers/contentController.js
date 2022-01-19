@@ -40,43 +40,35 @@ export const getContent = async (req, res) => {
   //   });
   try {
     const { id } = req.params;
-    let visitCnt = await contents.findOne({ where: { id }, include: { model: comments } });
+    let visitCnt = await contents.findOne({
+      where: { id },
+      include: { model: comments },
+    });
 
     await visitCnt.increment("visits");
 
-<<<<<<< HEAD
-  res
-    .status(201)
-    .json({ message: "게시글 내용 조회 및 방문자 수 증가 ", visitCnt });
-=======
-    res.status(200).json({ message: "게시글 내용 조회 및 방문자 수 증가 ", visitCnt });
+    res
+      .status(200)
+      .json({ message: "게시글 내용 조회 및 방문자 수 증가 ", visitCnt });
   } catch {
     res.status(400).json({ message: "게시글 내용 조회 및 방문실패" });
   }
->>>>>>> 47234ea4c9760dc0611574586d7cb6851856d188
 };
 
 export const updateContent = async (req, res) => {
   try {
     let { id } = req.params;
 
-<<<<<<< HEAD
-  id = parseInt(id);
-  const { img, content } = req.body;
-  const contentInfo = await contents.update(
-    { img, content },
-    { where: { id } }
-  );
-  res.status(200).json({ message: "글 수정 완료 ", contentInfo });
-=======
     id = parseInt(id);
     const { img, content } = req.body;
-    const contentInfo = await contents.update({ img, content }, { where: { id } });
+    const contentInfo = await contents.update(
+      { img, content },
+      { where: { id } }
+    );
     res.status(200).json({ message: "글 수정 완료 ", contentInfo });
   } catch {
     res.status(400).json({ message: "글 수정 실패 " });
   }
->>>>>>> 47234ea4c9760dc0611574586d7cb6851856d188
 };
 
 export const deleteContent = async (req, res) => {
