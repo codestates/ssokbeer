@@ -7,12 +7,16 @@ import {
   editProfile,
   logout,
   signout,
+  nickCheck,
+  emailCheck,
 } from "../controllers/userController";
 
 const userRouter = express.Router();
 
 userRouter.route("/").get(getUserList);
 
+userRouter.route("/nickcheck").post(nickCheck);
+userRouter.route("/emailcheck").post(emailCheck);
 userRouter.route("/signup").post(postSignup);
 userRouter.route("/signout").get(signout);
 

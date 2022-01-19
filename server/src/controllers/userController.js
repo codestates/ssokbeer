@@ -7,18 +7,25 @@ db.sequelize.sync();
 
 const users = db.users;
 const contents = db.contents;
+export const nickCheck = async (req, res) => {
+  let { nickname } = req.body;
+  let isNick = await users.findOne({ where: { nickname } });
+  isNick = Boolean(isNick);
+
+  return res.status(200).json({ nickname: isNick });
+};
+
+export const emailCheck = async (req, res) => {
+  let { email } = req.body;
+  let isEmail = await users.findOne({ where: { email } });
+  isEmail = Boolean(isEmail);
+
+  return res.status(200).json({ email: isEmail });
+};
 
 export const postSignup = async (req, res) => {
   let { nickname, email, password } = req.body;
   try {
-    let isNick = await users.findOne({ where: { nickname } });
-    let isEmail = await users.findOne({ where: { email } });
-    isEmail = Boolean(isEmail);
-    isNick = Boolean(isNick);
-    if (isNick || isEmail) {
-      return res.status(400).json({ email: isEmail, nickname: isNick });
-    }
-
     password = await bcrypt.hash(password, 5);
 
     const { dataValues } = await users.create({
@@ -77,10 +84,7 @@ export const editProfile = async (req, res) => {
     let { nickname, password } = req.body;
     password = await bcrypt.hash(password, 5);
 
-    const userInfo = await users.update(
-      { nickname, password },
-      { where: { email } }
-    );
+    const userInfo = await users.update({ nickname, password }, { where: { email } });
 
     res.status(200).json({ message: "정보수정완료 ", userInfo });
   } catch {
