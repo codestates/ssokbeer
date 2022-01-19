@@ -23,7 +23,7 @@ export const emailCheck = async (req, res) => {
 
   return res.status(200).json({ email: isEmail });
 };
-
+console.log("hello");
 export const postSignup = async (req, res) => {
   const { nickname, email, password } = req.body;
 
