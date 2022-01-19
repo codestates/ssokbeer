@@ -2,6 +2,7 @@ import styled from "styled-components";
 /* eslint-disable */
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import { postSignup } from "../api";
 
 const Container = styled.div`
   display: flex;
@@ -87,9 +88,7 @@ const Signup = () => {
   };
   const checkValid = () => {
     const { email, nickname } = watch();
-    console.log(email, nickname);
   };
-  console.log(watch());
   return (
     <Container>
       <Form onSubmit={handleSubmit(onSubmitValid, onSubmitInvalid)}>
