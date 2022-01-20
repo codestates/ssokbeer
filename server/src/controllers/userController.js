@@ -29,7 +29,7 @@ export const postSignup = async (req, res) => {
     if (!nickname || !email || !password) {
       return res.status(400).json({ message: "닉네임,이메일 또는 비밀번호가 공백입니다" });
     }
-    Hashpassword = await bcrypt.hash(password, 5);
+    const Hashpassword = await bcrypt.hash(password, 5);
 
     const [result, created] = await users.findOrCreate({
       where: { email },

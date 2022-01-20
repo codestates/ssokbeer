@@ -33,32 +33,39 @@ export const postComment = async (req, res) => {
   }
 };
 export const editComment = async (req, res) => {
-  const { token } = req.cookies;
-  if (!token) {
-    return res.status(401).json({ message: "로그인 해주세요" });
+  try {
+    const { token } = req.cookies;
+    if (!token) {
+      return res.status(401).json({ message: "로그인 해주세요" });
+    }
+
+    const { content } = req.body;
+    const { id } = req.params;
+
+    if (!content) {
+      return res.status(400).json({ message: "댓글을 입력해 주세요" });
+    }
+
+    const commentInfo = await comments.update({ content }, { where: { id } });
+
+    res.status(200).json({ message: "코멘트 수정 완료 ", commentInfo });
+  } catch {
+    res.status(500).json({ message: "코멘트 수정 실패 " });
   }
-
-  const { content } = req.body;
-  const { id } = req.params;
-
-  if (!content) {
-    return res.status(400).json({ message: "댓글을 입력해 주세요" });
-  }
-
-  const commentInfo = await comments.update({ content }, { where: { id } });
-
-  res.status(200).json({ message: "코멘트 수정 완료 ", commentInfo });
 };
 
 export const deleteComment = async (req, res) => {
-  const { token } = req.cookies;
-  if (!token) {
-    return res.status(401).json({ message: "로그인 해주세요" });
+  try {
+    const { token } = req.cookies;
+    if (!token) {
+      return res.status(401).json({ message: "로그인 해주세요" });
+    }
+
+    const { id } = req.params;
+    await comments.destroy({ where: { id } });
+
+    res.status(204).json({ message: "코멘트 삭제 완료  " });
+  } catch {
+    res.status(500).json({ message: "코멘트 삭제 실패 " });
   }
-
-  const { id } = req.params;
-
-  await comments.destry({ content }, { where: { id } });
-
-  res.status(200).json({ message: "코멘트 삭제 완료  " });
 };
