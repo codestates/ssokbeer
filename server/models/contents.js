@@ -11,17 +11,17 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       contents.belongsTo(models.users, { foreignKey: "usersId" });
       contents.hasMany(models.comments, { foreignKey: "contentsId" });
-      contents.hasMany(models.likes, { foreignKey: "contentId" });
     }
   }
   contents.init(
     {
+      title: DataTypes.STRING,
       img: DataTypes.STRING,
       content: DataTypes.STRING,
       visits: { type: DataTypes.INTEGER, defaultValue: 0 },
-      likesId: { type: DataTypes.INTEGER, defaultValue: 0 },
       commentsId: DataTypes.INTEGER,
       usersId: DataTypes.INTEGER,
+      likes: { type: DataTypes.INTEGER, defaultValue: 0 },
     },
     {
       sequelize,

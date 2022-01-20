@@ -33,7 +33,7 @@ export const postSignup = async (req, res) => {
 
     const [result, created] = await users.findOrCreate({
       where: { email },
-      default: { nickname, email, Hashpassword },
+      defaults: { nickname, email, Hashpassword },
     });
 
     if (!created) {

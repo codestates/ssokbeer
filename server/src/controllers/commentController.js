@@ -13,7 +13,7 @@ export const postComment = async (req, res) => {
 
     const { email } = verify(token);
     const {
-      dataValues: { nickname },
+      dataValues: { id, nickname },
     } = await users.findOne({ where: { email } });
 
     const { content, contentsId } = req.body;
@@ -22,50 +22,44 @@ export const postComment = async (req, res) => {
     }
 
     const Comment = await comments.create({
+      usersId: id,
       content,
       nickname,
       contentsId,
     });
 
-    res.status(201).json(Comment.dataValues);
+    res.status(201).json({ message: "댓글 작성 성공", comment: Comment.dataValues });
   } catch {
     res.status(500).json({ message: "댓글 작성 실패" });
   }
 };
 export const editComment = async (req, res) => {
-  try {
-    const { token } = req.cookies;
-    if (!token) {
-      return res.status(401).json({ message: "로그인 해주세요" });
-    }
-
-    const { content } = req.body;
-    const { id } = req.params;
-
-    if (!content) {
-      return res.status(400).json({ message: "댓글을 입력해 주세요" });
-    }
-
-    const commentInfo = await comments.update({ content }, { where: { id } });
-
-    res.status(200).json({ message: "코멘트 수정 완료 ", commentInfo });
-  } catch {
-    res.status(500).json({ message: "코멘트 수정 실패 " });
+  const { token } = req.cookies;
+  if (!token) {
+    return res.status(401).json({ message: "로그인 해주세요" });
   }
+
+  const { content } = req.body;
+  const { id } = req.params;
+
+  if (!content) {
+    return res.status(400).json({ message: "댓글을 입력해 주세요" });
+  }
+
+  const commentInfo = await comments.update({ content }, { where: { id } });
+
+  res.status(200).json({ message: "코멘트 수정 완료 ", commentInfo });
 };
 
 export const deleteComment = async (req, res) => {
-  try {
-    const { token } = req.cookies;
-    if (!token) {
-      return res.status(401).json({ message: "로그인 해주세요" });
-    }
-
-    const { id } = req.params;
-    await comments.destroy({ where: { id } });
-
-    res.status(204).json({ message: "코멘트 삭제 완료  " });
-  } catch {
-    res.status(500).json({ message: "코멘트 삭제 실패 " });
+  const { token } = req.cookies;
+  if (!token) {
+    return res.status(401).json({ message: "로그인 해주세요" });
   }
+
+  const { id } = req.params;
+
+  await comments.destry({ content }, { where: { id } });
+
+  res.status(200).json({ message: "코멘트 삭제 완료  " });
 };
