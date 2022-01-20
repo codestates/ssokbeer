@@ -7,11 +7,8 @@ import userRouter from "./routers/userRouter";
 import commentRouter from "./routers/commentRouter";
 import likeRouter from "./routers/likeRouter";
 import oauthRotuer from "./routers/oauthRouter";
-<<<<<<< HEAD
-import db from "../models";
-=======
 import db from "../models/index";
->>>>>>> ca55bf89656c6be47c033ab2f9e212ca8a0f552d
+import alcoholRouter from "./routers/alcoholRouter";
 
 const app = express();
 const logger = morgan("dev");
@@ -35,6 +32,8 @@ app.use(
 app.use(logger);
 
 db.sequelize.sync();
+
+app.use("/alcohol", alcoholRouter);
 
 app.use("/content", contentRouter);
 
