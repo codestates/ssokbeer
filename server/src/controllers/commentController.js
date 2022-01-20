@@ -1,7 +1,6 @@
 import db from "../../models/index";
 import { verify } from "../token/verify";
 
-db.sequelize.sync();
 const comments = db.comments;
 const users = db.users;
 const contents = db.contents;

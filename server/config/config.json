@@ -14,17 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "DB_USER",
-    "password": "DB_PASSWORD",
-    "database": "DB_DATABASE",
-    "host": "DB_HOST",
+    "use_env_variable": "DATABASE_URL",
     "dialect": "postgres",
-    "port": "DB_PORT",
     "dialectOptions": {
-      "ssl": {
-        "require": true,
-        "rejectUnauthorized": false
-      }
+      "ssl": true
     }
   }
 }

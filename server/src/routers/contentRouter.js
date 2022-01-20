@@ -10,9 +10,8 @@ import {
 const contentRouter = express.Router();
 
 contentRouter.route("/").get(getAllContent).post(postContent);
-contentRouter.route("/:id").get(getContent);
-contentRouter.route("/edit/:id").get(getContent).post(updateContent);
-contentRouter.route("/del/:id").delete(deleteContent);
+contentRouter.route("/:id").get(getContent).delete(deleteContent);
+contentRouter.route("/edit/:id").patch(updateContent);
 // contentRouter.route("/admin/del").delete(deleteAllContent);
 
 export default contentRouter;
