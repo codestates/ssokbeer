@@ -36,17 +36,17 @@ const Comment = styled.div`
   font-size: 18px;
 `;
 
-const SingleComment = () => {
+const SingleComment = ({ comment }) => {
   return (
     <CommentBox>
       <CommentAlignment>
         <UserBox>
-          <User>대충살자</User>
-          <Inform>13:30</Inform>
+          <User>{comment.nickname}</User>
+          <Inform>{comment.updatedAt}</Inform>
         </UserBox>
         <i className="fas fa-ellipsis-v"></i>
       </CommentAlignment>
-      <Comment>개맛잇겟당ㅋㅋ</Comment>
+      <Comment>{comment.content}</Comment>
     </CommentBox>
   );
 };

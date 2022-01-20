@@ -81,6 +81,7 @@ const Signup = () => {
   const [nickCheck, setNickCheck] = useState(false);
   const [emailCheck, setEmailCheck] = useState(false);
   const onSubmitValid = (data) => {
+    console.log(data);
     const { email, password, nickname } = data;
     postSignup({ email, password, nickname });
   };

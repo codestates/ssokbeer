@@ -150,9 +150,10 @@ const Login = () => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
 
-  const handleResponseSuccess = () => {
+  const handleResponseSuccess = ({ nickname }) => {
     setIsLogin(true);
     localStorage.setItem("isLogin", isLogin); //local 저장
+    localStorage.setItem("userID", nickname);
   };
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -167,7 +168,7 @@ const Login = () => {
     });
 
     if (data.userInfo) {
-      handleResponseSuccess();
+      handleResponseSuccess(data.userInfo);
     } else {
       setInvalid(false);
     }
@@ -187,21 +188,23 @@ const Login = () => {
       <Screen>
         <LoginForm>
           <LoginInput
-            type='text'
+            type="text"
             placeholder={isfullfilled ? "Email" : "이메일을 입력해주세요"}
             fullfilled={isfullfilled}
-            onChange={handleInputValue("email")}></LoginInput>
+            onChange={handleInputValue("email")}
+          ></LoginInput>
           {invalid ? null : <Messagebox>이메일을 다시 확인해주세요</Messagebox>}
           <LoginInput
-            type='password'
+            type="password"
             placeholder={isfullfilled ? "password" : "비밀번호를 입력해주세요"}
             fullfilled={isfullfilled}
-            onChange={handleInputValue("password")}></LoginInput>
+            onChange={handleInputValue("password")}
+          ></LoginInput>
           {invalid ? null : <Messagebox>비밀번호를 다시 확인해주세요</Messagebox>}
-          <Button type='submit' onClick={handleLogin} pc={isPc}>
+          <Button type="submit" onClick={handleLogin} pc={isPc}>
             로그인
           </Button>
-          <SignUpLink to='/signup'>
+          <SignUpLink to="/signup">
             <SignUp>아직 회원이 아니신가요?</SignUp>
           </SignUpLink>
         </LoginForm>
@@ -209,11 +212,11 @@ const Login = () => {
       <ButtonForm>
         <ButtonContainer>
           <OauthButton>
-            <i className='fab fa-google'></i>
+            <i className="fab fa-google"></i>
             Google로 로그인
           </OauthButton>
           <OauthButton>
-            <i className='fab fa-github'></i>
+            <i className="fab fa-github"></i>
             Github로 로그인
           </OauthButton>
         </ButtonContainer>

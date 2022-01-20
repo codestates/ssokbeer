@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import TimeCounting from "time-counting";
+import { v4 as uuidv4 } from "uuid";
 
 const WritingAllignment = styled.div`
   display: flex;
@@ -47,13 +48,21 @@ const NewCommentForm = ({ onButttonClick }) => {
   const handleChangeComment = (e) => {
     setNewComment(e.target.value);
   };
+  // date: TimeCounting(today, { lang: "ko" }),
 
   const onClickSubmit = () => {
-    let newComment = {
-      nickname: "1",
-      date: TimeCounting(today, { lang: "ko" }),
-      content: newComment,
+    const comment = {
+      id: 2,
+      usersId: 4,
+      nickname: "person-2",
+      content: "oowooowoowoooo",
+      contentsId: 2,
     };
+    onButttonClick(comment);
+    // axios.post(`http://localhost:4000/content/`, {
+    //   contentsId: uuidv4(),
+    //   content: newComment,
+    // });
   };
 
   return (

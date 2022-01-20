@@ -1,8 +1,6 @@
 import axios from "axios";
 import db from "../../../models/index";
 
-db.sequelize.sync();
-
 const users = db.users;
 
 export const googleLogin = async (req, res) => {
@@ -19,15 +17,12 @@ export const googleLogin = async (req, res) => {
 
   const {
     data: { email },
-  } = await axios.get(
-    `https://www.googleapis.com/oauth2/v2/userinfo?access_token=${access_token}`,
-    {
-      headers: {
-        authorization: `token ${access_token}`,
-        accept: "application/json",
-      },
-    }
-  );
+  } = await axios.get(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${access_token}`, {
+    headers: {
+      authorization: `token ${access_token}`,
+      accept: "application/json",
+    },
+  });
 
   const user = await users.findOne({
     email,

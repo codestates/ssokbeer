@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import SingleComment from "../components/Detailpage/SingleComment";
@@ -137,12 +137,56 @@ const CommentForm = styled.div`
   background-color: rgba(0, 0, 0, 0.04);
 `;
 
+const DUMMY_DATA = [
+  {
+    id: 1,
+    usersId: 4,
+    nickname: "person-1",
+    content: "super delicious",
+    contentsId: 2,
+    createdAt: "2022-01-18T13:24:19.000Z",
+    updatedAt: "2022-01-18T13:24:19.000Z",
+  },
+  {
+    id: 2,
+    usersId: 4,
+    nickname: "person-2",
+    content: "oowooowoowoooo",
+    contentsId: 2,
+    createdAt: "2022-01-18T13:25:28.000Z",
+    updatedAt: "2022-01-18T13:25:28.000Z",
+  },
+  {
+    id: 3,
+    usersId: 4,
+    nickname: "person-3",
+    content: "oowooowoowoooo",
+    contentsId: 2,
+    createdAt: "2022-01-18T13:25:28.000Z",
+    updatedAt: "2022-01-18T13:25:28.000Z",
+  },
+  {
+    id: 4,
+    usersId: 4,
+    nickname: "person-4",
+    content: "oowooowoowoooo",
+    contentsId: 2,
+    createdAt: "2022-01-18T13:25:28.000Z",
+    updatedAt: "2022-01-18T13:25:28.000Z",
+  },
+];
+
 const DetailPage = () => {
   //   const [isAdministrator, setIsadministrator] = useState(false);
   const [likeCnt, setLikeCnt] = useState(0);
   const [like, setLike] = useState(false);
+  const [comments, setComments] = useState(DUMMY_DATA);
 
-  const [comments, setComments] = useState([]);
+  useEffect(() => {
+    //axios.get(server/contents/14) DO
+    // state SAVE [comments]
+    // comment newPost ? refresh
+  });
 
   const handleLikeClick = () => {
     setLike(!like);
@@ -191,7 +235,9 @@ const DetailPage = () => {
           </LikeBox>
         </ButtonBox>
         <CommentForm>
-          <SingleComment />
+          {comments.map((comment) => (
+            <SingleComment comment={comment} />
+          ))}
           <NewCommentForm onButtonClick={addNewComment} />
         </CommentForm>
       </Form>
