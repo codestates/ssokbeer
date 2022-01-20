@@ -1,7 +1,6 @@
 import db from "../../models/index";
 import { verify } from "../token/verify";
 
-db.sequelize.sync();
 const contents = db.contents;
 const users = db.users;
 const comments = db.comments;
@@ -47,9 +46,7 @@ export const getContent = async (req, res) => {
 
     await visitCnt.increment("visits");
 
-    res
-      .status(200)
-      .json({ message: "게시글 내용 조회 및 방문자 수 증가 ", visitCnt });
+    res.status(200).json({ message: "게시글 내용 조회 및 방문자 수 증가 ", visitCnt });
   } catch {
     res.status(400).json({ message: "게시글 내용 조회 및 방문실패" });
   }
@@ -61,10 +58,7 @@ export const updateContent = async (req, res) => {
 
     id = parseInt(id);
     const { img, content } = req.body;
-    const contentInfo = await contents.update(
-      { img, content },
-      { where: { id } }
-    );
+    const contentInfo = await contents.update({ img, content }, { where: { id } });
     res.status(200).json({ message: "글 수정 완료 ", contentInfo });
   } catch {
     res.status(400).json({ message: "글 수정 실패 " });

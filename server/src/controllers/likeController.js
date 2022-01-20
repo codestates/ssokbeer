@@ -1,7 +1,7 @@
 import db from "../../models/index";
 
 import { verify } from "../token/verify";
-db.sequelize.sync();
+
 const likes = db.likes;
 const users = db.users;
 export const getLikeList = async (req, res) => {
