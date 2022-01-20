@@ -1,8 +1,8 @@
 // import { useMediaQuery } from "react-responsive";
-import Recommendation from "../Components/Community/Recommendation";
-import SearchBar from "../Components/Community/Searchbar";
-import CommunityPost from "../Components/Community/Communitypost";
-import MobileSearchBar from "../Components/Community/Mobilesearchbar";
+import Recommendation from "../components/Community/Recommendation";
+import SearchBar from "../components/Community/Searchbar";
+import CommunityPost from "../components/Community/Communitypost";
+import MobileSearchBar from "../components/Community/Mobilesearchbar";
 import { useMediaQuery } from "react-responsive";
 
 const Community = () => {

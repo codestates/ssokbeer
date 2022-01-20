@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+// import axios from "axios";
 
 const Container = styled.div`
   width: 100%;
@@ -19,6 +22,7 @@ const Form = styled.form`
   width: 100%;
   height: 700px;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 `;
 
 const Title = styled.input`
@@ -34,14 +38,16 @@ const Title = styled.input`
   }
 `;
 
-const Content = styled.textarea`
-  width: 100%;
-  border: 1 solid purple;
+const Wrapper = styled.div`
+  .ck-editor__main {
+    min-height: 400px;
+    width: 1100px;
+    > div {
+      min-height: 520px;
+    }
+  }
 `;
-const File = styled.input`
-  width: 80%;
-  border: 1 solid black;
-`;
+
 const ButtonBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -58,6 +64,7 @@ const Button = styled.button`
   all: unset;
   color: black;
   padding: 12px 12px;
+  margin: 10px;
   border-radius: 3px;
   cursor: pointer;
   border: 1px solid #bcbcbc;
@@ -68,18 +75,58 @@ const Button = styled.button`
 `;
 
 const Writing = () => {
-  const handleChangeClick = () => {};
+  const [post, setPost] = useState({
+    title: "",
+    image: "",
+    content: "",
+  });
+
+  const onTitleChange = (e) => {
+    setPost({ ...post, title: e.target.value });
+    console.log(post);
+  };
+
+  const handleClickSubmit = async () => {
+    // const submit = await axios.post(`http://localhost:4000/content`, {
+    //   title: post.title,
+    //   image: post.image,
+    //   content: post.content,
+    // });
+    console.log(post.title);
+  };
+
   return (
     <Container>
       <Form>
-        <Title required type="text" placeholder="제목을 입력하세요"></Title>
-        <File type="file" onChange={handleChangeClick}></File>
-        <Content required cols="36" rows="47"></Content>
+        <Title required type="text" placeholder="제목을 입력하세요" onChange={onTitleChange}></Title>
+        <Wrapper>
+          <CKEditor
+            editor={ClassicEditor}
+            data="<p>내용을 입력하세요</p>"
+            onReady={(editor) => {
+              // You can store the "editor" and use when it is needed.
+              console.log("Editor is ready to use!", editor);
+            }}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              //   console.log({ event, editor, data });
+              setPost({ ...post, content: data });
+            }}
+            onBlur={(event, editor) => {
+              //   console.log("Blur.", editor);
+            }}
+            onFocus={(event, editor) => {
+              //   console.log("Focus.", editor);
+            }}
+          />
+        </Wrapper>
         <ButtonBox>
           <CancelLink to="/community">
             <Button>취소</Button>
           </CancelLink>
-          <Button type="submit">등록</Button>
+          <Button type="submit" onClick={handleClickSubmit}>
+            등록
+          </Button>
         </ButtonBox>
       </Form>
     </Container>
