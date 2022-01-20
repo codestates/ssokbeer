@@ -1,8 +1,6 @@
 import axios from "axios";
 import db from "../../../models/index";
 
-db.sequelize.sync();
-
 const users = db.users;
 
 export const googleLogin = async (req, res) => {

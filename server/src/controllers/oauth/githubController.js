@@ -1,7 +1,7 @@
 import axios from "axios";
 import jwt from "jsonwebtoken";
 import db from "../../../models/index";
-db.sequelize.sync();
+
 const users = db.users;
 
 export const githubLogin = async (req, res) => {

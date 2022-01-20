@@ -18,11 +18,11 @@ userRouter.route("/").get(getUserList);
 userRouter.route("/nickcheck").post(nickCheck);
 userRouter.route("/emailcheck").post(emailCheck);
 userRouter.route("/signup").post(postSignup);
-userRouter.route("/signout").get(signout);
+userRouter.route("/signout").delete(signout);
 
-userRouter.route("/profile").get(getProfile).post(editProfile);
+userRouter.route("/profile").get(getProfile).patch(editProfile);
 
 userRouter.route("/login").post(postLogin);
-userRouter.route("/logout").get(logout);
+userRouter.route("/logout").delete(logout);
 
 export default userRouter;
