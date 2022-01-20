@@ -7,13 +7,12 @@ import RigthNav from "./RigthNav";
 const Nav = styled.nav`
   width: 100%;
   position: fixed;
+  z-index: 10;
 `;
 
 const Header = styled.header`
   /* position: relative; */
   display: flex;
-  top: 0;
-  left: 0;
   justify-content: space-between;
   align-items: center;
   height: 70px;
@@ -37,10 +36,9 @@ const LogoLink = styled(Link)`
 `;
 
 const SideNav = styled.div`
-  /* position: absolute; */
-  z-index: 1;
-  /* right: 0;
-  top: 0; */
+  position: absolute;
+  right: 0;
+  top: 0;
   width: 40%;
   height: 100vh;
   background-color: white;
@@ -130,22 +128,22 @@ const Navbar = () => {
     <Nav>
       {isOpen ? (
         <SideNav ref={side}>
-          <i onClick={CloseSideNav} className="fas fa-times" icon></i>
-          <SideLink onClick={CloseSideNav} to="/drink">
+          <i onClick={CloseSideNav} className='fas fa-times' icon></i>
+          <SideLink onClick={CloseSideNav} to='/drink'>
             <Menu>주류</Menu>
           </SideLink>
-          <SideLink onClick={CloseSideNav} to="/food">
+          <SideLink onClick={CloseSideNav} to='/food'>
             <Menu>안주</Menu>
           </SideLink>
-          <SideLink onClick={CloseSideNav} to="/community">
+          <SideLink onClick={CloseSideNav} to='/community'>
             <Menu line>커뮤니티</Menu>
           </SideLink>
           {isLogin ? (
-            <SideLink onClick={CloseSideNav} to="/mypage">
+            <SideLink onClick={CloseSideNav} to='/mypage'>
               <Menu>마이페이지</Menu>
             </SideLink>
           ) : (
-            <SideLink onClick={CloseSideNav} to="/login">
+            <SideLink onClick={CloseSideNav} to='/login'>
               <Menu>로그인</Menu>
             </SideLink>
           )}
@@ -153,7 +151,7 @@ const Navbar = () => {
         </SideNav>
       ) : null}
       <Header>
-        <LogoLink to="/home">
+        <LogoLink to='/home'>
           <Logo src={logo} />
         </LogoLink>
         <RigthNav isVisible={isOpen} ChangeMenuVisibility={ChangeMenuVisibility} />

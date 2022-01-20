@@ -9,7 +9,6 @@ axios.defaults.withCredentials = true;
 const Container = styled.div`
   padding-top: 100px;
   height: 100%;
-  /* background-color: rgba(0, 0, 0, 0.1); */
 `;
 
 const WelcomeHeader = styled.div`
@@ -18,7 +17,7 @@ const WelcomeHeader = styled.div`
   align-items: center;
   text-align: center;
   margin: 30px 0px;
-  /* border: 1px solid red; */
+
   height: 100px;
 `;
 
@@ -27,7 +26,6 @@ const WelcomeTitle = styled.div`
   width: 390px;
   font-size: 25px;
   margin: 10px 0px;
-  /* border: 1px solid blue; */
 `;
 
 const WelcomeText = styled.div`
