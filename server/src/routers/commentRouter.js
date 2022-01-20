@@ -1,9 +1,9 @@
 import express from "express";
-import { postComment, editCommet } from "../controllers/commentController";
+import { postComment, editComment, deleteComment } from "../controllers/commentController";
 const commentRouter = express.Router();
 
 commentRouter.route("/").post(postComment);
 
-commentRouter.route("/:id").post(editCommet);
+commentRouter.route("/:id").patch(editComment).delete(deleteComment);
 
 export default commentRouter;

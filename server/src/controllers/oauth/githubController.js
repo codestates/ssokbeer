@@ -1,7 +1,7 @@
 import axios from "axios";
 import jwt from "jsonwebtoken";
 import db from "../../../models/index";
-db.sequelize.sync();
+
 const users = db.users;
 
 export const githubLogin = async (req, res) => {
@@ -24,9 +24,7 @@ export const githubLogin = async (req, res) => {
       Authorization: `token ${access_token}`,
     },
   });
-  const { email } = data.find(
-    (email) => email.primary === true && email.verified === true
-  );
+  const { email } = data.find((email) => email.primary === true && email.verified === true);
 
   const user = await users.findOne({
     email,
@@ -42,7 +40,5 @@ export const githubLogin = async (req, res) => {
     expiresIn: "6h",
   });
 
-  return res
-    .cookie("token", token)
-    .json({ message: "소셜 로그인 완료 및 쿠키 전송" });
+  return res.cookie("token", token).json({ message: "소셜 로그인 완료 및 쿠키 전송" });
 };
