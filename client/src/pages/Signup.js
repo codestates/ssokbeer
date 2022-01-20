@@ -77,20 +77,20 @@ const Span = styled.span`
 `;
 
 const Signup = () => {
-  const { register, handleSubmit, errors, getValues, watch, formState } = useForm({ mode: "onChange" });
-  const [nickCheck, setNickCheck] = useState(false);
-  const [emailCheck, setEmailCheck] = useState(false);
-  const onSubmitValid = (data) => {
-    const { email, password, nickname } = data;
+  const { register, handleSubmit, errors, getValues, formState } = useForm({ mode: "onChange" });
+
+  const onSubmitValid = () => {
+    const { email, password, nickname } = getValues();
     postSignup({ email, password, nickname });
   };
-  const checkValid = () => {
-    const obj = watch();
-    console.log(obj);
-  };
+
   return (
     <Container>
-      <Form onSubmit={handleSubmit(onSubmitValid)}>
+      <Form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit(onSubmitValid);
+        }}>
         <FormColumn>
           <Label>이메일</Label>
           <Input
@@ -116,9 +116,6 @@ const Signup = () => {
             error={errors.email?.message}
           />
           <Span>{errors.email?.message}</Span>
-          <Valid onClick={checkValid} disabled={errors.email?.message}>
-            중복검사
-          </Valid>
         </FormColumn>
         <FormColumn>
           <Label>닉네임</Label>
@@ -132,9 +129,6 @@ const Signup = () => {
                   if (isValid) {
                     return "숫자, 영어, 한글만 입력해주세요";
                   }
-                  if (nickCheck) {
-                    return "중복된 닉네임이 있습니다";
-                  }
                 },
               },
               minLength: { value: 2, message: "최소 2자 이상 입력해주세요" },
@@ -145,9 +139,6 @@ const Signup = () => {
             error={errors.nickname?.message}
           />
           <Span>{errors.nickname?.message}</Span>
-          <Valid onClick={checkValid} disabled={errors.nickname?.message}>
-            중복검사
-          </Valid>
         </FormColumn>
         <FormColumn>
           <Label>비밀번호</Label>

@@ -7,6 +7,7 @@ const PcContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
+  z-index: 99999;
 `;
 
 const MobileNav = styled.div`
