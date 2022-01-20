@@ -54,7 +54,7 @@ const PostConatiner = styled.div`
   width: 100%;
   margin: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
   grid-auto-rows: 370px;
   grid-gap: 24px;
   /* border: 1px solid red; */
@@ -69,9 +69,17 @@ const Post = styled.div`
 `;
 
 const FoodImg = styled.img`
-  width: 50%;
-  height: 70%;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  margin: 0px 18px;
+`;
+
+const FoodLink = styled(Link)`
+  color: black;
+  width: 52%;
+  height: 75%;
+  margin: 10px;
 `;
 
 const ContentBox = styled.div`
@@ -149,7 +157,9 @@ const CommunityPost = () => {
       <PostSection>
         <PostConatiner>
           <Post>
-            <FoodImg src="https://cphoto.asiae.co.kr/listimglink/6/2017102710512764418_1.jpg"></FoodImg>
+            <FoodLink to="detailpage">
+              <FoodImg src="https://cphoto.asiae.co.kr/listimglink/6/2017102710512764418_1.jpg"></FoodImg>
+            </FoodLink>
             <ContentBox>
               <ContentHeader>집나간며느리도 돌아오는..</ContentHeader>
               <Username>머규</Username>

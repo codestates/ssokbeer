@@ -18,6 +18,7 @@ const Community = () => {
     <>
       <MobileSearchBar></MobileSearchBar>
       <Recommendation />
+      <CommunityPost />
     </>
   );
 };

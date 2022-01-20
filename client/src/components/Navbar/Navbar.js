@@ -86,7 +86,6 @@ const SideNav = styled.div`
 const Menu = styled.div`
   margin-top: 70px;
   text-align: center;
-  /* color: rgba(0, 0, 0, 0.4); */
   font-family: "Open Sans", sans-serif;
   &:hover {
     font-weight: 800;
@@ -98,6 +97,7 @@ const SideLink = styled(Link)`
   cursor: grab;
   text-decoration: none;
   color: black;
+  padding: 0px 30px 35px 30px;
 `;
 
 const Navbar = () => {
@@ -156,7 +156,7 @@ const Navbar = () => {
         <LogoLink to="/home">
           <Logo src={logo} />
         </LogoLink>
-        <RigthNav isVisible={isOpen} ChangeMenuVisibility={ChangeMenuVisibility} />
+        <RigthNav isLogin={isLogin} isVisible={isOpen} ChangeMenuVisibility={ChangeMenuVisibility} />
       </Header>
     </Nav>
   );

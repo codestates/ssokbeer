@@ -6,6 +6,7 @@ import Community from "../pages/Community";
 import GlobalStyles from "./GlobalStyles";
 import Signup from "../pages/Signup";
 import Writing from "../pages/Writing";
+import DetailPage from "../pages/Detailpage";
 
 const Routers = () => (
   <BrowserRouter>
@@ -17,6 +18,7 @@ const Routers = () => (
       <Route path="/signup" element={<Signup />} />
       <Route path="/community" element={<Community />} />
       <Route path="/writing" element={<Writing />} />
+      <Route path="/community/detailpage" element={<DetailPage />} />
     </Routes>
   </BrowserRouter>
 );
