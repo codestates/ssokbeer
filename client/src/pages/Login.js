@@ -135,7 +135,6 @@ const Messagebox = styled.div`
 `;
 
 const Login = () => {
-  const [isLogin, setIsLogin] = useState(false);
   const [isfullfilled, setIsFullfiled] = useState(true);
   const [invalid, setInvalid] = useState(true);
 
@@ -149,8 +148,7 @@ const Login = () => {
   };
 
   const handleResponseSuccess = () => {
-    setIsLogin(true);
-    localStorage.setItem("isLogin", isLogin); //local 저장
+    localStorage.setItem("isLogin", true); //local 저장
   };
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -159,12 +157,13 @@ const Login = () => {
       return setIsFullfiled(false);
     }
 
-    const data = await axios.post(`http://localhost:4000/user/login`, {
+    const {
+      data: { userInfo },
+    } = await axios.post(`http://localhost:8080/user/login`, {
       email: loginInfo.email,
       password: loginInfo.password,
     });
-
-    if (data.userInfo) {
+    if (userInfo) {
       handleResponseSuccess();
     } else {
       setInvalid(false);

@@ -122,8 +122,9 @@ const Navbar = () => {
     };
   });
   useEffect(() => {
-    setIsLogin(localStorage.getItem("isLogin"));
+    setIsLogin(Boolean(localStorage.getItem("isLogin")));
   }, []);
+  console.log(isLogin);
   return (
     <Nav>
       {isOpen ? (
