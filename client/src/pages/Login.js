@@ -167,6 +167,7 @@ const Login = () => {
       password: loginInfo.password,
     });
 
+    console.log(data);
     if (data.userInfo) {
       handleResponseSuccess(data.userInfo);
     } else {

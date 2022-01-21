@@ -141,8 +141,8 @@ const DUMMY_DATA = [
   {
     id: 1,
     usersId: 4,
-    nickname: "person-1",
-    content: "super delicious",
+    nickname: "머규",
+    content: "개맛있겠당ㅋㅋㅋ",
     contentsId: 2,
     createdAt: "2022-01-18T13:24:19.000Z",
     updatedAt: "2022-01-18T13:24:19.000Z",
@@ -150,7 +150,7 @@ const DUMMY_DATA = [
   {
     id: 2,
     usersId: 4,
-    nickname: "person-2",
+    nickname: "이채야채",
     content: "oowooowoowoooo",
     contentsId: 2,
     createdAt: "2022-01-18T13:25:28.000Z",
@@ -159,7 +159,7 @@ const DUMMY_DATA = [
   {
     id: 3,
     usersId: 4,
-    nickname: "person-3",
+    nickname: "진0",
     content: "oowooowoowoooo",
     contentsId: 2,
     createdAt: "2022-01-18T13:25:28.000Z",
@@ -168,7 +168,7 @@ const DUMMY_DATA = [
   {
     id: 4,
     usersId: 4,
-    nickname: "person-4",
+    nickname: "몬스타",
     content: "oowooowoowoooo",
     contentsId: 2,
     createdAt: "2022-01-18T13:25:28.000Z",
@@ -183,9 +183,10 @@ const DetailPage = () => {
   const [comments, setComments] = useState(DUMMY_DATA);
 
   useEffect(() => {
-    //axios.get(server/contents/14) DO
-    // state SAVE [comments]
+    //comments = axios.get(server/contents/14) DO
+    // setComments(comments);
     // comment newPost ? refresh
+    // 등록을 한다 -> 서버 -> comemnts 10000000 -> (프로젝트용)
   });
 
   const handleLikeClick = () => {
