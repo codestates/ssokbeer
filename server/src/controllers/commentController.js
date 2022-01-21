@@ -1,8 +1,8 @@
 import db from "../../models/index";
 import { verify } from "../token/verify";
 
-const comments = db.comments;
-const users = db.users;
+const comments = db.comment;
+const users = db.user;
 
 export const postComment = async (req, res) => {
   try {

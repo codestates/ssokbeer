@@ -8,25 +8,32 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      title: {
+        type: Sequelize.STRING,
+      },
       img: {
         type: Sequelize.STRING,
       },
       content: {
         type: Sequelize.STRING,
       },
+<<<<<<< HEAD:server/migrations/20220118021815-create-contents.js
       title: {
         type: Sequelize.STRING,
       },
       likesId: {
+=======
+      like: {
+>>>>>>> dc9bca0f11c49ed84ce869bed6c254bc9f8af591:server/migrations/20220121052029-create-content.js
         type: Sequelize.INTEGER,
       },
-      visits: {
+      visit: {
         type: Sequelize.INTEGER,
       },
-      commentsId: {
+      commentId: {
         type: Sequelize.INTEGER,
       },
-      usersId: {
+      userId: {
         type: Sequelize.INTEGER,
       },
       createdAt: {
