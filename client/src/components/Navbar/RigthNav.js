@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
+import { useEffect } from "react";
 
 const PcContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
+  z-index: 99999;
 `;
 
 const MobileNav = styled.div`
@@ -31,7 +33,7 @@ const ButtonLink = styled(Link)``;
 
 const Button = styled.button`
   margin: 10px;
-  width: 70px;
+  width: 74px;
   height: 30px;
   border-radius: 10%;
   background-color: #fed969;
@@ -41,6 +43,12 @@ const Button = styled.button`
 // eslint-disable-next-line
 const RigthNav = ({ isLogin, isVisible, ChangeMenuVisibility }) => {
   const closeMenu = () => ChangeMenuVisibility(false);
+
+  const handleClickLogout = () => {
+    localStorage.removeItem("isLogin");
+    window.location.reload();
+  };
+
   const isPc = useMediaQuery({ query: "(min-width: 768px)" }, undefined, closeMenu);
 
   return isPc ? (
@@ -65,7 +73,7 @@ const RigthNav = ({ isLogin, isVisible, ChangeMenuVisibility }) => {
       )}
       {isLogin ? (
         <ButtonLink to="/home">
-          <Button>로그아웃</Button>
+          <Button onClick={handleClickLogout}>로그아웃</Button>
         </ButtonLink>
       ) : (
         <ButtonLink to="/signup">

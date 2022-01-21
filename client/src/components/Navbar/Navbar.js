@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../../img/ssokbeerlogo.png";
 import RigthNav from "./RigthNav";
@@ -7,13 +7,12 @@ import RigthNav from "./RigthNav";
 const Nav = styled.nav`
   width: 100%;
   position: fixed;
+  z-index: 10;
 `;
 
 const Header = styled.header`
   /* position: relative; */
   display: flex;
-  top: 0;
-  left: 0;
   justify-content: space-between;
   align-items: center;
   height: 70px;
@@ -37,10 +36,9 @@ const LogoLink = styled(Link)`
 `;
 
 const SideNav = styled.div`
-  /* position: absolute; */
-  z-index: 1;
-  /* right: 0;
-  top: 0; */
+  position: absolute;
+  right: 0;
+  top: 0;
   width: 40%;
   height: 100vh;
   background-color: white;
@@ -105,6 +103,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleClickOutside = ({ target }) => {
     if (isOpen && !side?.current?.contains(target)) {
       CloseSideNav();
@@ -117,15 +117,23 @@ const Navbar = () => {
   const CloseSideNav = () => {
     setIsOpen(false);
   };
+  const handleClickLogout = () => {
+    localStorage.removeItem("isLogin");
+    window.location.reload();
+    navigate("/home");
+  };
+
   useEffect(() => {
     window.addEventListener("click", handleClickOutside);
     return () => {
       window.removeEventListener("click", handleClickOutside);
     };
   });
+
   useEffect(() => {
     setIsLogin(localStorage.getItem("isLogin"));
-  }, []);
+  }, [isLogin]);
+
   return (
     <Nav>
       {isOpen ? (
@@ -138,7 +146,7 @@ const Navbar = () => {
             <Menu>안주</Menu>
           </SideLink>
           <SideLink onClick={CloseSideNav} to="/community">
-            <Menu line>커뮤니티</Menu>
+            <Menu>커뮤니티</Menu>
           </SideLink>
           {isLogin ? (
             <SideLink onClick={CloseSideNav} to="/mypage">
@@ -149,7 +157,11 @@ const Navbar = () => {
               <Menu>로그인</Menu>
             </SideLink>
           )}
-          <Menu>{isLogin ? "로그아웃" : null}</Menu>
+          {isLogin ? (
+            <SideLink onClick={handleClickLogout} to="/home">
+              <Menu>로그아웃</Menu>
+            </SideLink>
+          ) : null}
         </SideNav>
       ) : null}
       <Header>

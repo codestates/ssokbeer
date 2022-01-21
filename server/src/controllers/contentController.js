@@ -4,26 +4,26 @@ import { verify } from "../token/verify";
 const contents = db.contents;
 const users = db.users;
 const comments = db.comments;
+const likes = db.likes;
 export const getAllContent = async (req, res) => {
   try {
-    const allContent = await contents.findAll({});
-
-    res.status(200).json({ message: "전체 글 목록 조회", allContent });
+    res.status(200).json({ message1: "전체 글 목록 조회", allContent, message2: "랭크 목록", rankContent });
   } catch {
     res.status(500).json({ message: "전체 글 목록 조회 실패" });
   }
 };
+
 export const postContent = async (req, res) => {
   try {
     const { token } = req.cookies;
 
-    const { img, content } = req.body;
+    const { title, img, content } = req.body;
     const { email } = verify(token);
 
-    console.log(email);
     const userInfo = await users.findOne({ where: { email } });
     const contentInfo = await contents.create({
       usersId: userInfo.id,
+      title,
       img,
       content,
     });
@@ -32,7 +32,9 @@ export const postContent = async (req, res) => {
     } else {
       res.status(400).json({ message: "글 작성 실패" });
     }
-  } catch {}
+  } catch {
+    res.status(500).json({ message: "글 작성 실패" });
+  }
 };
 
 export const getContent = async (req, res) => {

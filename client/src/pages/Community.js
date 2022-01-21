@@ -1,4 +1,3 @@
-// import { useMediaQuery } from "react-responsive";
 import Recommendation from "../components/Community/Recommendation";
 import SearchBar from "../components/Community/Searchbar";
 import CommunityPost from "../components/Community/Communitypost";

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
@@ -9,7 +9,6 @@ axios.defaults.withCredentials = true;
 const Container = styled.div`
   padding-top: 100px;
   height: 100%;
-  /* background-color: rgba(0, 0, 0, 0.1); */
 `;
 
 const WelcomeHeader = styled.div`
@@ -18,7 +17,7 @@ const WelcomeHeader = styled.div`
   align-items: center;
   text-align: center;
   margin: 30px 0px;
-  /* border: 1px solid red; */
+
   height: 100px;
 `;
 
@@ -27,7 +26,6 @@ const WelcomeTitle = styled.div`
   width: 390px;
   font-size: 25px;
   margin: 10px 0px;
-  /* border: 1px solid blue; */
 `;
 
 const WelcomeText = styled.div`
@@ -133,7 +131,7 @@ const OauthButton = styled.a`
 
 const Messagebox = styled.div`
   font-size: 14px;
-  color: grey;
+  color: red;
 `;
 
 const Login = () => {
@@ -146,14 +144,18 @@ const Login = () => {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   const handleInputValue = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
 
-  const handleResponseSuccess = ({ nickname }) => {
+  const handleResponseSuccess = () => {
+    navigate("/drink");
     setIsLogin(true);
-    localStorage.setItem("isLogin", isLogin); //local 저장
-    localStorage.setItem("userID", nickname);
+    localStorage.setItem("isLogin", true);
+    window.location.reload();
+    // localStorage.setItem("userID", nickname);
   };
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -161,20 +163,18 @@ const Login = () => {
     if (!loginInfo.email || !loginInfo.password) {
       return setIsFullfiled(false);
     }
-
-    const data = await axios.post(`http://localhost:4000/user/login`, {
-      email: loginInfo.email,
-      password: loginInfo.password,
-    });
-
-    console.log(data);
-    if (data.userInfo) {
-      handleResponseSuccess(data.userInfo);
-    } else {
+    try {
+      const data = await axios.post(`http://localhost:4000/user/login`, {
+        email: loginInfo.email,
+        password: loginInfo.password,
+      });
+      if (data) {
+        handleResponseSuccess(data);
+      }
+    } catch (err) {
+      console.log(err.response);
       setInvalid(false);
     }
-
-    //데이터에 따라 함수 실행을 다르게한다.
   };
 
   const isPc = useMediaQuery({ query: "(min-width: 768px)" });

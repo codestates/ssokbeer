@@ -41,20 +41,19 @@ const NewCommentForm = ({ onButttonClick }) => {
   const [newComment, setNewComment] = useState("");
   const [ninckname, setnickname] = useState("");
 
-  let today = new Date();
-  console.log(TimeCounting(today, { lang: "ko" }));
+  // let today = new Date();
+  // console.log(TimeCounting(today, { lang: "ko" }));
   // useEffect(() => {});
 
   const handleChangeComment = (e) => {
     setNewComment(e.target.value);
   };
-  // date: TimeCounting(today, { lang: "ko" }),
 
   const onClickSubmit = () => {
     const comment = {
       id: uuidv4(),
       usersId: 4,
-      nickname: "person-2",
+      nickname: "헬로",
       content: "oowooowoowoooo",
       contentsId: 2,
     };
