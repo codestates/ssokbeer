@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Section = styled(motion.section)`
@@ -24,7 +23,7 @@ const Grid = styled.div`
     grid-template-columns: repeat(4, 150px);
   }
 `;
-const List = styled(Link)`
+const List = styled.div`
   all: unset;
   cursor: pointer;
   width: 100%;
@@ -40,12 +39,21 @@ const Name = styled.h2`
   font-weight: 600;
 `;
 
-const AlcolList = ({ data, back, listVariants }) => {
+const AlcolList = ({ data, back, listVariants, openModal, changeAlcolId }) => {
   return (
     <Section custom={back} variants={listVariants} initial="entry" animate="center" exit="exit">
       <Grid>
         {data.map((be, idx) => (
-          <List key={idx} to={`${idx}`} data-id={idx} data-type="soju">
+          <List
+            onClick={(e) => {
+              const { id } = e.target.parentNode.dataset;
+              changeAlcolId(id);
+              openModal();
+            }}
+            key={be.id}
+            data-id={be.id}
+            data-type={be.type}
+          >
             <Img src={be.img} alt={be.name} />
             <Name>{be.name}</Name>
           </List>

@@ -49,14 +49,17 @@ const NewCommentForm = ({ onButttonClick }) => {
     setNewComment(e.target.value);
   };
 
+  console.log(newComment);
+
   const onClickSubmit = () => {
     const comment = {
       id: uuidv4(),
       usersId: 4,
       nickname: "헬로",
-      content: "oowooowoowoooo",
+      content: newComment,
       contentsId: 2,
     };
+    console.log("클릭버튼");
     // axios.post(`http://localhost:4000/content/`, {
     //   contentsId: uuidv4(),
     //   content: newComment,

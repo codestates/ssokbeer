@@ -198,7 +198,6 @@ const DetailPage = () => {
     }
   };
 
-  const handleClickModify = () => {};
   const handleClickDelete = () => {};
 
   const addNewComment = (newComment) => {
@@ -239,7 +238,7 @@ const DetailPage = () => {
           {comments.map((comment) => (
             <SingleComment comment={comment} />
           ))}
-          <NewCommentForm onButtonClick={addNewComment} />
+          <NewCommentForm onButttonClick={addNewComment} />
         </CommentForm>
       </Form>
     </Container>

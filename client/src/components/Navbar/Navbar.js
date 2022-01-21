@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../../img/ssokbeerlogo.png";
 import RigthNav from "./RigthNav";
+import axios from "axios";
 
 const Nav = styled.nav`
   width: 100%;
@@ -121,6 +122,8 @@ const Navbar = () => {
     localStorage.removeItem("isLogin");
     window.location.reload();
     navigate("/home");
+    axios.delete(`http://localhost:4000/user
+    /logout`);
   };
 
   useEffect(() => {
@@ -131,9 +134,9 @@ const Navbar = () => {
   });
 
   useEffect(() => {
-    setIsLogin(localStorage.getItem("isLogin"));
-  }, [isLogin]);
-
+    setIsLogin(Boolean(localStorage.getItem("isLogin")));
+  }, []);
+  console.log(isLogin);
   return (
     <Nav>
       {isOpen ? (

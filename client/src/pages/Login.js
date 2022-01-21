@@ -135,9 +135,9 @@ const Messagebox = styled.div`
 `;
 
 const Login = () => {
-  const [isLogin, setIsLogin] = useState(false);
   const [isfullfilled, setIsFullfiled] = useState(true);
   const [invalid, setInvalid] = useState(true);
+  const [Login, setIsLogin] = useState(false);
 
   const [loginInfo, setLoginInfo] = useState({
     email: "",

@@ -3,8 +3,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { verify } from "../token/verify";
 
-const users = db.users;
-const contents = db.contents;
+const users = db.user;
+const contents = db.content;
 
 export const nickCheck = async (req, res) => {
   let { nickname } = req.body;
@@ -60,7 +60,7 @@ export const signout = async (req, res) => {
     const { token } = req.cookies;
     const { email } = verify(token);
     await users.destroy({ where: { email } });
-    res.status(204).json({ message: "회원탈퇴 성공" });
+    res.status(201).json({ message: "회원탈퇴 성공" });
   } catch {
     res.status(500).json({ message: "회원탈퇴 실패" });
   }
