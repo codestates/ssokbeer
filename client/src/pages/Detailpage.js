@@ -176,7 +176,7 @@ const DUMMY_DATA = [
   },
 ];
 
-const DetailPage = () => {
+const Detailpage = () => {
   //   const [isAdministrator, setIsadministrator] = useState(false);
   const [likeCnt, setLikeCnt] = useState(0);
   const [like, setLike] = useState(false);
@@ -197,7 +197,7 @@ const DetailPage = () => {
       setLikeCnt(likeCnt - 1);
     }
   };
-
+  const handleClickModify = () => {};
   const handleClickDelete = () => {};
 
   const addNewComment = (newComment) => {
@@ -244,4 +244,4 @@ const DetailPage = () => {
     </Container>
   );
 };
-export default DetailPage;
+export default Detailpage;
