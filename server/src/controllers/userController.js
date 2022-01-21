@@ -61,8 +61,6 @@ export const signout = async (req, res) => {
 };
 
 export const getProfile = async (req, res) => {
-  // let { id } = req.params;
-  // id = parseInt(id);
   try {
     const { token } = req.cookies;
     if (!token) {
@@ -73,10 +71,9 @@ export const getProfile = async (req, res) => {
 
     const userInfo = await users.findOne({
       where: { email },
-      include: { model: contents },
     });
 
-    res.status(200).json(userInfo);
+    res.status(200).json({ message: "내정보 불러오기 성공", userInfo });
   } catch {
     res.status(500).json({ message: "내정보 불러오기 실패" });
   }

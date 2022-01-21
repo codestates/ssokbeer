@@ -1,13 +1,21 @@
 import db from "../../models/index";
-import { verify } from "../token/verify";
+import { sojus, beers } from "../alcoholDB/alcoholList";
+const alcohols = db.alcohol;
+const dishes = db.dish;
 
-export const getSoju = async (req, res) => {
+export const getAlcohol = async (req, res) => {
   try {
-    res.status(200).json({ soju: db.soju });
+    const { type } = req.query;
+    if (type === "soju") {
+      res.status(200).json({ message: "겟 알콜 리스트 성공", sojus });
+    } else if (type === "beer") {
+      res.status(200).json({ message: "겟 알콜 리스트 성공", sojus });
+    }
   } catch {
     res.status(500).json({ message: "get 소주 리스트 실패" });
   }
 };
+
 export const getOneSoju = async (req, res) => {
   try {
     res.status(200).json({ soju: db.soju });
@@ -16,8 +24,9 @@ export const getOneSoju = async (req, res) => {
   }
 };
 
-export const getBeer = async (req, res) => {
+export const postAlcohol = async (req, res) => {
   try {
+    const result = await alcohols.bulkCreate();
   } catch {
     res.status(500).json({ message: "get 맥주 리스트 실패" });
   }
