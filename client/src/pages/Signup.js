@@ -29,7 +29,7 @@ const FormColumn = styled.div`
 const Input = styled.input`
   all: unset;
   width: 100%;
-  border-bottom: 1px solid ${(props) => (props.error ? "red" : "#aaa2a2")};
+  border-bottom: 2px solid ${(props) => (props.error ? "red" : "rgba(0, 0, 0, 0.2)")};
   &::placeholder {
     font-size: 13px;
   }
@@ -38,7 +38,7 @@ const Label = styled.label`
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
-  color: gray;
+  color: black;
   font-weight: bold;
 `;
 const Button = styled.button`
@@ -90,7 +90,8 @@ const Signup = () => {
         onSubmit={(e) => {
           e.preventDefault();
           handleSubmit(onSubmitValid);
-        }}>
+        }}
+      >
         <FormColumn>
           <Label>이메일</Label>
           <Input
@@ -111,8 +112,8 @@ const Signup = () => {
                 },
               },
             })}
-            name='email'
-            placeholder='이메일을 입력해주세요'
+            name="email"
+            placeholder="이메일을 입력해주세요"
             error={errors.email?.message}
           />
           <Span>{errors.email?.message}</Span>
@@ -134,8 +135,8 @@ const Signup = () => {
               minLength: { value: 2, message: "최소 2자 이상 입력해주세요" },
               maxLength: { value: 8, message: "최대 8자 이하로 입력해주세요" },
             })}
-            name='nickname'
-            placeholder='2~8글자'
+            name="nickname"
+            placeholder="2~8글자"
             error={errors.nickname?.message}
           />
           <Span>{errors.nickname?.message}</Span>
@@ -150,9 +151,9 @@ const Signup = () => {
                 message: "8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요",
               },
             })}
-            name='password'
-            type='password'
-            placeholder='8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요'
+            name="password"
+            type="password"
+            placeholder="8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요"
             error={errors.password?.message}
           />
           <Span>{errors.password?.message}</Span>
@@ -169,9 +170,9 @@ const Signup = () => {
                 },
               },
             })}
-            name='password2'
-            type='password'
-            placeholder='비밀번호를 한번 더 입력해 주세요'
+            name="password2"
+            type="password"
+            placeholder="비밀번호를 한번 더 입력해 주세요"
             error={errors.password2?.message}
           />
           <Span>{errors.password2?.message}</Span>

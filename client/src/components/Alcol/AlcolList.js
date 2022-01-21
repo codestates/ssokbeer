@@ -41,7 +41,7 @@ const Name = styled.h2`
 
 const AlcolList = ({ data, back, listVariants, openModal, changeAlcolId }) => {
   return (
-    <Section custom={back} variants={listVariants} initial='entry' animate='center' exit='exit'>
+    <Section custom={back} variants={listVariants} initial="entry" animate="center" exit="exit">
       <Grid>
         {data.map((be, idx) => (
           <List
@@ -52,7 +52,8 @@ const AlcolList = ({ data, back, listVariants, openModal, changeAlcolId }) => {
             }}
             key={be.id}
             data-id={be.id}
-            data-type={be.type}>
+            data-type={be.type}
+          >
             <Img src={be.img} alt={be.name} />
             <Name>{be.name}</Name>
           </List>
