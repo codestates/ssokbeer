@@ -9,15 +9,15 @@
   "test": {
     "username": "root",
     "password": "1",
-    "database": "database_test",
+    "database": "ssokbeer",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
-    "use_env_variable": "DATABASE_URL",
-    "dialect": "postgres",
-    "dialectOptions": {
-      "ssl": true
-    }
+    "username": "root",
+    "password": "1",
+    "database": "ssokbeer",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   }
 }

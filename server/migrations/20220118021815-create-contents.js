@@ -14,6 +14,9 @@ module.exports = {
       content: {
         type: Sequelize.STRING,
       },
+      title: {
+        type: Sequelize.STRING,
+      },
       likesId: {
         type: Sequelize.INTEGER,
       },

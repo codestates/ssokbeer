@@ -29,6 +29,7 @@ export const postContent = async (req, res) => {
       img,
       content,
     });
+
     if (contentInfo) {
       res.status(201).json({ message: "글 작성 완료", contentInfo });
     } else {

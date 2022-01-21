@@ -14,10 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   alcohol.init({
+    name: DataTypes.STRING,
     content: DataTypes.STRING,
-    type: DataTypes.STRING,
-    img: DataTypes.STRING,
-    pairDish: DataTypes.STRING
+    pairdish: DataTypes.STRING,
+    img: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'alcohol',
