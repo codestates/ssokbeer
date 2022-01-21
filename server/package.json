@@ -7,8 +7,8 @@
     "dev": "nodemon --exec babel-node src/init.js",
     "start": "node build/init.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migration": "npx sequelize-cli db:migrate:undo && npx sequelize-cli db:migrate",
-    "skeleton": "npx sequelize-cli db:migrate:undo && npx sequelize-cli db:migrate:undo && npx sequelize-cli db:migrate ",
+    "migration": "npx sequelize-cli db:migrate",
+    "undo": "npx sequelize-cli db:migrate:undo ",
     "build": "rm -rf build && babel src -d build"
   },
   "repository": {
