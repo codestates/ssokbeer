@@ -9,7 +9,7 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      * { type: Sequelize.STRING }
     //  */
-    // return queryInterface.addColumn("contents", "title", { type: Sequelize.STRING });
+    return queryInterface.addColumn("alcohol", "name", { type: Sequelize.STRING });
     // return queryInterface.removeColumn("contents", "likesId");
   },
 
