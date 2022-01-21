@@ -156,17 +156,20 @@ const Login = () => {
     if (!loginInfo.email || !loginInfo.password) {
       return setIsFullfiled(false);
     }
-
-    const {
-      data: { userInfo },
-    } = await axios.post(`http://localhost:8080/user/login`, {
-      email: loginInfo.email,
-      password: loginInfo.password,
-    });
-    if (userInfo) {
-      handleResponseSuccess();
-    } else {
-      setInvalid(false);
+    try {
+      const {
+        data: { userInfo },
+      } = await axios.post(`http://localhost:8080/user/login`, {
+        email: loginInfo.email,
+        password: loginInfo.password,
+      });
+      if (userInfo) {
+        handleResponseSuccess();
+      } else {
+        setInvalid(false);
+      }
+    } catch (e) {
+      console.log(e.response);
     }
 
     //데이터에 따라 함수 실행을 다르게한다.
