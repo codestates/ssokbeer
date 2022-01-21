@@ -23,16 +23,13 @@ export const emailCheck = async (req, res) => {
 };
 
 export const postSignup = async (req, res) => {
-  console.log("POSSSTS");
   const { nickname, email, password } = req.body;
 
   try {
-    console.log("BODY::::", req.body);
     if (!nickname || !email || !password) {
       res.status(400).json({ message: "닉네임,이메일 또는 비밀번호가 공백입니다" });
       res.end();
     }
-    console.log(email);
     const Hashpassword = await bcrypt.hash(password, 5);
 
     const [result, created] = await users.findOrCreate({
@@ -79,7 +76,6 @@ export const getProfile = async (req, res) => {
 
     const userInfo = await users.findOne({
       where: { email },
-      include: { model: contents },
     });
 
     res.status(200).json(userInfo);
