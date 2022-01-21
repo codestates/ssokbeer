@@ -15,8 +15,6 @@ var _index = _interopRequireDefault(require("../../../models/index"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_index.default.sequelize.sync();
-
 const users = _index.default.users;
 
 const githubLogin = async (req, res) => {

@@ -20,10 +20,10 @@ export const getOneAlcohol = async (req, res) => {
 };
 
 //@@@@@@@@@@@@@API에 안적어도 됨
-export const getOneAlcohol = async (req, res) => {
-  try {
-    res.status(200).json({ soju: db.soju });
-  } catch {
-    res.status(500).json({ message: "술 추가 실패" });
-  }
-};
+// export const getOneAlcohol = async (req, res) => {
+//   try {
+//     res.status(200).json({ soju: db.soju });
+//   } catch {
+//     res.status(500).json({ message: "술 추가 실패" });
+//   }
+// };

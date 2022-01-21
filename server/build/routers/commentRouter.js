@@ -14,6 +14,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const commentRouter = _express.default.Router();
 
 commentRouter.route("/").post(_commentController.postComment);
-commentRouter.route("/:id").post(_commentController.editCommet);
+commentRouter.route("/:id").patch(_commentController.editComment).delete(_commentController.deleteComment);
 var _default = commentRouter;
 exports.default = _default;

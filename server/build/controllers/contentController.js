@@ -15,8 +15,6 @@ var _verify = require("../token/verify");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_index.default.sequelize.sync();
-
 const contents = _index.default.contents;
 const users = _index.default.users;
 const comments = _index.default.comments;
@@ -29,7 +27,7 @@ const getAllContent = async (req, res) => {
       allContent
     });
   } catch (_unused) {
-    res.status(400).json({
+    res.status(500).json({
       message: "전체 글 목록 조회 실패"
     });
   }
@@ -38,45 +36,45 @@ const getAllContent = async (req, res) => {
 exports.getAllContent = getAllContent;
 
 const postContent = async (req, res) => {
-  const {
-    token
-  } = req.cookies;
-  const {
-    img,
-    content
-  } = req.body;
-  const {
-    email
-  } = (0, _verify.verify)(token);
-  const userInfo = await users.findOne({
-    where: {
+  try {
+    const {
+      token
+    } = req.cookies;
+    const {
+      img,
+      content
+    } = req.body;
+    const {
       email
-    }
-  });
-  const contentInfo = await contents.create({
-    usersId: userInfo.id,
-    img,
-    content
-  });
+    } = (0, _verify.verify)(token);
+    console.log(email);
+    const userInfo = await users.findOne({
+      where: {
+        email
+      }
+    });
+    const contentInfo = await contents.create({
+      usersId: userInfo.id,
+      img,
+      content
+    });
 
-  if (contentInfo) {
-    res.status(200).json({
-      message: "글 작성 완료",
-      contentInfo
-    });
-  } else {
-    res.status(400).json({
-      message: "글 작성 실패"
-    });
-  }
+    if (contentInfo) {
+      res.status(201).json({
+        message: "글 작성 완료",
+        contentInfo
+      });
+    } else {
+      res.status(400).json({
+        message: "글 작성 실패"
+      });
+    }
+  } catch (_unused2) {}
 };
 
 exports.postContent = postContent;
 
 const getContent = async (req, res) => {
-  //   await content.create({
-  //     content: "폭군 김모군",
-  //   });
   try {
     const {
       id
@@ -94,8 +92,8 @@ const getContent = async (req, res) => {
       message: "게시글 내용 조회 및 방문자 수 증가 ",
       visitCnt
     });
-  } catch (_unused2) {
-    res.status(400).json({
+  } catch (_unused3) {
+    res.status(500).json({
       message: "게시글 내용 조회 및 방문실패"
     });
   }
@@ -125,8 +123,8 @@ const updateContent = async (req, res) => {
       message: "글 수정 완료 ",
       contentInfo
     });
-  } catch (_unused3) {
-    res.status(400).json({
+  } catch (_unused4) {
+    res.status(500).json({
       message: "글 수정 실패 "
     });
   }
@@ -143,7 +141,7 @@ const deleteContent = async (req, res) => {
       id
     }
   });
-  res.status(200).json({
+  res.status(204).json({
     message: "글 삭제 완료"
   });
 };

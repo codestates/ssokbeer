@@ -29,7 +29,8 @@ export const postSignup = async (req, res) => {
   try {
     console.log("BODY::::", req.body);
     if (!nickname || !email || !password) {
-      return res.status(400).json({ message: "닉네임,이메일 또는 비밀번호가 공백입니다" });
+      res.status(400).json({ message: "닉네임,이메일 또는 비밀번호가 공백입니다" });
+      res.end();
     }
 
     const Hashpassword = await bcrypt.hash(password, 5);
@@ -48,7 +49,8 @@ export const postSignup = async (req, res) => {
 
     res.cookie("token", token);
     res.status(201).json({ token });
-  } catch {
+  } catch (e) {
+    console.error(e);
     res.status(500).json({ message: "회원가입실패" });
   }
 };

@@ -23,6 +23,10 @@ var _likeRouter = _interopRequireDefault(require("./routers/likeRouter"));
 
 var _oauthRouter = _interopRequireDefault(require("./routers/oauthRouter"));
 
+var _index = _interopRequireDefault(require("../models/index"));
+
+var _alcoholRouter = _interopRequireDefault(require("./routers/alcoholRouter"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const app = (0, _express.default)();
@@ -41,6 +45,10 @@ app.use((0, _cors.default)({
   }
 }));
 app.use(logger);
+
+_index.default.sequelize.sync();
+
+app.use("/alcohol", _alcoholRouter.default);
 app.use("/content", _contentRouter.default);
 app.use("/comment", _commentRouter.default);
 app.use("/user", _userRouter.default);

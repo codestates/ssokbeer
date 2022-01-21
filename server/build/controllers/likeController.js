@@ -15,8 +15,6 @@ var _verify = require("../token/verify");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_index.default.sequelize.sync();
-
 const likes = _index.default.likes;
 const users = _index.default.users;
 
@@ -28,7 +26,7 @@ const getLikeList = async (req, res) => {
       allLike
     });
   } catch (_unused) {
-    res.status(400).json({
+    res.status(500).json({
       message: "전체 추천 목록 조회 실패"
     });
   }
@@ -45,41 +43,44 @@ const postLike = async (req, res) => {
   } = (0, _verify.verify)(token);
   const {
     id
-  } = req.params; // try {
+  } = req.params;
 
-  const userInfo = await users.findOne({
-    where: {
-      email
-    }
-  });
-  const [notCreated, created] = await likes.findOrCreate({
-    where: {
-      userId: userInfo.id
-    },
-    defaults: {
-      contentId: id,
-      userId: userInfo.id
-    }
-  });
-
-  if (created) {
-    await likes.destroy({
+  try {
+    const userInfo = await users.findOne({
       where: {
-        usersId: userInfo.id
+        email
       }
     });
-    res.status(200).json({
-      message: "추천 취소"
+    const [notCreated, created] = await likes.findOrCreate({
+      where: {
+        userId: userInfo.id
+      },
+      defaults: {
+        contentId: id,
+        userId: userInfo.id
+      }
     });
-  } else {
-    res.status(200).json({
-      message: "추천 성공",
-      userInfo
-    });
-  } // } catch {
-  // res.status(400).json({ message: "추천 실패" });
-  // }
 
+    if (created) {
+      await likes.destroy({
+        where: {
+          usersId: userInfo.id
+        }
+      });
+      res.status(204).json({
+        message: "추천 취소"
+      });
+    } else {
+      res.status(201).json({
+        message: "추천 성공",
+        userInfo
+      });
+    }
+  } catch (_unused2) {
+    res.status(500).json({
+      message: "추천 요청 실패"
+    });
+  }
 };
 
 exports.postLike = postLike;

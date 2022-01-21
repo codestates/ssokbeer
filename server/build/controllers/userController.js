@@ -19,8 +19,6 @@ var _verify = require("../token/verify");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_index.default.sequelize.sync();
-
 const users = _index.default.users;
 const contents = _index.default.contents;
 
@@ -57,9 +55,9 @@ const emailCheck = async (req, res) => {
 };
 
 exports.emailCheck = emailCheck;
-console.log("hello");
 
 const postSignup = async (req, res) => {
+  console.log("POSSSTS");
   const {
     nickname,
     email,
@@ -67,26 +65,29 @@ const postSignup = async (req, res) => {
   } = req.body;
 
   try {
+    console.log("BODY::::", req.body);
+
     if (!nickname || !email || !password) {
-      return res.status(400).json({
+      res.status(400).json({
         message: "닉네임,이메일 또는 비밀번호가 공백입니다"
       });
+      res.end();
     }
 
-    Hashpassword = await _bcrypt.default.hash(password, 5);
+    const Hashpassword = await _bcrypt.default.hash(password, 5);
     const [result, created] = await users.findOrCreate({
       where: {
         email
       },
-      default: {
+      defaults: {
         nickname,
         email,
-        Hashpassword
+        password: Hashpassword
       }
     });
 
     if (!created) {
-      return res.status(400).json({
+      return res.status(401).json({
         message: "이미 가입된 회원입니다"
       });
     }
@@ -99,11 +100,12 @@ const postSignup = async (req, res) => {
     });
 
     res.cookie("token", token);
-    res.status(200).json({
+    res.status(201).json({
       token
     });
-  } catch (_unused) {
-    res.status(400).json({
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
       message: "회원가입실패"
     });
   }
@@ -124,11 +126,11 @@ const signout = async (req, res) => {
         email
       }
     });
-    res.status(200).json({
+    res.status(204).json({
       message: "회원탈퇴 성공"
     });
-  } catch (_unused2) {
-    res.status(400).json({
+  } catch (_unused) {
+    res.status(500).json({
       message: "회원탈퇴 실패"
     });
   }
@@ -143,6 +145,13 @@ const getProfile = async (req, res) => {
     const {
       token
     } = req.cookies;
+
+    if (!token) {
+      return res.status(401).json({
+        message: "로그인 해주세요"
+      });
+    }
+
     const {
       email
     } = (0, _verify.verify)(token);
@@ -155,8 +164,8 @@ const getProfile = async (req, res) => {
       }
     });
     res.status(200).json(userInfo);
-  } catch (_unused3) {
-    res.status(400).json({
+  } catch (_unused2) {
+    res.status(500).json({
       message: "내정보 불러오기 실패"
     });
   }
@@ -170,6 +179,13 @@ const editProfile = async (req, res) => {
     const {
       token
     } = req.cookies;
+
+    if (!token) {
+      return res.status(401).json({
+        message: "로그인 해주세요"
+      });
+    }
+
     let {
       email
     } = (0, _verify.verify)(token);
@@ -177,6 +193,13 @@ const editProfile = async (req, res) => {
       nickname,
       password
     } = req.body;
+
+    if (!nickname || !password) {
+      return res.status(400).json({
+        message: "닉네임,이메일 또는 비밀번호가 공백입니다"
+      });
+    }
+
     password = await _bcrypt.default.hash(password, 5);
     const userInfo = await users.update({
       nickname,
@@ -190,8 +213,8 @@ const editProfile = async (req, res) => {
       message: "정보수정완료 ",
       userInfo
     });
-  } catch (_unused4) {
-    res.status(400).json({
+  } catch (_unused3) {
+    res.status(500).json({
       message: "정보수정실패 "
     });
   }
@@ -203,8 +226,8 @@ const getUserList = async (req, res) => {
   try {
     const usersInfo = await users.findAll({});
     res.status(200).json(usersInfo);
-  } catch (_unused5) {
-    res.status(400).json({
+  } catch (_unused4) {
+    res.status(500).json({
       message: "유저리스트 불러오기 실패"
     });
   }
@@ -218,6 +241,13 @@ const postLogin = async (req, res) => {
       email,
       password
     } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        message: "이메일 또는 비밀번호가 공백입니다"
+      });
+    }
+
     const user = await users.findOne({
       where: {
         email
@@ -225,16 +255,16 @@ const postLogin = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(400).json({
-        message: "로그인 실패"
+      return res.status(401).json({
+        message: "가입된 회원이 아닙니다"
       });
     }
 
     const ok = await _bcrypt.default.compare(password, user.dataValues.password);
 
     if (!ok) {
-      return res.status(400).json({
-        message: "Wrong password"
+      return res.status(401).json({
+        message: "비밀번호가 다릅니다"
       });
     }
 
@@ -243,12 +273,12 @@ const postLogin = async (req, res) => {
     });
 
     res.cookie("token", token);
-    res.json({
+    res.status(200).json({
       userInfo: user.dataValues,
       token
     });
-  } catch (_unused6) {
-    return res.status(400).json({
+  } catch (_unused5) {
+    return res.status(500).json({
       message: "로그인 실패"
     });
   }
@@ -257,10 +287,16 @@ const postLogin = async (req, res) => {
 exports.postLogin = postLogin;
 
 const logout = async (req, res) => {
-  res.clearCookie("token");
-  res.status(200).json({
-    message: "Logged out successfully"
-  });
+  try {
+    res.clearCookie("token");
+    res.status(204).json({
+      message: "로그아웃 되었습니다"
+    });
+  } catch (_unused6) {
+    return res.status(500).json({
+      message: "로그아웃 실패"
+    });
+  }
 };
 
 exports.logout = logout;
