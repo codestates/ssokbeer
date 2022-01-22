@@ -5,6 +5,7 @@ import { verify } from "../token/verify";
 const likes = db.like;
 const users = db.user;
 const contents = db.content;
+
 export const like = async (req, res) => {
   const { token } = req.cookies;
   const { email } = verify(token);
@@ -27,14 +28,5 @@ export const like = async (req, res) => {
     }
   } catch {
     res.status(500).json({ message: "추천 요청 실패" });
-  }
-};
-
-export const getLikeList = async (req, res) => {
-  try {
-    const allLike = await likes.findAll({});
-    res.status(200).json({ message: "전체 추천 목록 조회", allLike });
-  } catch {
-    res.status(500).json({ message: "전체 추천 목록 조회 실패" });
   }
 };
