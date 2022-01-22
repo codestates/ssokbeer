@@ -5,14 +5,13 @@ const contents = db.content;
 const users = db.user;
 const comments = db.comment;
 const likes = db.like;
+
 export const getAllContent = async (req, res) => {
   try {
     const rankContent = await contents.findAll({ order: [["like", "DESC"]] });
 
     const allContent = await contents.findAll({});
-    res
-      .status(200)
-      .json({ message1: "전체 글 목록 조회", allContent, message2: "랭크 목록", rankContent });
+    res.status(200).json({ message1: "전체 글 목록 조회", allContent, message2: "랭크 목록", rankContent });
   } catch {
     res.status(500).json({ message: "전체 글 목록 조회 실패" });
   }
