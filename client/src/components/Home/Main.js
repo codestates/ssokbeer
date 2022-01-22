@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Illustration from "../../img/main.jpeg";
 import wineImg from "../../img/wine.jpg";
+import Review from "./Review";
 
 const Container = styled.div`
   display: flex;
@@ -62,6 +63,7 @@ const Main = () => {
         <Introduce>
           <Content>쏙비어 회원님들과 함께 해볼까요?</Content>
         </Introduce>
+        <Review></Review>
       </ReviewBox>
     </Container>
   );

@@ -27,8 +27,7 @@ export const postSignup = async (req, res) => {
 
   try {
     if (!nickname || !email || !password) {
-      res.status(400).json({ message: "닉네임,이메일 또는 비밀번호가 공백입니다" });
-      res.end();
+      return res.status(400).json({ message: "닉네임,이메일 또는 비밀번호가 공백입니다" });
     }
     const Hashpassword = await bcrypt.hash(password, 5);
 
@@ -47,7 +46,7 @@ export const postSignup = async (req, res) => {
     res.cookie("token", token);
     res.status(201).json({ token });
   } catch (e) {
-    console.error(e);
+    console.log(e);
     res.status(500).json({ message: "회원가입실패" });
   }
 };
@@ -57,6 +56,7 @@ export const signout = async (req, res) => {
     const { token } = req.cookies;
     const { email } = verify(token);
     await users.destroy({ where: { email } });
+    res.clearCookie("token");
     res.status(201).json({ message: "회원탈퇴 성공" });
   } catch {
     res.status(500).json({ message: "회원탈퇴 실패" });
@@ -96,9 +96,12 @@ export const editProfile = async (req, res) => {
     if (!nickname || !password) {
       return res.status(400).json({ message: "닉네임,이메일 또는 비밀번호가 공백입니다" });
     }
+
     password = await bcrypt.hash(password, 5);
 
-    const userInfo = await users.update({ nickname, password }, { where: { email } });
+    await users.update({ nickname, password }, { where: { email } });
+
+    const userInfo = await users.findOne({ where: { email } });
 
     res.status(200).json({ message: "정보수정완료 ", userInfo });
   } catch {
@@ -146,7 +149,7 @@ export const postLogin = async (req, res) => {
 export const logout = async (req, res) => {
   try {
     res.clearCookie("token");
-    res.status(204).json({ message: "로그아웃 되었습니다" });
+    res.json({ message: "로그아웃 되었습니다" });
   } catch {
     return res.status(500).json({ message: "로그아웃 실패" });
   }
