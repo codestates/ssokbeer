@@ -18,6 +18,7 @@ export const getProfile = async () => {
     } = await axios.get("http://localhost:4000/user/profile");
     return { email, nickname };
   } catch (e) {
+    console.log("마이페이지 접근 실패");
     console.log(e.response);
   }
 };

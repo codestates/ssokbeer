@@ -36,7 +36,6 @@ const Title = styled.input`
   }
 `;
 
-<<<<<<< HEAD
 const Content = styled.input`
   text-decoration: none;
   border: none;
@@ -59,16 +58,6 @@ const Img = styled.input`
   margin-bottom: 15px;
   &:focus {
     outline: none;
-=======
-const Wrapper = styled.div`
-  width: 95%;
-  .ck-editor__main {
-    min-height: 400px;
-    width: 100%;
-    > div {
-      min-height: 520px;
-    }
->>>>>>> ec2ad2d06874fd4a3f67cedac766922eb094ab77
   }
 `;
 
