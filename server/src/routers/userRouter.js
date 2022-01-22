@@ -23,6 +23,6 @@ userRouter.route("/signout").delete(signout);
 userRouter.route("/profile").get(getProfile).patch(editProfile);
 
 userRouter.route("/login").post(postLogin);
-userRouter.route("/logout").delete(logout);
+userRouter.route("/logout").get(logout);
 
 export default userRouter;
