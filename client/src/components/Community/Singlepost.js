@@ -73,8 +73,9 @@ const CreatedDate = styled.div`
   font-size: 16px;
   padding: 10px;
 `;
-const Singlepost = () => {
-  const [likeCnt, setLikeCnt] = useState(0);
+
+const Singlepost = ({ post }) => {
+  const [likeCnt, setLikeCnt] = useState(post.like);
   const [like, setLike] = useState(false);
   const handleLikeClick = () => {
     setLike(!like);
@@ -87,19 +88,19 @@ const Singlepost = () => {
   return (
     <Post>
       <FoodLink to="detailpage">
-        <FoodImg src="https://cphoto.asiae.co.kr/listimglink/6/2017102710512764418_1.jpg"></FoodImg>
+        <FoodImg src={post.img}></FoodImg>
       </FoodLink>
       <ContentBox>
-        <ContentHeader>집나간며느리도 돌아오는..</ContentHeader>
+        <ContentHeader>{post.title}</ContentHeader>
         <Username>머규</Username>
         <ViewLikeBox>
-          <View> 251 view </View>
+          <View> {post.visits} view </View>
           <LikeCount> {likeCnt}</LikeCount>
           <Like primary={like}>
             <i className="far fa-thumbs-up" onClick={handleLikeClick}></i>
           </Like>
         </ViewLikeBox>
-        <CreatedDate>01/20 오후2시35분</CreatedDate>
+        <CreatedDate>{post.createdAt}</CreatedDate>
       </ContentBox>
     </Post>
   );

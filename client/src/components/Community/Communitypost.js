@@ -64,10 +64,40 @@ const PostConatiner = styled.div`
   /* border: 1px solid red; */
 `;
 
+const Dummy = [
+  {
+    id: 1,
+    title: "집나간며느리도 돌아오는...",
+    img: "https://cphoto.asiae.co.kr/listimglink/6/2017102710512764418_1.jpg",
+    content: "전어가 아주그냥 끝내주네요",
+    visits: 0,
+    like: 3,
+    commentsId: null,
+    usersId: 1,
+    createdAt: "2022-01-18T10:29:02.000Z",
+    updatedAt: "2022-01-18T10:29:02.000Z",
+  },
+  {
+    id: 2,
+    title: "환상특급 삼겹살파티",
+    img: "https://cdn.mindgil.com/news/photo/202103/70839_7148_1250.jpg",
+    content: "환상특급 삼겹살파티",
+    visits: 1,
+    like: 5,
+    commentsId: null,
+    usersId: 2,
+    createdAt: "2022-01-18T10:51:52.000Z",
+    updatedAt: "2022-01-18T14:10:37.000Z",
+  },
+];
+
 const CommunityPost = () => {
-  useEffect(() => {
-    const { allContent } = axios.get(`http://localhost4000/content`);
-  });
+  const [posts, setPosts] = useState(Dummy);
+
+  // useEffect(() => {
+  //   const { allContent } = axios.get(`http://localhost4000/content`);
+  //   setPosts(allContent)
+  // });
 
   return (
     <Container>
@@ -82,7 +112,9 @@ const CommunityPost = () => {
       </CommunityNav>
       <PostSection>
         <PostConatiner>
-          <Singlepost></Singlepost>
+          {posts.map((post) => (
+            <Singlepost post={post}></Singlepost>
+          ))}
         </PostConatiner>
       </PostSection>
     </Container>

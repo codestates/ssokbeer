@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import TimeCounting from "time-counting";
 import { v4 as uuidv4 } from "uuid";
+import axios from "axios";
 
 const WritingAllignment = styled.div`
   display: flex;

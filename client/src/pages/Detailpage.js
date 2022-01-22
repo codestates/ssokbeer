@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import SingleComment from "../components/Detailpage/SingleComment";
 import NewCommentForm from "../components/Detailpage/NewCommentForm";
 
+
 const Container = styled.div`
   width: 100%;
   margin: 0px auto;

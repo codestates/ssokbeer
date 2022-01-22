@@ -53,11 +53,11 @@ const RigthNav = ({ isLogin, isVisible, ChangeMenuVisibility }) => {
 
   return isPc ? (
     <PcContainer>
+      <PageLink to="/">
+        <Page>홈</Page>
+      </PageLink>
       <PageLink to="/drink">
         <Page>주류</Page>
-      </PageLink>
-      <PageLink to="/food">
-        <Page>안주</Page>
       </PageLink>
       <PageLink to="/community">
         <Page>커뮤니티</Page>

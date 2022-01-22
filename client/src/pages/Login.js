@@ -35,13 +35,16 @@ const WelcomeText = styled.div`
 `;
 
 const Button = styled.button`
-  margin: 10px;
+  margin: 40px 10px 10px 10px;
   width: 70px;
   height: 30px;
   border-radius: 10%;
   background-color: ${(props) => (props.pc ? "white" : "#fed969")};
-  margin: 10px 0px 10px 0px;
   cursor: grab;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    background-color: #eeeeee;
+  }
 `;
 
 const Screen = styled.div`
@@ -55,11 +58,11 @@ const LoginForm = styled.form`
   align-items: center;
   margin: 0px 40px;
   width: 700px;
-  border: 1px solid black;
   border-radius: 10px;
   background-color: white;
 `;
 const LoginInput = styled.input`
+  width: 60%;
   text-decoration: none;
   border: none;
   padding: 20px 0px;
@@ -197,7 +200,7 @@ const Login = () => {
           {invalid ? null : <Messagebox>이메일을 다시 확인해주세요</Messagebox>}
           <LoginInput
             type="password"
-            placeholder={isfullfilled ? "password" : "비밀번호를 입력해주세요"}
+            placeholder={isfullfilled ? "Password" : "비밀번호를 입력해주세요"}
             fullfilled={isfullfilled}
             onChange={handleInputValue("password")}
           ></LoginInput>

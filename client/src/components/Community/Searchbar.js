@@ -51,7 +51,9 @@ const SearchBar = () => {
   const handleList = (event) => {
     setChoice(event.target.value);
   };
-
+  {
+    /* {conents.filter(content => content.title === filterText)} */
+  }
   return (
     <Contaier>
       <SelectBox onChange={handleList}>{options}</SelectBox>

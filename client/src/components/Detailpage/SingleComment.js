@@ -73,7 +73,8 @@ const SingleComment = ({ comment }) => {
         </UserBox>
         <ModifyBox>
           <i onClick={handleClickModify} className="fas fa-ellipsis-v"></i>
-          {isOpen ? <ModifyPopup>수정</ModifyPopup> : null}
+          {isOpen ? <ModifyPopup>수정</ModifyPopup> : null} /* 커사멘트 아이디와 사용자가 같으면 열리는 로직 ,누르고 재
+          랜더링되야하고, 바로 바껴야하고, */
         </ModifyBox>
       </CommentAlignment>
       <Comment>{comment.content}</Comment>

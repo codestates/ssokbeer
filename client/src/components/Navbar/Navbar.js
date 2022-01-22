@@ -142,11 +142,11 @@ const Navbar = () => {
       {isOpen ? (
         <SideNav ref={side}>
           <i onClick={CloseSideNav} className="fas fa-times" icon></i>
+          <SideLink onClick={CloseSideNav} to="/">
+            <Menu>홈</Menu>
+          </SideLink>
           <SideLink onClick={CloseSideNav} to="/drink">
             <Menu>주류</Menu>
-          </SideLink>
-          <SideLink onClick={CloseSideNav} to="/food">
-            <Menu>안주</Menu>
           </SideLink>
           <SideLink onClick={CloseSideNav} to="/community">
             <Menu>커뮤니티</Menu>
@@ -168,9 +168,7 @@ const Navbar = () => {
         </SideNav>
       ) : null}
       <Header>
-        <LogoLink to="/home">
-          <Logo src={logo} />
-        </LogoLink>
+        <Logo src={logo} />
         <RigthNav isLogin={isLogin} isVisible={isOpen} ChangeMenuVisibility={ChangeMenuVisibility} />
       </Header>
     </Nav>
