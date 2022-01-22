@@ -76,7 +76,7 @@ export const getProfile = async (req, res) => {
       include: { model: contents },
     });
 
-    res.status(200).json(userInfo);
+    res.status(200).json({ message: "내정보 불러오기 성공", userInfo });
   } catch {
     res.status(500).json({ message: "내정보 불러오기 실패" });
   }
