@@ -12,20 +12,21 @@ export const postComment = async (req, res) => {
     }
 
     const { email } = verify(token);
+
     const {
       dataValues: { id, nickname },
     } = await users.findOne({ where: { email } });
 
-    const { content, contentsId } = req.body;
-    if (!content || !contentsId) {
+    const { content, contentId } = req.body;
+    if (!content || !contentId) {
       return res.status(400).json({ message: "댓글을 입력해 주세요" });
     }
 
     const Comment = await comments.create({
-      usersId: id,
+      userId: id,
       content,
       nickname,
-      contentsId,
+      contentId,
     });
 
     res.status(201).json({ message: "댓글 작성 성공", comment: Comment.dataValues });
@@ -46,9 +47,9 @@ export const editComment = async (req, res) => {
     return res.status(400).json({ message: "댓글을 입력해 주세요" });
   }
 
-  const commentInfo = await comments.update({ content }, { where: { id } });
+  await comments.update({ content }, { where: { id } });
 
-  res.status(200).json({ message: "코멘트 수정 완료 ", commentInfo });
+  res.status(200).json({ message: "코멘트 수정 완료 " });
 };
 
 export const deleteComment = async (req, res) => {
@@ -59,7 +60,7 @@ export const deleteComment = async (req, res) => {
 
   const { id } = req.params;
 
-  await comments.destry({ content }, { where: { id } });
+  await comments.destroy({ where: { id } });
 
   res.status(200).json({ message: "코멘트 삭제 완료  " });
 };
