@@ -70,9 +70,9 @@ const Modal = ({ openModal, alcolId }) => {
   return (
     <ModalContainer>
       <AnimatePresence>
-        <Container initial={{ scale: 0 }} animate={{ scale: 1, rotateZ: 360 }}>
-          <i onClick={openModal} className='fas fa-times close'></i>
-          <Column className='img'>
+        <Container initial={{ scale: 0 }} animate={{ scale: 1 }}>
+          <i onClick={openModal} className="fas fa-times close"></i>
+          <Column className="img">
             <Img src={data.img} />
           </Column>
           <Column>

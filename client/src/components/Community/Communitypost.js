@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import AllContent from "./AllContent";
@@ -55,7 +55,7 @@ const PostConatiner = styled.div`
   width: 100%;
   margin: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
   grid-auto-rows: 370px;
   grid-gap: 24px;
   /* border: 1px solid red; */

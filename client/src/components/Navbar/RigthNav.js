@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
+import { useEffect } from "react";
 
 const PcContainer = styled.div`
   display: flex;
@@ -32,7 +33,7 @@ const ButtonLink = styled(Link)``;
 
 const Button = styled.button`
   margin: 10px;
-  width: 70px;
+  width: 74px;
   height: 30px;
   border-radius: 10%;
   background-color: #fed969;
@@ -40,31 +41,49 @@ const Button = styled.button`
 `;
 
 // eslint-disable-next-line
-const RigthNav = ({ isVisible, ChangeMenuVisibility }) => {
+const RigthNav = ({ isLogin, isVisible, ChangeMenuVisibility }) => {
   const closeMenu = () => ChangeMenuVisibility(false);
+
+  const handleClickLogout = () => {
+    localStorage.removeItem("isLogin");
+    window.location.reload();
+  };
+
   const isPc = useMediaQuery({ query: "(min-width: 768px)" }, undefined, closeMenu);
 
   return isPc ? (
     <PcContainer>
-      <PageLink to='/drink'>
+      <PageLink to="/">
+        <Page>홈</Page>
+      </PageLink>
+      <PageLink to="/drink">
         <Page>주류</Page>
       </PageLink>
-      <PageLink to='/food'>
-        <Page>안주</Page>
-      </PageLink>
-      <PageLink to='/community'>
+      <PageLink to="/community">
         <Page>커뮤니티</Page>
       </PageLink>
-      <ButtonLink to='/login'>
-        <Button>로그인</Button>
-      </ButtonLink>
-      <ButtonLink to='/signup'>
-        <Button>회원가입</Button>
-      </ButtonLink>
+      {isLogin ? (
+        <ButtonLink to="/mypage">
+          <Button>마이페이지</Button>
+        </ButtonLink>
+      ) : (
+        <ButtonLink to="/login">
+          <Button>로그인</Button>
+        </ButtonLink>
+      )}
+      {isLogin ? (
+        <ButtonLink to="/home">
+          <Button onClick={handleClickLogout}>로그아웃</Button>
+        </ButtonLink>
+      ) : (
+        <ButtonLink to="/signup">
+          <Button>회원가입</Button>
+        </ButtonLink>
+      )}
     </PcContainer>
   ) : (
     <MobileNav>
-      {isVisible ? undefined : <i className='fas fa-bars' onClick={() => ChangeMenuVisibility(!isVisible)}></i>}
+      {isVisible ? undefined : <i className="fas fa-bars" onClick={() => ChangeMenuVisibility(!isVisible)}></i>}
     </MobileNav>
   );
 };

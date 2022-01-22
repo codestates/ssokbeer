@@ -6,6 +6,7 @@ import Community from "../pages/Community";
 import GlobalStyles from "./GlobalStyles";
 import Signup from "../pages/Signup";
 import Writing from "../pages/Writing";
+import Detailpage from "../pages/Detailpage";
 import Mypage from "../pages/Mypage";
 import HomePost from "./HomePoster";
 
@@ -21,6 +22,7 @@ const Routers = () => (
       <Route path="/signup" element={<Signup />} />
       <Route path="/community" element={<Community />} />
       <Route path="/writing" element={<Writing />} />
+      <Route path="/community/detailpage" element={<Detailpage />} />
     </Routes>
   </BrowserRouter>
 );

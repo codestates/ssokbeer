@@ -30,7 +30,7 @@ const FormColumn = styled.div`
 const Input = styled.input`
   all: unset;
   width: 100%;
-  border-bottom: 1px solid ${(props) => (props.error ? "red" : "#aaa2a2")};
+  border-bottom: 2px solid ${(props) => (props.error ? "red" : "rgba(0, 0, 0, 0.2)")};
   &::placeholder {
     font-size: 13px;
   }
@@ -39,7 +39,7 @@ const Label = styled.label`
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
-  color: gray;
+  color: black;
   font-weight: bold;
 `;
 const Button = styled.button`
