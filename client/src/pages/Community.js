@@ -7,28 +7,25 @@ import { useEffect, useState } from "react";
 import { getContent } from "../api";
 
 const Community = () => {
-  const isPc = useMediaQuery({ query: "(min-width: 768px)" });
-  const [allContent, setAllContent] = useState({});
-  const [rankContent, setRankContent] = useState({});
+  const [allContent, setAllContent] = useState([]);
+  const [rankContent, setRankContent] = useState([]);
+
+  const getData = async () => {
+    const { allContent, rankContent } = await getContent();
+
+    setRankContent(rankContent);
+    setAllContent(allContent);
+  };
 
   useEffect(() => {
-    const { allContent, rankContent } = getContent();
-    setAllContent(allContent);
-    setRankContent(rankContent);
-    console.log(rankContent);
+    getData();
   }, []);
 
-  return isPc ? (
+  return (
     <>
-      <Recommendation allContent={rankContent} />
+      <Recommendation rankContent={rankContent} />
       <SearchBar />
-      <CommunityPost rankContent={allContent} />
-    </>
-  ) : (
-    <>
-      <MobileSearchBar></MobileSearchBar>
-      <Recommendation />
-      <CommunityPost />
+      <CommunityPost allContent={allContent} />
     </>
   );
 };

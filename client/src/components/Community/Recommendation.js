@@ -32,9 +32,9 @@ const Recommendation = ({ rankContent }) => {
     <Section>
       <RecommendText>이달의 추천 TOP</RecommendText>
       <RecommendConatiner>
-        {/* {rankContent.map((content) => {
+        {rankContent.map((content) => {
           return <RecomendContent content={content} />;
-        })} */}
+        })}
       </RecommendConatiner>
     </Section>
   );

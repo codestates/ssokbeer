@@ -25,8 +25,11 @@ export const getProfile = async () => {
 
 export const getContent = async () => {
   try {
-    const { allContent, rankContent } = await axios.get("http://localhost:4000/content");
+    const {
+      data: { allContent, rankContent },
+    } = await axios.get("http://localhost:4000/content");
     console.log("겟컨텐츠 성공");
+
     return { allContent, rankContent };
   } catch (e) {
     console.log(e.response);

@@ -48,6 +48,7 @@ const Content = styled.input`
     outline: none;
   }
 `;
+
 const Img = styled.input`
   text-decoration: none;
   border: none;
@@ -87,11 +88,13 @@ const Button = styled.button`
   }
 `;
 
+const Imtest = styled.img``;
+
 const Writing = () => {
   const nav = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [img, setImg] = useState("s");
+  const [img, setImg] = useState("");
 
   const onSubmitValid = async () => {
     try {
@@ -106,9 +109,18 @@ const Writing = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const user = getContent();
-  // }, []);
+  const handleFileOnChange = (e) => {
+    e.preventDefault();
+    let reader = new FileReader(); //파일리더 선언
+
+    let file = e.target.files[0]; //파일을 할당
+    reader.onloadend = () => {
+      setImg(reader.result);
+    };
+    //온 로드 엔드
+
+    reader.readAsDataURL(file);
+  };
 
   return (
     <Container>
@@ -129,10 +141,13 @@ const Writing = () => {
             setContent(e.target.value);
           }}
         ></Content>
-        <newImage />
-
-        <Img type="file" />
-
+        <Img
+          type="file"
+          onChange={(e) => {
+            handleFileOnChange(e);
+          }}
+        />
+        <Imtest src={img} />
         <ButtonBox>
           <CancelLink to="/community">
             <Button>취소</Button>
