@@ -5,6 +5,7 @@ const contents = db.content;
 const users = db.user;
 const comments = db.comment;
 const likes = db.like;
+
 export const getAllContent = async (req, res) => {
   try {
     const rankContent = await contents.findAll({ order: [["like", "DESC"]] });
@@ -64,8 +65,11 @@ export const updateContent = async (req, res) => {
     let { id } = req.params;
 
     id = parseInt(id);
+
     const { img, content } = req.body;
+
     const contentInfo = await contents.update({ img, content }, { where: { id } });
+
     res.status(200).json({ message: "글 수정 완료 ", contentInfo });
   } catch {
     res.status(500).json({ message: "글 수정 실패 " });
@@ -77,4 +81,5 @@ export const deleteContent = async (req, res) => {
   await contents.destroy({ where: { id } });
   res.status(201).json({ message: "글 삭제 완료" });
 };
+
 export const deleteAllContent = async (req, res) => {};

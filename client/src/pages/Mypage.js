@@ -1,9 +1,8 @@
 import styled from "styled-components";
 /* eslint-disable */
 import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { postSignup } from "../api";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getProfile, postSignup } from "../api";
 
 const Container = styled.div`
   display: flex;
@@ -76,64 +75,49 @@ const Span = styled.span`
   color: #f45555;
   margin: 10px 0;
 `;
-
-const Signup = () => {
-  const nav = useNavigate();
-  const { register, handleSubmit, errors, getValues, formState } = useForm({ mode: "onChange" }); // 핸들섭밋이란 함수가 있음
-  // 이벤트 종류  on blu 한인붙에서 다른인풋으로 넘어갈때  ,
+const Email = styled.h1``;
+const Mypage = () => {
+  const { register, handleSubmit, errors, getValues, formState, setValue } = useForm({
+    mode: "onChange",
+  });
+  const [user, setUser] = useState({});
   const onSubmitValid = () => {
-    const { email, password, nickname } = getValues();
-    postSignup({ email, password, nickname });
-    nav("/");
+    const { email, nickname } = getValues();
+
+    console.log(email, nickname);
   };
+
+  useEffect(() => {
+    const user = getProfile();
+    setValue("nickname", user.nickname);
+    setValue("email", user.email);
+    setUser({ email: user.email, nickname: user.nickname });
+  }, []);
 
   return (
     <Container>
       <Form
         onSubmit={(e) => {
-          e.preventDefault(); // 빈객체 를 서버에 보내는현상 방지
+          e.preventDefault();
           handleSubmit(onSubmitValid);
+          //첫번째 인자는 모든 유효성검사를 통과했을때 실행하는 함수
+          //두번째 인자는 유효성 검사를 하나라도 통과를 못했을때 실행하는 함수
         }}
       >
         <FormColumn>
-          <Label>이메일</Label>
-          <Input
-            ref={register({
-              required: "이메일을 꼭 입력해주세요.",
-              validate: {
-                check: (value) => {
-                  const regex = new RegExp(
-                    /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
-                  );
-                  //0~9까지 대소문자 A~Z  가없으면 false
-                  //이메일형식을 체크하는 함수 .
-
-                  const isValid = regex.test(value);
-
-                  if (!isValid) {
-                    return "이메일을 정확히 입력해주세요";
-                  }
-                  if (value === "") {
-                    return "이메일을 꼭 입력해주세요";
-                  }
-                },
-              },
-            })}
-            name="email"
-            placeholder="이메일을 입력해주세요"
-            error={errors.email?.message} //구조분해할당이 될때만 접근한다
-          />
-          <Span>{errors.email?.message}</Span>
+          <Email>{user.email}</Email>
         </FormColumn>
         <FormColumn>
           <Label>닉네임</Label>
           <Input
+            value={getValues().nickname}
             ref={register({
               required: "닉네임을 꼭 입력해주세요.",
               validate: {
                 check: (value) => {
                   const regex = new RegExp(/[^A-Za-z0-9가-힣]/);
                   const isValid = regex.test(value);
+
                   if (isValid) {
                     return "숫자, 영어, 한글만 입력해주세요";
                   }
@@ -184,13 +168,12 @@ const Signup = () => {
           />
           <Span>{errors.password2?.message}</Span>
         </FormColumn>
-
         <Button onClick={onSubmitValid} disabled={!formState.isValid}>
-          가입하기
+          수정하기
         </Button>
       </Form>
     </Container>
   );
 };
 
-export default Signup;
+export default Mypage;

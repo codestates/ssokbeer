@@ -26,8 +26,6 @@ export const getOneAlcohol = async (req, res) => {
 
 export const postAlcohol = async (req, res) => {
   try {
-    console.log("접근");
-
     console.log(alcohols);
     const result = await alcohols.create({
       name: "잎세주 ",
@@ -36,9 +34,6 @@ export const postAlcohol = async (req, res) => {
       img: "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img1.jpg?raw=true",
       type: "soju",
     });
-
-    console.log("결과");
-    console.log(result);
   } catch {
     res.status(500).json({ message: "post 알콜 실패" });
   }

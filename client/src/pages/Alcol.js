@@ -37,7 +37,7 @@ const Title = styled.h1`
   color: #3f3c3c;
   margin: 0 15px;
 `;
-
+//오페시티 투명도
 const listVariants = {
   entry: (back) =>
     back
@@ -62,6 +62,8 @@ const listVariants = {
       ? { x: 500, opacity: 0, scale: 0, transition: { duration: 0.5 } }
       : { x: -500, opacity: 0, scale: 0, transition: { duration: 0.5 } },
 };
+//엔트리 새로운 요소가 가운데로 올때 어떤 방식으로 들어올지
+//엑시트 컴포넌트를 나갈때 어떤 방식으로 나갈지
 
 const Alcol = () => {
   const [visible, setVisible] = useState(0);
@@ -104,13 +106,14 @@ const Alcol = () => {
     <Container>
       <Header>
         <Button onClick={previ}>
-          <i className='fas fa-arrow-left'></i>
+          <i className="fas fa-arrow-left"></i>
         </Button>
         <Title>쏙비어 추천주류</Title>
         <Button onClick={next}>
-          <i className='fas fa-arrow-right'></i>
+          <i className="fas fa-arrow-right"></i>
         </Button>
       </Header>
+
       <AnimatePresence custom={back}>
         <AlcolList
           listVariants={listVariants}

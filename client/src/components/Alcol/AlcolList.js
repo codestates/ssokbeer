@@ -39,9 +39,14 @@ const Name = styled.h2`
   font-weight: 600;
 `;
 
+//back이 동적으로 바뀌는 불린 스테이트
+//베리언츠
+//리스트 베리언츠 안에 백이라는 값을 넣겟다
+//이니셜은 섹션테그의 초기값
+
 const AlcolList = ({ data, back, listVariants, openModal, changeAlcolId }) => {
   return (
-    <Section custom={back} variants={listVariants} initial='entry' animate='center' exit='exit'>
+    <Section custom={back} variants={listVariants} initial="entry" animate="center" exit="exit">
       <Grid>
         {data.map((be, idx) => (
           <List
@@ -52,7 +57,8 @@ const AlcolList = ({ data, back, listVariants, openModal, changeAlcolId }) => {
             }}
             key={be.id}
             data-id={be.id}
-            data-type={be.type}>
+            data-type={be.type}
+          >
             <Img src={be.img} alt={be.name} />
             <Name>{be.name}</Name>
           </List>

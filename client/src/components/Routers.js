@@ -6,17 +6,21 @@ import Community from "../pages/Community";
 import GlobalStyles from "./GlobalStyles";
 import Signup from "../pages/Signup";
 import Writing from "../pages/Writing";
+import Mypage from "../pages/Mypage";
+import HomePost from "./HomePoster";
 
 const Routers = () => (
   <BrowserRouter>
     <GlobalStyles />
     <Navbar />
     <Routes>
-      <Route path='/drink' element={<Alcol />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/signup' element={<Signup />} />
-      <Route path='/community' element={<Community />} />
-      <Route path='/writing' element={<Writing />} />
+      <Route path="/" element={<HomePost />} />
+      <Route path="/mypage" element={<Mypage />} />
+      <Route path="/drink" element={<Alcol />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/community" element={<Community />} />
+      <Route path="/writing" element={<Writing />} />
     </Routes>
   </BrowserRouter>
 );

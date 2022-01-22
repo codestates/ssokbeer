@@ -64,7 +64,8 @@ const LoginInput = styled.input`
   border: none;
   padding: 20px 0px;
   font-size: 15px;
-  border-bottom: ${(props) => (props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red")};
+  border-bottom: ${(props) =>
+    props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red"};
   margin-bottom: 15px;
   &:focus {
     outline: none;
@@ -157,16 +158,20 @@ const Login = () => {
       return setIsFullfiled(false);
     }
 
-    const {
-      data: { userInfo },
-    } = await axios.post(`http://localhost:8080/user/login`, {
-      email: loginInfo.email,
-      password: loginInfo.password,
-    });
-    if (userInfo) {
-      handleResponseSuccess();
-    } else {
-      setInvalid(false);
+    try {
+      const {
+        data: { userInfo },
+      } = await axios.post(`http://localhost:4000/user/login`, {
+        email: loginInfo.email,
+        password: loginInfo.password,
+      });
+      if (userInfo) {
+        handleResponseSuccess();
+      } else {
+        setInvalid(false);
+      }
+    } catch (e) {
+      console.log(e.response);
     }
 
     //데이터에 따라 함수 실행을 다르게한다.
@@ -184,21 +189,23 @@ const Login = () => {
       <Screen>
         <LoginForm>
           <LoginInput
-            type='text'
+            type="text"
             placeholder={isfullfilled ? "Email" : "이메일을 입력해주세요"}
             fullfilled={isfullfilled}
-            onChange={handleInputValue("email")}></LoginInput>
+            onChange={handleInputValue("email")}
+          ></LoginInput>
           {invalid ? null : <Messagebox>이메일을 다시 확인해주세요</Messagebox>}
           <LoginInput
-            type='password'
+            type="password"
             placeholder={isfullfilled ? "password" : "비밀번호를 입력해주세요"}
             fullfilled={isfullfilled}
-            onChange={handleInputValue("password")}></LoginInput>
+            onChange={handleInputValue("password")}
+          ></LoginInput>
           {invalid ? null : <Messagebox>비밀번호를 다시 확인해주세요</Messagebox>}
-          <Button type='submit' onClick={handleLogin} pc={isPc}>
+          <Button type="submit" onClick={handleLogin} pc={isPc}>
             로그인
           </Button>
-          <SignUpLink to='/signup'>
+          <SignUpLink to="/signup">
             <SignUp>아직 회원이 아니신가요?</SignUp>
           </SignUpLink>
         </LoginForm>
@@ -206,11 +213,11 @@ const Login = () => {
       <ButtonForm>
         <ButtonContainer>
           <OauthButton>
-            <i className='fab fa-google'></i>
+            <i className="fab fa-google"></i>
             Google로 로그인
           </OauthButton>
           <OauthButton>
-            <i className='fab fa-github'></i>
+            <i className="fab fa-github"></i>
             Github로 로그인
           </OauthButton>
         </ButtonContainer>
