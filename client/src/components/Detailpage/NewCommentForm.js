@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import TimeCounting from "time-counting";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
+import { postComment } from "../../api";
 
 const WritingAllignment = styled.div`
   display: flex;
@@ -38,34 +39,21 @@ const CommentButton = styled.button`
   }
 `;
 
-const NewCommentForm = ({ onButttonClick }) => {
+const NewCommentForm = ({ nowContentId }) => {
   const [newComment, setNewComment] = useState("");
-  const [ninckname, setnickname] = useState("");
-
-  // let today = new Date();
-  // console.log(TimeCounting(today, { lang: "ko" }));
-  // useEffect(() => {});
 
   const handleChangeComment = (e) => {
     setNewComment(e.target.value);
   };
 
-  console.log(newComment);
-
   const onClickSubmit = () => {
     const comment = {
-      id: uuidv4(),
-      usersId: 4,
-      nickname: "헬로",
       content: newComment,
-      contentsId: 2,
+      contentId: nowContentId,
     };
     console.log("클릭버튼");
-    // axios.post(`http://localhost:4000/content/`, {
-    //   contentsId: uuidv4(),
-    //   content: newComment,
-    // });
-    onButttonClick(comment);
+    postComment(comment);
+    window.location.reload();
   };
 
   return (

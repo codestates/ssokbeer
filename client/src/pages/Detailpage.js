@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import SingleComment from "../components/Detailpage/SingleComment";
 import NewCommentForm from "../components/Detailpage/NewCommentForm";
 import axios from "axios";
+import { getSingleContent, postLike } from "../api";
 
 const Container = styled.div`
   width: 100%;
@@ -138,77 +139,32 @@ const CommentForm = styled.div`
   background-color: rgba(0, 0, 0, 0.04);
 `;
 
-const DUMMY_DATA = [
-  {
-    id: 1,
-    usersId: 4,
-    nickname: "머규",
-    content: "개맛있겠당ㅋㅋㅋ",
-    contentsId: 2,
-    createdAt: "2022-01-18T13:24:19.000Z",
-    updatedAt: "2022-01-18T13:24:19.000Z",
-  },
-  {
-    id: 2,
-    usersId: 4,
-    nickname: "이채야채",
-    content: "oowooowoowoooo",
-    contentsId: 2,
-    createdAt: "2022-01-18T13:25:28.000Z",
-    updatedAt: "2022-01-18T13:25:28.000Z",
-  },
-  {
-    id: 3,
-    usersId: 4,
-    nickname: "진0",
-    content: "oowooowoowoooo",
-    contentsId: 2,
-    createdAt: "2022-01-18T13:25:28.000Z",
-    updatedAt: "2022-01-18T13:25:28.000Z",
-  },
-  {
-    id: 4,
-    usersId: 4,
-    nickname: "몬스타",
-    content: "oowooowoowoooo",
-    contentsId: 2,
-    createdAt: "2022-01-18T13:25:28.000Z",
-    updatedAt: "2022-01-18T13:25:28.000Z",
-  },
-];
-
 const Detailpage = () => {
   let { state } = useLocation();
+  // console.log(state);
   //   const [isAdministrator, setIsadministrator] = useState(false);
   const [likeCnt, setLikeCnt] = useState(0);
-  const [like, setLike] = useState(false);
-  const [comments, setComments] = useState(DUMMY_DATA);
+  // const [like, setLike] = useState(false);
+  const [singleData, setSingleData] = useState([]);
+
+  const getSingleData = async () => {
+    const data = await getSingleContent(state.content.id);
+    setSingleData(data);
+  };
 
   useEffect(() => {
-    (async () => {
-      let pageInfo = await axios.get(`http://localhost:8080/content/${state.post.id}`);
-      console.log("pageInfo: ", pageInfo);
-    })();
-    // setComments(pageInfo.visitCnt.comments);
-    // comment newPost ? refresh
-    // 등록을 한다 -> 서버 -> comemnts 10000000 -> (프로젝트용)
+    getSingleData();
   }, []);
 
   const handleLikeClick = () => {
-    setLike(!like);
-    if (!like) {
-      setLikeCnt(likeCnt + 1);
-    } else {
-      setLikeCnt(likeCnt - 1);
-    }
+    postLike(id);
+    window.location.reload();
   };
+
   const handleClickModify = () => {};
   const handleClickDelete = () => {};
 
-  const addNewComment = (newComment) => {
-    let allComments = axios.get("/commnets");
-    setComments(allComments);
-  };
+  const { title, img, createdAt, visit, like, id, content, comments } = singleData;
 
   return (
     <Container>
@@ -222,29 +178,29 @@ const Detailpage = () => {
             <ModifyButton onClick={handleClickDelete}>삭제</ModifyButton>
           </ButtonAllignment>
         </ButtonBox>
-        <Title>집나간 며느리도 돌아오는...</Title>
+        <Title>{title}</Title>
         <InformBox>
           <User>머규</User>
-          <Inform>추천 {likeCnt}</Inform>
-          <Inform>조회</Inform>
-          <Inform>22.01.20 14:17</Inform>
+          <Inform>추천 {like}</Inform>
+          <Inform>조회{visit}</Inform>
+          <Inform>{createdAt}</Inform>
           <Inform>댓글</Inform>
         </InformBox>
-        <Content></Content>
+        <Content>{content}</Content>
         <ButtonBox>
           <Button>댓글</Button>
           <LikeBox>
-            <LikeCount> {likeCnt}</LikeCount>
+            <LikeCount>{like}</LikeCount>
             <Like primary={like}>
               <i className="far fa-thumbs-up" onClick={handleLikeClick}></i>
             </Like>
           </LikeBox>
         </ButtonBox>
         <CommentForm>
-          {comments.map((comment) => (
+          {comments?.map((comment) => (
             <SingleComment comment={comment} />
           ))}
-          <NewCommentForm onButttonClick={addNewComment} />
+          <NewCommentForm nowContentId={id} />
         </CommentForm>
       </Form>
     </Container>

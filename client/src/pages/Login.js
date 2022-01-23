@@ -67,8 +67,7 @@ const LoginInput = styled.input`
   border: none;
   padding: 20px 0px;
   font-size: 15px;
-  border-bottom: ${(props) =>
-    props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red"};
+  border-bottom: ${(props) => (props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red")};
   margin-bottom: 15px;
   &:focus {
     outline: none;
@@ -159,7 +158,6 @@ const Login = () => {
     setIsLogin(true);
     localStorage.setItem("isLogin", true);
     window.location.reload();
-    // localStorage.setItem("userID", nickname);
   };
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -169,7 +167,7 @@ const Login = () => {
     }
 
     try {
-      const data = await axios.post(`http://localhost:8080/user/login`, {
+      const data = await axios.post(`http://localhost:4000/user/login`, {
         email: loginInfo.email,
         password: loginInfo.password,
       });
