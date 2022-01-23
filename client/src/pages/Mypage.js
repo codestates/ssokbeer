@@ -77,17 +77,24 @@ const Span = styled.span`
 `;
 const Email = styled.h1``;
 const Mypage = () => {
-  const { register, handleSubmit, errors, getValues, formState, setValue } = useForm({ mode: "onChange" });
+  const { register, handleSubmit, errors, getValues, formState, setValue } = useForm({
+    mode: "onChange",
+  });
   const [user, setUser] = useState({});
   const onSubmitValid = () => {
     const { email, nickname } = getValues();
-    console.log(email, nickname);
+    postSignup({ email, nickname });
+    nav("/");
   };
+  const getData = async () => {
+    const user = await getProfile();
 
-  useEffect(() => {
-    const user = getProfile();
-    setValue({ email: user.email, nickname: user.nickname });
+    setValue("nickname", user.nickname);
+    setValue("email", user.email);
     setUser({ email: user.email, nickname: user.nickname });
+  };
+  useEffect(() => {
+    getData();
   }, []);
 
   return (
@@ -96,19 +103,24 @@ const Mypage = () => {
         onSubmit={(e) => {
           e.preventDefault();
           handleSubmit(onSubmitValid);
-        }}>
+          //첫번째 인자는 모든 유효성검사를 통과했을때 실행하는 함수
+          //두번째 인자는 유효성 검사를 하나라도 통과를 못했을때 실행하는 함수
+        }}
+      >
         <FormColumn>
           <Email>{user.email}</Email>
         </FormColumn>
         <FormColumn>
           <Label>닉네임</Label>
           <Input
+            value={getValues().nickname}
             ref={register({
               required: "닉네임을 꼭 입력해주세요.",
               validate: {
                 check: (value) => {
                   const regex = new RegExp(/[^A-Za-z0-9가-힣]/);
                   const isValid = regex.test(value);
+
                   if (isValid) {
                     return "숫자, 영어, 한글만 입력해주세요";
                   }
@@ -117,8 +129,8 @@ const Mypage = () => {
               minLength: { value: 2, message: "최소 2자 이상 입력해주세요" },
               maxLength: { value: 8, message: "최대 8자 이하로 입력해주세요" },
             })}
-            name='nickname'
-            placeholder='2~8글자'
+            name="nickname"
+            placeholder="2~8글자"
             error={errors.nickname?.message}
           />
           <Span>{errors.nickname?.message}</Span>
@@ -133,9 +145,9 @@ const Mypage = () => {
                 message: "8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요",
               },
             })}
-            name='password'
-            type='password'
-            placeholder='8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요'
+            name="password"
+            type="password"
+            placeholder="8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요"
             error={errors.password?.message}
           />
           <Span>{errors.password?.message}</Span>
@@ -152,14 +164,13 @@ const Mypage = () => {
                 },
               },
             })}
-            name='password2'
-            type='password'
-            placeholder='비밀번호를 한번 더 입력해 주세요'
+            name="password2"
+            type="password"
+            placeholder="비밀번호를 한번 더 입력해 주세요"
             error={errors.password2?.message}
           />
           <Span>{errors.password2?.message}</Span>
         </FormColumn>
-
         <Button onClick={onSubmitValid} disabled={!formState.isValid}>
           수정하기
         </Button>

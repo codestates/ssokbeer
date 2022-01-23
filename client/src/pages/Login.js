@@ -67,7 +67,8 @@ const LoginInput = styled.input`
   border: none;
   padding: 20px 0px;
   font-size: 15px;
-  border-bottom: ${(props) => (props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red")};
+  border-bottom: ${(props) =>
+    props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red"};
   margin-bottom: 15px;
   &:focus {
     outline: none;
@@ -166,6 +167,7 @@ const Login = () => {
     if (!loginInfo.email || !loginInfo.password) {
       return setIsFullfiled(false);
     }
+
     try {
       const data = await axios.post(`http://localhost:8080/user/login`, {
         email: loginInfo.email,
@@ -200,7 +202,7 @@ const Login = () => {
           {invalid ? null : <Messagebox>이메일을 다시 확인해주세요</Messagebox>}
           <LoginInput
             type="password"
-            placeholder={isfullfilled ? "Password" : "비밀번호를 입력해주세요"}
+            placeholder={isfullfilled ? "password" : "비밀번호를 입력해주세요"}
             fullfilled={isfullfilled}
             onChange={handleInputValue("password")}
           ></LoginInput>

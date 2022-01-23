@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-// import axios from "axios";
+import axios from "axios";
+import { postContent } from "../api";
 
 const Container = styled.div`
   width: 100%;
@@ -13,6 +12,7 @@ const Container = styled.div`
   align-items: center;
   padding: 100px 15px 0px 15px;
 `;
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -37,14 +37,29 @@ const Title = styled.input`
   }
 `;
 
-const Wrapper = styled.div`
+const Content = styled.input`
+  text-decoration: none;
+  border: none;
   width: 95%;
-  .ck-editor__main {
-    min-height: 400px;
-    width: 100%;
-    > div {
-      min-height: 520px;
-    }
+  padding: 20px 0px 10px 0px;
+  font-size: 25px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 15px;
+  &:focus {
+    outline: none;
+  }
+`;
+
+const Img = styled.input`
+  text-decoration: none;
+  border: none;
+  width: 95%;
+  padding: 20px 0px 10px 0px;
+  font-size: 25px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 15px;
+  &:focus {
+    outline: none;
   }
 `;
 
@@ -74,57 +89,66 @@ const Button = styled.button`
   }
 `;
 
-const Writing = () => {
-  const [post, setPost] = useState({
-    title: "",
-    image: "",
-    content: "",
-  });
+const Imtest = styled.img``;
 
-  const onTitleChange = (e) => {
-    setPost({ ...post, title: e.target.value });
-    console.log(post);
+const Writing = () => {
+  const nav = useNavigate();
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [img, setImg] = useState("");
+
+  const postData = async () => {
+    await postContent(title, content, img);
   };
 
-  const handleClickSubmit = async () => {
-    // const submit = await axios.post(`http://localhost:4000/content`, {
-    //   title: post.title,
-    //   image: post.image,
-    //   content: post.content,
-    // });
-    console.log(post.title);
+  const onSubmitValid = async () => {
+    try {
+      postData();
+
+      nav("/community");
+    } catch (e) {
+      console.log(e.response);
+    }
+  };
+
+  const handleFileOnChange = (e) => {
+    e.preventDefault();
+
+    setImg(URL.createObjectURL(e.target.files[0]));
+    console.log(img);
   };
 
   return (
     <Container>
       <Form>
-        <Title required type="text" placeholder="제목을 입력하세요" onChange={onTitleChange}></Title>
-        <Wrapper>
-          <CKEditor
-            editor={ClassicEditor}
-            data="<p>내용을 입력하세요</p>"
-            onReady={(editor) => {
-              // You can store the "editor" and use when it is needed.
-              console.log("Editor is ready to use!", editor);
-            }}
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              //   console.log({ event, editor, data });
-              setPost({ ...post, content: data });
-            }}
-            onBlur={(event, editor) => {
-              //   console.log("Blur.", editor);
-            }}
-            onFocus={(event, editor) => {
-              //   console.log("Focus.", editor);
-            }}
-          />
-        </Wrapper>
+        <Title
+          required
+          type="text"
+          placeholder="제목을 입력하세요"
+          onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+        ></Title>
+        <Content
+          required
+          type="text"
+          placeholder="내용을 입력하세요"
+          onChange={(e) => {
+            setContent(e.target.value);
+          }}
+        ></Content>
+        <Img
+          type="file"
+          onChange={(e) => {
+            handleFileOnChange(e);
+          }}
+        />
+        <Imtest src={img} />
         <ButtonBox>
           <CancelLink to="/community">
             <Button>취소</Button>
           </CancelLink>
-          <Button type="submit" onClick={handleClickSubmit}>
+          <Button type="submit" onClick={onSubmitValid}>
             등록
           </Button>
         </ButtonBox>

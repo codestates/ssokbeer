@@ -3,21 +3,29 @@ import SearchBar from "../components/Community/Searchbar";
 import CommunityPost from "../components/Community/Communitypost";
 import MobileSearchBar from "../components/Community/Mobilesearchbar";
 import { useMediaQuery } from "react-responsive";
+import { useEffect, useState } from "react";
+import { getContent } from "../api";
 
 const Community = () => {
-  const isPc = useMediaQuery({ query: "(min-width: 768px)" });
+  const [allContent, setAllContent] = useState([]);
+  const [rankContent, setRankContent] = useState([]);
 
-  return isPc ? (
+  const getData = async () => {
+    const { allContent, rankContent } = await getContent();
+
+    setRankContent(rankContent);
+    setAllContent(allContent);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  return (
     <>
-      <Recommendation />
+      <Recommendation rankContent={rankContent} />
       <SearchBar />
-      <CommunityPost />
-    </>
-  ) : (
-    <>
-      <MobileSearchBar></MobileSearchBar>
-      <Recommendation />
-      <CommunityPost />
+      <CommunityPost allContent={allContent} />
     </>
   );
 };

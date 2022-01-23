@@ -136,7 +136,7 @@ const Navbar = () => {
   useEffect(() => {
     setIsLogin(Boolean(localStorage.getItem("isLogin")));
   }, []);
-  console.log(isLogin);
+
   return (
     <Nav>
       {isOpen ? (
@@ -169,7 +169,11 @@ const Navbar = () => {
       ) : null}
       <Header>
         <Logo src={logo} />
-        <RigthNav isLogin={isLogin} isVisible={isOpen} ChangeMenuVisibility={ChangeMenuVisibility} />
+        <RigthNav
+          isLogin={isLogin}
+          isVisible={isOpen}
+          ChangeMenuVisibility={ChangeMenuVisibility}
+        />
       </Header>
     </Nav>
   );

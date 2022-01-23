@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { postSignup } from "../api";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -77,18 +78,20 @@ const Span = styled.span`
 `;
 
 const Signup = () => {
-  const { register, handleSubmit, errors, getValues, formState } = useForm({ mode: "onChange" });
-
+  const nav = useNavigate();
+  const { register, handleSubmit, errors, getValues, formState } = useForm({ mode: "onChange" }); // 핸들섭밋이란 함수가 있음
+  // 이벤트 종류  on blu 한인붙에서 다른인풋으로 넘어갈때  ,
   const onSubmitValid = () => {
     const { email, password, nickname } = getValues();
     postSignup({ email, password, nickname });
+    nav("/");
   };
 
   return (
     <Container>
       <Form
         onSubmit={(e) => {
-          e.preventDefault();
+          e.preventDefault(); // 빈객체 를 서버에 보내는현상 방지
           handleSubmit(onSubmitValid);
         }}
       >
@@ -102,7 +105,11 @@ const Signup = () => {
                   const regex = new RegExp(
                     /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
                   );
+                  //0~9까지 대소문자 A~Z  가없으면 false
+                  //이메일형식을 체크하는 함수 .
+
                   const isValid = regex.test(value);
+
                   if (!isValid) {
                     return "이메일을 정확히 입력해주세요";
                   }
@@ -114,7 +121,7 @@ const Signup = () => {
             })}
             name="email"
             placeholder="이메일을 입력해주세요"
-            error={errors.email?.message}
+            error={errors.email?.message} //구조분해할당이 될때만 접근한다
           />
           <Span>{errors.email?.message}</Span>
         </FormColumn>

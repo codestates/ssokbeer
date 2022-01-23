@@ -26,7 +26,7 @@ const Button = styled.button``;
 const MobileSearchBar = () => {
   const [choice, setChoice] = useState("");
   const [textSearch, setTextSearch] = useState("");
-  console.log(choice);
+
   const handleChange = (e) => {
     setTextSearch(e.target.value);
   };
