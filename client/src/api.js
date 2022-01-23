@@ -49,13 +49,38 @@ export const postContent = async (title, content, img) => {
   }
 };
 
-export const postLike = async ({ id }) => {
-  console.log("게시글아이디");
-  console.log(id);
+export const postLike = async (id) => {
+  console.log("라이크접근");
   try {
-    const like = await axios.get(`http://localhost:4000/like/${id}`);
-
+    const like = await axios.post(`http://localhost:4000/like/${id}`);
+    console.log("라이크성공");
+    console.log(like);
     return like;
+  } catch (e) {
+    console.log(e.response);
+  }
+};
+
+export const getSingleContent = async (id) => {
+  try {
+    const {
+      data: { visitCnt },
+    } = await axios.get(`http://localhost:4000/content/${id}`);
+    console.log("게시글아이디");
+    console.log(visitCnt);
+    return visitCnt;
+  } catch (e) {
+    console.log(e.response);
+  }
+};
+
+export const postComment = async (comment) => {
+  try {
+    console.log(comment);
+    const data = await axios.post(`http://localhost:4000/comment`, comment);
+    console.log("댓글쓰기");
+    console.log(data);
+    return data;
   } catch (e) {
     console.log(e.response);
   }
