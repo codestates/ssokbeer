@@ -8,14 +8,14 @@ import Signup from "../pages/Signup";
 import Writing from "../pages/Writing";
 import Detailpage from "../pages/Detailpage";
 import Mypage from "../pages/Mypage";
-import HomePost from "./HomePoster";
+import Main from "./Home/Main";
 
 const Routers = () => (
   <BrowserRouter>
     <GlobalStyles />
     <Navbar />
     <Routes>
-      <Route path="/" element={<HomePost />} />
+      <Route path="/" element={<Main />} />
       <Route path="/mypage" element={<Mypage />} />
       <Route path="/drink" element={<Alcol />} />
       <Route path="/login" element={<Login />} />

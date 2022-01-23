@@ -93,6 +93,7 @@ const Mypage = () => {
     setValue("email", user.email);
     setUser({ email: user.email, nickname: user.nickname });
   };
+
   useEffect(() => {
     getData();
   }, []);

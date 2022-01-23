@@ -49,11 +49,12 @@ export const postContent = async (title, content, img) => {
   }
 };
 
-export const postLike = async ({ id }) => {
+export const postLike = async (id) => {
   console.log("게시글아이디");
   console.log(id);
+
   try {
-    const like = await axios.get(`http://localhost:4000/like/${id}`);
+    const like = await axios.post(`http://localhost:4000/like/${id}`);
 
     return like;
   } catch (e) {

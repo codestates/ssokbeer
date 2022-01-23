@@ -67,6 +67,7 @@ const CreatedDate = styled.div`
 
 const AllContent = ({ content }) => {
   const { id, nickname, title, visit, likeCnt, like, createdAt, img } = content;
+
   return (
     <Post>
       <FoodImg src={img}></FoodImg>
