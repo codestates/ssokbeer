@@ -22,7 +22,7 @@ const SlideBox = styled.div`
 `;
 
 const SlideList = styled.div`
-  width: 1203px;
+  width: 1200px;
   transition: all 30ms ease 0s;
   overflow: hidden;
   transform: translate3d(${(props) => props.cr * -300}px, 0px, 0px);
@@ -71,11 +71,14 @@ const ButtonNext = styled.div`
 const Review = () => {
   const [currentReview, setCurrentReview] = useState(0);
   const onChangeContent = (n) => {
-    setCurrentReview(currentReview + n);
-    if (currentReview < 0) {
-      setCurrentReview(2);
-    } else if (currentReview > 2) {
+    const a = currentReview + n;
+
+    if (a < 0) {
+      setCurrentReview(3);
+    } else if (a > 3) {
       setCurrentReview(0);
+    } else {
+      setCurrentReview(a);
     }
   };
 
@@ -99,14 +102,14 @@ const Review = () => {
           onChangeContent(-1);
         }}
       >
-        <i class="fas fa-chevron-left"></i>
+        <i className="fas fa-chevron-left"></i>
       </ButtonPrev>
       <ButtonNext
         onClick={() => {
           onChangeContent(+1);
         }}
       >
-        <i class="fas fa-chevron-right"></i>
+        <i className="fas fa-chevron-right"></i>
       </ButtonNext>
     </ImageSlide>
   );
