@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { postLike } from "../../api";
 
 const Post = styled.div`
   width: 100%;
@@ -10,6 +9,7 @@ const Post = styled.div`
   justify-content: space-evenly;
   align-items: center;
 `;
+const FoodLink = styled(Link)``;
 
 const FoodImg = styled.img`
   width: 50%;
@@ -23,7 +23,7 @@ const ContentBox = styled.div`
   align-items: center;
 `;
 
-const ContentHeader = styled.div`
+const ContentHeader = styled(Link)`
   font-size: 20px;
   font-weight: 500;
   padding: 20px;
@@ -70,15 +70,17 @@ const AllContent = ({ content }) => {
 
   return (
     <Post>
-      <FoodImg src={img}></FoodImg>
+      <FoodLink to={`${id}`}>
+        <FoodImg src={img}></FoodImg>
+      </FoodLink>
       <ContentBox>
-        <ContentHeader>{title}</ContentHeader>
+        <ContentHeader to={`${id}`}>{title}</ContentHeader>
         <Username>{nickname}</Username>
         <ViewLikeBox>
           <View>{visit}</View>
           <LikeCount> {likeCnt}</LikeCount>
           <Like primary={like}>
-            <i className="far fa-thumbs-up" onClick={() => postLike(id)}></i>
+            <i className="far fa-thumbs-up">{like}</i>
           </Like>
         </ViewLikeBox>
         <CreatedDate>{createdAt}</CreatedDate>

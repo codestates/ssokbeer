@@ -75,8 +75,8 @@ const CommunityPost = ({ allContent }) => {
       </CommunityNav>
       <PostSection>
         <PostConatiner>
-          {allContent.map((content) => {
-            return <AllContent content={content} />;
+          {allContent.map((content, idx) => {
+            return <AllContent key={idx} content={content} />;
           })}
         </PostConatiner>
       </PostSection>
