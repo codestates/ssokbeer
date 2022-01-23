@@ -17,6 +17,7 @@
     "react-responsive": "^9.0.0-beta.5",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "react-slick": "^0.28.1",
     "styled-components": "^5.3.3",
     "styled-reset": "^4.3.4",
     "time-counting": "^2.0.2",
