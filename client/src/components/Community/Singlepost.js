@@ -85,9 +85,10 @@ const Singlepost = ({ post }) => {
       setLikeCnt(likeCnt - 1);
     }
   };
+
   return (
     <Post>
-      <FoodLink to="detailpage">
+      <FoodLink to={"detailpage"} state={{ post }}>
         <FoodImg src={post.img}></FoodImg>
       </FoodLink>
       <ContentBox>

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SingleComment from "../components/Detailpage/SingleComment";
 import NewCommentForm from "../components/Detailpage/NewCommentForm";
-
+import axios from "axios";
 
 const Container = styled.div`
   width: 100%;
@@ -178,17 +178,21 @@ const DUMMY_DATA = [
 ];
 
 const Detailpage = () => {
+  let { state } = useLocation();
   //   const [isAdministrator, setIsadministrator] = useState(false);
   const [likeCnt, setLikeCnt] = useState(0);
   const [like, setLike] = useState(false);
   const [comments, setComments] = useState(DUMMY_DATA);
 
   useEffect(() => {
-    //comments = axios.get(server/contents/14) DO
-    // setComments(comments);
+    (async () => {
+      let pageInfo = await axios.get(`http://localhost:8080/content/${state.post.id}`);
+      console.log("pageInfo: ", pageInfo);
+    })();
+    // setComments(pageInfo.visitCnt.comments);
     // comment newPost ? refresh
     // 등록을 한다 -> 서버 -> comemnts 10000000 -> (프로젝트용)
-  });
+  }, []);
 
   const handleLikeClick = () => {
     setLike(!like);
@@ -202,7 +206,8 @@ const Detailpage = () => {
   const handleClickDelete = () => {};
 
   const addNewComment = (newComment) => {
-    setComments([...comments, newComment]);
+    let allComments = axios.get("/commnets");
+    setComments(allComments);
   };
 
   return (
