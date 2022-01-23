@@ -1,8 +1,6 @@
 import Recommendation from "../components/Community/Recommendation";
 import SearchBar from "../components/Community/Searchbar";
 import CommunityPost from "../components/Community/Communitypost";
-import MobileSearchBar from "../components/Community/Mobilesearchbar";
-import { useMediaQuery } from "react-responsive";
 import { useEffect, useState } from "react";
 import { getContent } from "../api";
 
