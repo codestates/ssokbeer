@@ -38,7 +38,6 @@ export const getContent = async () => {
 };
 export const postContent = async (title, content, img) => {
   try {
-    console.log(title, content, img);
     await axios.post("http://localhost:4000/content", {
       title,
       content,

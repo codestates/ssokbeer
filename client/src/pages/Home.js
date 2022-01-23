@@ -6,7 +6,7 @@ import Main from "../components/Home/Main";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 100px;
+  padding-top: 78px;
   width: 100%;
   margin: 0 auto;
 `;

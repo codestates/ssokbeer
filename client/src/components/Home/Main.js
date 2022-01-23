@@ -24,9 +24,11 @@ const Introduce = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100%;
   background-color: white;
   height: 450px;
+  border: 1px solid pink;
 `;
 
 const Content = styled.div`
@@ -35,7 +37,7 @@ const Content = styled.div`
   color: #444444;
   text-align: center;
   margin: 0px 20px;
-  /* border: 1px solid red; */
+  border: 1px solid blue;
 `;
 
 const ReviewBox = styled.div`
@@ -62,8 +64,8 @@ const Main = () => {
       <ReviewBox>
         <Introduce>
           <Content>쏙비어 회원님들과 함께 해볼까요?</Content>
+          <Review></Review>
         </Introduce>
-        <Review></Review>
       </ReviewBox>
     </Container>
   );
