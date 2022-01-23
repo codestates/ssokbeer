@@ -83,15 +83,18 @@ const Mypage = () => {
   const [user, setUser] = useState({});
   const onSubmitValid = () => {
     const { email, nickname } = getValues();
-
-    console.log(email, nickname);
+    postSignup({ email, nickname });
+    nav("/");
   };
+  const getData = async () => {
+    const user = await getProfile();
 
-  useEffect(() => {
-    const user = getProfile();
     setValue("nickname", user.nickname);
     setValue("email", user.email);
     setUser({ email: user.email, nickname: user.nickname });
+  };
+  useEffect(() => {
+    getData();
   }, []);
 
   return (

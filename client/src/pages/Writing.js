@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import { postContent } from "../api";
 
 const Container = styled.div`
   width: 100%;
@@ -96,13 +97,14 @@ const Writing = () => {
   const [content, setContent] = useState("");
   const [img, setImg] = useState("");
 
+  const postData = async () => {
+    await postContent(title, content, img);
+  };
+
   const onSubmitValid = async () => {
     try {
-      const { contentInfo } = await axios.post("http://localhost:4000/content", {
-        title,
-        content,
-        img,
-      });
+      postData();
+
       nav("/community");
     } catch (e) {
       console.log(e.response);
@@ -111,15 +113,9 @@ const Writing = () => {
 
   const handleFileOnChange = (e) => {
     e.preventDefault();
-    let reader = new FileReader(); //파일리더 선언
 
-    let file = e.target.files[0]; //파일을 할당
-    reader.onloadend = () => {
-      setImg(reader.result);
-    };
-    //온 로드 엔드
-
-    reader.readAsDataURL(file);
+    setImg(URL.createObjectURL(e.target.files[0]));
+    console.log(img);
   };
 
   return (

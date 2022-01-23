@@ -16,6 +16,7 @@ export const getProfile = async () => {
         userInfo: { email, nickname },
       },
     } = await axios.get("http://localhost:4000/user/profile");
+
     return { email, nickname };
   } catch (e) {
     console.log("마이페이지 접근 실패");
@@ -35,8 +36,22 @@ export const getContent = async () => {
     console.log(e.response);
   }
 };
+export const postContent = async (title, content, img) => {
+  try {
+    console.log(title, content, img);
+    await axios.post("http://localhost:4000/content", {
+      title,
+      content,
+      img,
+    });
+  } catch (e) {
+    console.log(e.response);
+  }
+};
 
 export const postLike = async ({ id }) => {
+  console.log("게시글아이디");
+  console.log(id);
   try {
     const like = await axios.get(`http://localhost:4000/like/${id}`);
 
