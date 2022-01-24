@@ -11,7 +11,7 @@ const Community = () => {
   const getData = async () => {
     const { allContent, rankContent } = await getContent();
 
-    setRankContent(rankContent);
+    setRankContent(rankContent.slice(0, 4));
     setAllContent(allContent);
   };
 

@@ -30,6 +30,15 @@ export const getProfile = async () => {
   }
 };
 
+export const logout = async () => {
+  try {
+    const data = await axios.delete(`${URL}/user/logout`);
+    return data;
+  } catch (e) {
+    console.log(e.response);
+  }
+};
+
 export const patchProfile = async (body) => {
   try {
     const data = await axios.patch(`${URL}/user/profile`, body);
@@ -114,13 +123,32 @@ export const postComment = async (comment) => {
   }
 };
 
-export const logout = async () => {
+export const editComment = async (id, content) => {
   try {
-    const data = await axios.delete(`${URL}/user
-    /logout`);
-
+    const data = await axios.patch(`${URL}/comment/${id}`, { content });
     return data;
   } catch (e) {
     console.log(e.response);
   }
+};
+
+export const deleteComment = async (id) => {
+  try {
+    const data = await axios.delete(`${URL}/comment/${id}`);
+    return data;
+  } catch (e) {
+    console.log(e.response);
+  }
+};
+
+export const formatDate = (date) => {
+  let d = new Date(date),
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear(),
+    hour = d.getHours(),
+    minute = d.getMinutes();
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+  return `${month}월 ${day}일 ${hour}시 ${minute}분`;
 };

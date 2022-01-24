@@ -11,6 +11,7 @@ const WritingAllignment = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 95%;
+  margin: 0px 0px 20px 0px;
 `;
 
 const CommentWriting = styled.input`
@@ -39,28 +40,30 @@ const CommentButton = styled.button`
   }
 `;
 
-const NewCommentForm = ({ nowContentId }) => {
+const NewCommentForm = ({ nowContentId, nowUserId }) => {
   const [newComment, setNewComment] = useState("");
 
   const handleChangeComment = (e) => {
     setNewComment(e.target.value);
   };
 
-  const handleClickModify = () => {};
-
-  const onClickSubmit = () => {
+  const onClickSubmit = async () => {
     const comment = {
       content: newComment,
       contentId: nowContentId,
     };
     console.log("클릭버튼");
-    postComment(comment);
+    await postComment(comment);
     window.location.reload();
   };
 
   return (
     <WritingAllignment>
-      <CommentWriting type="text" onChange={handleChangeComment} />
+      <CommentWriting
+        type="text"
+        onChange={handleChangeComment}
+        placeholder={!nowUserId && "댓글을 작성 하려면 로그인 하세요"}
+      />
       <CommentButton onClick={onClickSubmit}>등록</CommentButton>
     </WritingAllignment>
   );

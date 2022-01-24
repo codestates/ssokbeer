@@ -122,14 +122,11 @@ const Navbar = () => {
   const handleClickLogout = async () => {
     // axios.delete(`http://localhost:4000/user/logout`);
 
-    setIsLogin(false);
     localStorage.removeItem("isLogin", false);
     localStorage.removeItem("userInfo");
     await logout();
     window.location.reload();
     navigate("/");
-    // window.location.reload();
-    // navigate("/home");
   };
 
   useEffect(() => {

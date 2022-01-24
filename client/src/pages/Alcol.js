@@ -29,14 +29,17 @@ const BeverageImg = styled.img`
 const NameConatiner = styled.div`
   display: flex;
   justify-content: center;
-  width: 70%;
+  width: 57%;
 `;
 
 const BeverageName = styled.div`
   size: 13px;
   color: #444444;
   font-weight: 600;
-  margin: 0px 148px 0px 153px;
+  /* margin: 0px 148px 0px 153px; */
+  min-width: 180px;
+  margin: 14px auto;
+  text-align: center;
 `;
 
 const Alcol = () => {

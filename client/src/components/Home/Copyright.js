@@ -49,10 +49,11 @@ const Blanckbox = styled.div`
 
 const MemberBox = styled.div`
   margin: 10px 10px 10px 10px;
-  width: 100%;
+  min-width: 300px;
   font-size: 22px;
   display: flex;
   justify-content: space-between;
+  border: 1px solid red;
 `;
 const GithubLink = styled.a`
   text-decoration: none;

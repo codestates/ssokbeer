@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      dish.belongsTo(models.alcohol, { foreignKey: "alcoholId" });
     }
   }
   dish.init(
@@ -16,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       content: DataTypes.STRING,
       name: DataTypes.STRING,
       img: DataTypes.STRING,
+      alcoholId: DataTypes.INTEGER,
     },
     {
       sequelize,
