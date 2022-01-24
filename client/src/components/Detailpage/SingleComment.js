@@ -61,15 +61,16 @@ const ModifyPopup = styled.button`
 
 const SingleComment = ({ comment }) => {
   const [isUser, setIsUser] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     setIsUser(Boolean(localStorage.getItem("isLogin")));
   });
   // const [comment, setComment] = useState([]);
 
-  // const handleClickModify = () => {
-  //   setIsOpen(!isOpen);
-  // };
+  const handleClickModify = () => {
+    setIsOpen(!isOpen);
+  };
 
   const { nickname, createdAt, content } = comment;
 
@@ -82,12 +83,13 @@ const SingleComment = ({ comment }) => {
         </UserBox>
         {isUser ? (
           <ModifyBox>
-            <ModifyPopup>수정</ModifyPopup>
+            <ModifyPopup onClick={handleClickModify}>수정</ModifyPopup>
             <ModifyPopup>삭제</ModifyPopup>
           </ModifyBox>
         ) : null}
       </CommentAlignment>
       <Comment>{content}</Comment>
+      {isOpen ? <div>오픈</div> : null}
     </CommentBox>
   );
 };

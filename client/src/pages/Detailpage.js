@@ -8,6 +8,7 @@ import { getSingleContent, postLike } from "../api";
 
 const Container = styled.div`
   width: 100%;
+  height: 100%;
   margin: 0px auto;
   display: flex;
   flex-direction: column;
@@ -21,7 +22,8 @@ const Form = styled.div`
   align-items: center;
   max-width: 1200px;
   width: 100%;
-  height: 860px;
+  height: 100%;
+  padding-bottom: 50px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 `;
@@ -99,9 +101,11 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   width: 95%;
-  height: 45%;
+  height: 400px;
   margin: 0px 18px;
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  /* text-align: center; */
 `;
 
 const LikeBox = styled.div`

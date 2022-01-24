@@ -18,7 +18,7 @@ const CommentWriting = styled.input`
   width: 95%;
 
   border: 1px solid grey;
-  height: 100%;
+  height: 30px;
   &:focus {
     outline: none;
   }
@@ -45,6 +45,8 @@ const NewCommentForm = ({ nowContentId }) => {
   const handleChangeComment = (e) => {
     setNewComment(e.target.value);
   };
+
+  const handleClickModify = () => {};
 
   const onClickSubmit = () => {
     const comment = {
