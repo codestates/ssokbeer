@@ -139,6 +139,16 @@ export const sojus = sojuUrl.map((url, idx) => {
   return { name: sojuName[idx], img: url, type: "soju" };
 });
 
-export const beers = beerUrl.map((url, idx) => {
-  return { name: beerName[idx], img: url, type: "beer" };
-});
+// 음식  이름 사진 정보
+
+// 술 하나당 2개
+
+// 전체 음식 개수 ?
+// 20 개
+// pairDish = [ [ {한식}, {중식}, {양식} ] ]
+// export const beers = beerUrl.map((url, idx) => {
+//   return { name: beerName[idx], img: url, type: "beer" };
+// });
+
+// {sojus : [{}...{}....{}],beers: [{}..{}]}  x
+// 다른방법 ?
