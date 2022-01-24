@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import SingleComment from "../components/Detailpage/SingleComment";
 import NewCommentForm from "../components/Detailpage/NewCommentForm";
 import axios from "axios";
@@ -157,10 +157,10 @@ const CommentForm = styled.div`
 
 const Detailpage = () => {
   let { id } = useParams();
+  const navigate = useNavigate();
 
   // console.log(state);
   //   const [isAdministrator, setIsadministrator] = useState(false);
-
   const [singleData, setSingleData] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [changeContent, setChangeContent] = useState("");
@@ -191,7 +191,8 @@ const Detailpage = () => {
 
   const handleClickDelete = async () => {
     await deleteContent(id);
-    window.location.reload("/comunity");
+    window.location.reload();
+    navigate("/");
   };
 
   const { title, img, createdAt, visit, like, content, comments, userId } = singleData;

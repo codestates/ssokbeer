@@ -96,11 +96,11 @@ const Writing = () => {
   const [content, setContent] = useState("");
   const [imgFile, setImgFile] = useState("");
   const [pimg, setPimg] = useState("");
-
+  const nickName = localStorage.getItem("nickname");
   const postData = async () => {
     const img = new FormData();
     img.append("file", imgFile);
-    await postContent(title, content, img);
+    await postContent({ title, content, img, nickName });
   };
 
   const onChange = (e) => {

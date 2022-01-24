@@ -124,6 +124,7 @@ const Navbar = () => {
 
     localStorage.removeItem("isLogin", false);
     localStorage.removeItem("userInfo");
+    localStorage.removeItem("nickname");
     await logout();
     window.location.reload();
     navigate("/");

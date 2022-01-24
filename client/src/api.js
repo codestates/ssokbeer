@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const URL = "http://localhost:4000";
+
 export const postSignup = async (body) => {
   try {
     const { data } = await axios.post(`${URL}/user/signup`, body);
@@ -48,13 +49,9 @@ export const patchProfile = async (body) => {
   }
 };
 
-export const postContent = async (title, content, img) => {
+export const postContent = async (body) => {
   try {
-    await axios.post(`${URL}/content`, {
-      title,
-      content,
-      img,
-    });
+    await axios.post(`${URL}/content`, body);
   } catch (e) {
     console.log(e.response);
   }
@@ -135,6 +132,16 @@ export const editComment = async (id, content) => {
 export const deleteComment = async (id) => {
   try {
     const data = await axios.delete(`${URL}/comment/${id}`);
+    return data;
+  } catch (e) {
+    console.log(e.response);
+  }
+};
+
+export const getAlcohol = async (type) => {
+  try {
+    const data = await axios.get(`${URL}/alcohol?type=${type}`);
+    console.log(data);
     return data;
   } catch (e) {
     console.log(e.response);
