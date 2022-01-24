@@ -181,7 +181,8 @@ const Login = () => {
     }
 
     try {
-      const data = getUser();
+      const data = await getUser();
+      console.log(data);
       if (data) {
         handleResponseSuccess(data);
       }

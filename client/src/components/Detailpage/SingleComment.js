@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { deleteComment, editComment } from "../../api";
 
 const CommentBox = styled.div`
   display: flex;
@@ -34,6 +35,11 @@ const Comment = styled.div`
   /* border: 1px solid black; */
   font-size: 18px;
 `;
+const EditComment = styled.input`
+  /* border: 1px solid black; */
+  font-size: 18px;
+`;
+
 const ModifyBox = styled.div`
   /* width: 100%; */
   height: 50px;
@@ -60,18 +66,33 @@ const ModifyPopup = styled.button`
 `;
 
 const SingleComment = ({ comment }) => {
-  // const [isUser, setIsUser] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [changeContent, setChangeContent] = useState("");
 
-  // useEffect(() => {
-  //   setIsUser(Boolean(localStorage.getItem("isLogin")));
-  // });
-  // const [comment, setComment] = useState([]);
+  const nowUserId = localStorage.getItem("userInfo");
 
-  // const handleClickModify = () => {
-  //   setIsOpen(!isOpen);
-  // };
+  const { nickname, createdAt, content, userId, id } = comment;
 
-  const { nickname, createdAt, content } = comment;
+  const handleEdit = async () => {
+    const change = !isEditing;
+    if (!change) {
+      await editComment(id, changeContent);
+      window.location.reload();
+    }
+    setChangeContent(content);
+    setIsEditing(change);
+  };
+
+  const handlechangeContent = (e) => {
+    setChangeContent(e.target.value);
+  };
+
+  const handleDelete = async () => {
+    await deleteComment(id);
+    window.location.reload();
+  };
+
+  const check = parseInt(userId) === parseInt(nowUserId);
 
   return (
     <CommentBox>
@@ -81,15 +102,19 @@ const SingleComment = ({ comment }) => {
           <Inform>{createdAt}</Inform>
         </UserBox>
 
-        {/* <i className="fas fa-ellipsis-v" onClick={handleClickModify}></i> */}
-        {/* {isUser ? ( */}
-        <ModifyBox>
-          <ModifyPopup>수정</ModifyPopup>
-          <ModifyPopup>삭제</ModifyPopup>
-        </ModifyBox>
-        {/* ) : null} */}
+        {check && (
+          <ModifyBox>
+            <ModifyPopup onClick={handleEdit}>{isEditing ? "완료" : "수정"}</ModifyPopup>
+            <ModifyPopup onClick={handleDelete}>삭제</ModifyPopup>
+          </ModifyBox>
+        )}
       </CommentAlignment>
-      <Comment>{content}</Comment>
+
+      {isEditing ? (
+        <EditComment value={changeContent} onChange={handlechangeContent} />
+      ) : (
+        <Comment>{content}</Comment>
+      )}
     </CommentBox>
   );
 };
