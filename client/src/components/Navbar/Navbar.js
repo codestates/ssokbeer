@@ -119,11 +119,11 @@ const Navbar = () => {
     setIsOpen(false);
   };
   const handleClickLogout = () => {
-    localStorage.removeItem("isLogin");
-    window.location.reload();
-    navigate("/home");
-    axios.delete(`http://localhost:4000/user
-    /logout`);
+    // axios.delete(`http://localhost:4000/user/logout`);
+    setIsLogin(false);
+    localStorage.removeItem("isLogin", false);
+    // window.location.reload();
+    // navigate("/home");
   };
 
   useEffect(() => {
@@ -135,10 +135,19 @@ const Navbar = () => {
 
   useEffect(() => {
     setIsLogin(Boolean(localStorage.getItem("isLogin")));
-  }, []);
+  }, [isLogin]);
 
   return (
     <Nav>
+      <Header>
+        <Logo src={logo} />
+        <RigthNav
+          isLogin={isLogin}
+          isVisible={isOpen}
+          ChangeMenuVisibility={ChangeMenuVisibility}
+          handleClickLogout={handleClickLogout}
+        />
+      </Header>
       {isOpen ? (
         <SideNav ref={side}>
           <i onClick={CloseSideNav} className="fas fa-times" icon></i>
@@ -161,20 +170,12 @@ const Navbar = () => {
             </SideLink>
           )}
           {isLogin ? (
-            <SideLink onClick={handleClickLogout} to="/home">
+            <SideLink onClick={handleClickLogout} to="/">
               <Menu>로그아웃</Menu>
             </SideLink>
           ) : null}
         </SideNav>
       ) : null}
-      <Header>
-        <Logo src={logo} />
-        <RigthNav
-          isLogin={isLogin}
-          isVisible={isOpen}
-          ChangeMenuVisibility={ChangeMenuVisibility}
-        />
-      </Header>
     </Nav>
   );
 };

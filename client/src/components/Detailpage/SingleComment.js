@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const CommentBox = styled.div`
@@ -35,11 +35,11 @@ const Comment = styled.div`
   font-size: 18px;
 `;
 const ModifyBox = styled.div`
-  width: 45px;
+  /* width: 100%; */
   height: 50px;
   display: flex;
-  flex-direction: column;
-  /* align-items: center; */
+  align-items: center;
+  justify-self: center;
   margin: 0px;
   i {
     text-align: right;
@@ -47,6 +47,7 @@ const ModifyBox = styled.div`
   /* border: 1px solid blue; */
 `;
 const ModifyPopup = styled.button`
+  width: 100px;
   padding: 5px 5px 5px 3px;
   margin: 3px;
   width: 100%;
@@ -59,11 +60,17 @@ const ModifyPopup = styled.button`
 `;
 
 const SingleComment = ({ comment }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isUser, setIsUser] = useState(false);
+
+  // useEffect(() => {
+  //   setIsUser(Boolean(localStorage.getItem("isLogin")));
+  // });
   // const [comment, setComment] = useState([]);
 
   // const handleClickModify = () => {
-  // //   setIsOpen(!isOpen);
+  //   setIsOpen(!isOpen);
+  // };
+
   const { nickname, createdAt, content } = comment;
 
   return (
@@ -73,10 +80,14 @@ const SingleComment = ({ comment }) => {
           <User>{nickname}</User>
           <Inform>{createdAt}</Inform>
         </UserBox>
+
+        {/* <i className="fas fa-ellipsis-v" onClick={handleClickModify}></i> */}
+        {/* {isUser ? ( */}
         <ModifyBox>
-          <i className="fas fa-ellipsis-v"></i>
-          {isOpen ? <ModifyPopup>수정</ModifyPopup> : null}
+          <ModifyPopup>수정</ModifyPopup>
+          <ModifyPopup>삭제</ModifyPopup>
         </ModifyBox>
+        {/* ) : null} */}
       </CommentAlignment>
       <Comment>{content}</Comment>
     </CommentBox>

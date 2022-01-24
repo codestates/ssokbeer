@@ -9,8 +9,8 @@ const Reviews = [
 ];
 const ImageSlide = styled.div`
   position: relative;
-  border: 2px solid red;
-  width: 300px;
+  width: 400px;
+  height: 100%;
   margin: auto;
 `;
 
@@ -19,20 +19,21 @@ const SlideBox = styled.div`
   width: 100%;
   margin: auto;
   overflow-x: hidden;
+  background-color: white;
 `;
 
 const SlideList = styled.div`
-  width: 1200px;
+  width: 1700px;
   transition: all 30ms ease 0s;
   overflow: hidden;
-  transform: translate3d(${(props) => props.cr * -300}px, 0px, 0px);
+  transform: translate3d(${(props) => props.cr * -400}px, 0px, 0px);
 `;
 
 const SlideContent = styled.div`
   display: table;
   float: left;
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 200px;
 
   text-align: center;
 `;
@@ -41,6 +42,8 @@ const ReviewBox = styled.div`
   display: table-cell;
   vertical-align: middle;
   text-align: center;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 `;
 const Content = styled.div`
   width: 100%;
@@ -48,20 +51,18 @@ const Content = styled.div`
 `;
 
 const ButtonPrev = styled.div`
-  border: 1px solid pink;
   left: -50px;
   position: absolute;
-  top: 130px;
+  top: 80px;
   width: 50px;
   height: 50px;
   padding: 15px;
   vertical-align: middle;
 `;
 const ButtonNext = styled.div`
-  border: 1px solid purple;
   right: -50px;
   position: absolute;
-  top: 130px;
+  top: 80px;
   width: 50px;
   height: 50px;
   padding: 15px;
@@ -70,6 +71,18 @@ const ButtonNext = styled.div`
 
 const Review = () => {
   const [currentReview, setCurrentReview] = useState(0);
+<<<<<<< HEAD
+  const onChangeContent = (pageDelta) => {
+    const lastReviewPageNum = Reviews.length - 1;
+    const newCurrentPageNum = currentReview + pageDelta;
+
+    if (newCurrentPageNum < 0) {
+      setCurrentReview(lastReviewPageNum);
+    } else if (newCurrentPageNum > lastReviewPageNum) {
+      setCurrentReview(0);
+    } else {
+      setCurrentReview(newCurrentPageNum);
+=======
   const onChangeContent = (n) => {
     const a = currentReview + n;
 
@@ -79,6 +92,7 @@ const Review = () => {
       setCurrentReview(0);
     } else {
       setCurrentReview(a);
+>>>>>>> efdc4d90e151c38dc5c8a64fc7c7cf047816a1ca
     }
   };
 
