@@ -24,7 +24,7 @@ export const postContent = async (req, res) => {
     const { email } = verify(token);
 
     const userInfo = await users.findOne({ where: { email } });
-
+    // console.log(userInfo);
     const contentInfo = await contents.create({
       userId: userInfo.id,
       title,
