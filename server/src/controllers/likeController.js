@@ -5,12 +5,15 @@ import { verify } from "../token/verify";
 const likes = db.like;
 const users = db.user;
 const contents = db.content;
+
 export const like = async (req, res) => {
-  const { token } = req.cookies;
-  const { email } = verify(token);
-  let { id: contentId } = req.params;
-  contentId = parseInt(contentId);
   try {
+    const { token } = req.cookies;
+    const { email } = verify(token);
+
+    let { id: contentId } = req.params;
+    contentId = parseInt(contentId);
+
     const { dataValues: userInfo } = await users.findOne({ where: { email } });
 
     const [notCreated, created] = await likes.findOrCreate({
