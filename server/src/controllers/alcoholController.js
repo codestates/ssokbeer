@@ -11,30 +11,22 @@ export const getAlcohol = async (req, res) => {
     } else if (type === "beer") {
       res.status(200).json({ message: "겟 알콜 리스트 성공", beers });
     }
+    res.status(500).json({ message: "get 알콜 리스트 실패" });
   } catch {
-    res.status(500).json({ message: "get 소주 리스트 실패" });
+    res.status(500).json({ message: "get 알콜 리스트 실패" });
   }
 };
 
 export const getOneAlcohol = async (req, res) => {
   try {
-    res.status(200).json({});
+    const { id } = req.query;
+    if (id) {
+      const oneAlcohol = await alcohols.findOne({ where: { id }, include: { model: dishes } });
+      res.status(200).json({ oneAlcohol });
+    } else {
+      res.status(500).json({ message: "getOne 소주 리스트 실패" });
+    }
   } catch {
     res.status(500).json({ message: "getOne 소주 리스트 실패" });
-  }
-};
-
-export const postAlcohol = async (req, res) => {
-  try {
-    console.log(alcohols);
-    const result = await alcohols.create({
-      name: "잎세주 ",
-      content: "세상에서",
-      pairDish: "제일가는",
-      img: "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img1.jpg?raw=true",
-      type: "soju",
-    });
-  } catch {
-    res.status(500).json({ message: "post 알콜 실패" });
   }
 };

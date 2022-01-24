@@ -9,6 +9,8 @@ import likeRouter from "./routers/likeRouter";
 import oauthRotuer from "./routers/oauthRouter";
 import db from "../models";
 import alcoholRouter from "./routers/alcoholRouter";
+import dishRouter from "./routers/dishRouter";
+import { dataSetup } from "./middleware/dataSetting";
 
 const app = express();
 const logger = morgan("dev");
@@ -18,7 +20,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: true,
-    methods: ["GET", "POST", "OPTIONS"],
+    methods: ["GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS"],
     credentials: true,
     cookie: {
       maxAge: 24 * 6 * 60 * 10000,
@@ -32,7 +34,7 @@ app.use(
 app.use(logger);
 
 db.sequelize.sync();
-
+app.use(dataSetup);
 app.use("/alcohol", alcoholRouter);
 
 app.use("/content", contentRouter);
@@ -45,4 +47,5 @@ app.use("/oauth", oauthRotuer);
 
 app.use("/like", likeRouter);
 
+app.use("/dish", dishRouter);
 export default app;
