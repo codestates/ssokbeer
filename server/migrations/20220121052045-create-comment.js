@@ -19,6 +19,7 @@ module.exports = {
       },
       contentId: {
         type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
       },
       createdAt: {
         allowNull: false,

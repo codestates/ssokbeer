@@ -72,9 +72,13 @@ export const updateContent = async (req, res) => {
 };
 
 export const deleteContent = async (req, res) => {
-  const { id } = req.params;
-  await contents.destroy({ where: { id } });
-  res.status(201).json({ message: "글 삭제 완료" });
+  try {
+    const { id } = req.params;
+    await contents.destroy({ where: { id } });
+    res.status(201).json({ message: "글 삭제 완료" });
+  } catch {
+    res.status(500).json({ message: "글 삭제 실패" });
+  }
 };
 
 export const deleteAllContent = async (req, res) => {};

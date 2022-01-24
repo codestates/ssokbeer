@@ -10,6 +10,7 @@ import oauthRotuer from "./routers/oauthRouter";
 import db from "../models";
 import alcoholRouter from "./routers/alcoholRouter";
 import dishRouter from "./routers/dishRouter";
+import { dataSetup } from "./middleware/dataSetting";
 
 const app = express();
 const logger = morgan("dev");
@@ -33,7 +34,7 @@ app.use(
 app.use(logger);
 
 db.sequelize.sync();
-
+app.use(dataSetup);
 app.use("/alcohol", alcoholRouter);
 
 app.use("/content", contentRouter);

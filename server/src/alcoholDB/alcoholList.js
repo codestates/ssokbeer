@@ -24,10 +24,6 @@ const beerName = [
   "서초",
   "서울",
   "Stout",
-  "대강",
-  "오늘",
-  "Weizen",
-  "여수",
   "ㅋ",
 ];
 const beerUrl = [
@@ -56,10 +52,6 @@ const beerUrl = [
   "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/seocho.jpg?raw=true",
   "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/seoul.png?raw=true",
   "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/stout.jpg?raw=true",
-  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/taegang.jpg?raw=true",
-  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/today.jpg?raw=true",
-  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/weizen.jpg?raw=true",
-  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/yeosu.png?raw=true",
   "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/z.jpg?raw=true ",
 ];
 
@@ -90,13 +82,6 @@ const sojuName = [
   "C1블루",
   "맛있는 참",
   "오투린",
-  "순한참 유자",
-  "순한참 애플망고",
-  "순한참 청포도",
-  "순한참 블루베리",
-  "순한참 자몽",
-  "C1블루 자몽",
-  "C1블루 로즈",
 ];
 
 const sojuUrl = [
@@ -126,13 +111,6 @@ const sojuUrl = [
   "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img24.jpg?raw=true",
   "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img25.jpg?raw=true",
   "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img26.jpg?raw=true",
-  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img27.jpg?raw=true",
-  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img28.jpg?raw=true",
-  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img29.jpg?raw=true",
-  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img30.jpg?raw=true",
-  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img31.jpg?raw=true",
-  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img32.jpg?raw=true",
-  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img33.jpg?raw=true",
 ];
 
 export const sojus = sojuUrl.map((url, idx) => {
@@ -146,9 +124,9 @@ export const sojus = sojuUrl.map((url, idx) => {
 // 전체 음식 개수 ?
 // 20 개
 // pairDish = [ [ {한식}, {중식}, {양식} ] ]
-// export const beers = beerUrl.map((url, idx) => {
-//   return { name: beerName[idx], img: url, type: "beer" };
-// });
+export const beers = beerUrl.map((url, idx) => {
+  return { name: beerName[idx], img: url, type: "beer" };
+});
 
 // {sojus : [{}...{}....{}],beers: [{}..{}]}  x
 // 다른방법 ?
