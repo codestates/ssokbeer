@@ -141,10 +141,6 @@ const CommentForm = styled.div`
 
 const Detailpage = () => {
   let { state } = useLocation();
-  // console.log(state);
-  //   const [isAdministrator, setIsadministrator] = useState(false);
-  const [likeCnt, setLikeCnt] = useState(0);
-  // const [like, setLike] = useState(false);
   const [singleData, setSingleData] = useState([]);
 
   const getSingleData = async () => {

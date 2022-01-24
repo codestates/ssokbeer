@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
-import { useEffect } from "react";
 
 const PcContainer = styled.div`
   display: flex;
@@ -41,13 +40,13 @@ const Button = styled.button`
 `;
 
 // eslint-disable-next-line
-const RigthNav = ({ isLogin, isVisible, ChangeMenuVisibility }) => {
+const RigthNav = ({ isLogin, isVisible, ChangeMenuVisibility, handleClickLogout }) => {
   const closeMenu = () => ChangeMenuVisibility(false);
 
-  const handleClickLogout = () => {
-    localStorage.removeItem("isLogin");
-    window.location.reload();
-  };
+  // const handleClickLogout = () => {
+  //   localStorage.removeItem("isLogin");
+  //   // window.location.reload();
+  // };
 
   const isPc = useMediaQuery({ query: "(min-width: 768px)" }, undefined, closeMenu);
 
@@ -72,7 +71,7 @@ const RigthNav = ({ isLogin, isVisible, ChangeMenuVisibility }) => {
         </ButtonLink>
       )}
       {isLogin ? (
-        <ButtonLink to="/home">
+        <ButtonLink to="/">
           <Button onClick={handleClickLogout}>로그아웃</Button>
         </ButtonLink>
       ) : (
