@@ -4,7 +4,14 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import SingleComment from "../components/Detailpage/SingleComment";
 import NewCommentForm from "../components/Detailpage/NewCommentForm";
 import axios from "axios";
-import { dateToStr, deleteContent, getSingleContent, patchContent, postLike } from "../api";
+import {
+  dateToStr,
+  deleteContent,
+  formatDate,
+  getSingleContent,
+  patchContent,
+  postLike,
+} from "../api";
 
 const Container = styled.div`
   width: 100%;
@@ -189,6 +196,8 @@ const Detailpage = () => {
 
   const { title, img, createdAt, visit, like, content, comments, userId } = singleData;
 
+  const date = formatDate(createdAt);
+
   const handleLikeClick = () => {
     postLike(id);
     window.location.reload();
@@ -197,8 +206,7 @@ const Detailpage = () => {
   const nowUserId = localStorage.getItem("userInfo");
 
   const check = parseInt(userId) === parseInt(nowUserId);
-  const day = new Date(createdAt);
-  console.log(day);
+
   return (
     <Container>
       <Form>
@@ -218,8 +226,7 @@ const Detailpage = () => {
           <User>머규</User>
           <Inform>추천 {like}</Inform>
           <Inform>조회{visit}</Inform>
-          <Inform>{createdAt}</Inform>
-          <Inform>댓글</Inform>
+          <Inform>{date}</Inform>
         </InformBox>
         {isEditing ? (
           <InputContent value={changeContent} onChange={handleCangeContent} />

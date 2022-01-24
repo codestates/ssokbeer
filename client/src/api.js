@@ -141,15 +141,14 @@ export const deleteComment = async (id) => {
   }
 };
 
-export const dateToStr = (date) => {
-  const week = new Array("일", "월", "화", "수", "목", "금", "토");
-
-  const localTime = date.toLocaleTimeString();
-
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  const dayName = week[date.getDay()];
-
-  return year + "년 " + month + "월 " + day + "일 " + dayName + "요일 " + localTime.substring(0, 5);
+export const formatDate = (date) => {
+  let d = new Date(date),
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear(),
+    hour = d.getHours(),
+    minute = d.getMinutes();
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+  return `${month}월 ${day}일 ${hour}시 ${minute}분`;
 };

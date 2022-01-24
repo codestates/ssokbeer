@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { formatDate } from "../../api";
 
 const Post = styled.div`
   width: 100%;
@@ -68,6 +69,8 @@ const CreatedDate = styled.div`
 const AllContent = ({ content }) => {
   const { id, nickname, title, visit, likeCnt, like, createdAt, img } = content;
 
+  const date = formatDate(createdAt);
+
   return (
     <Post>
       <FoodLink to={`${id}`}>
@@ -83,7 +86,7 @@ const AllContent = ({ content }) => {
             <i className="far fa-thumbs-up">{like}</i>
           </Like>
         </ViewLikeBox>
-        <CreatedDate>{createdAt}</CreatedDate>
+        <CreatedDate>{date}</CreatedDate>
       </ContentBox>
     </Post>
   );
