@@ -6,7 +6,6 @@ const CommentBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 95%;
-  /* border: 1px solid blue; */
   margin: 20px;
 `;
 
@@ -38,6 +37,9 @@ const Comment = styled.div`
 const EditComment = styled.input`
   /* border: 1px solid black; */
   font-size: 18px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const ModifyBox = styled.div`
@@ -110,11 +112,7 @@ const SingleComment = ({ comment }) => {
         )}
       </CommentAlignment>
 
-      {isEditing ? (
-        <EditComment value={changeContent} onChange={handlechangeContent} />
-      ) : (
-        <Comment>{content}</Comment>
-      )}
+      {isEditing ? <EditComment value={changeContent} onChange={handlechangeContent} /> : <Comment>{content}</Comment>}
     </CommentBox>
   );
 };

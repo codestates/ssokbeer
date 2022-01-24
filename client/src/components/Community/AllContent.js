@@ -28,6 +28,8 @@ const ContentHeader = styled(Link)`
   font-size: 20px;
   font-weight: 500;
   padding: 20px;
+  text-decoration: none;
+  color: black;
 `;
 
 const Username = styled.div`
@@ -69,6 +71,9 @@ const CreatedDate = styled.div`
 const AllContent = ({ content }) => {
   const { id, nickname, title, visit, likeCnt, like, createdAt, img } = content;
 
+  console.log(like);
+  // console.log(likeCnt);
+
   const date = formatDate(createdAt);
 
   return (
@@ -80,7 +85,7 @@ const AllContent = ({ content }) => {
         <ContentHeader to={`${id}`}>{title}</ContentHeader>
         <Username>{nickname}</Username>
         <ViewLikeBox>
-          <View>{visit}</View>
+          <View>view{visit}</View>
           <LikeCount> {likeCnt}</LikeCount>
           <Like primary={like}>
             <i className="far fa-thumbs-up">{like}</i>

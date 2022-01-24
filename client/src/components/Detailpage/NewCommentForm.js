@@ -11,6 +11,7 @@ const WritingAllignment = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 95%;
+  margin: 0px 0px 20px 0px;
 `;
 
 const CommentWriting = styled.input`
@@ -18,7 +19,7 @@ const CommentWriting = styled.input`
   width: 95%;
 
   border: 1px solid grey;
-  height: 100%;
+  height: 30px;
   &:focus {
     outline: none;
   }

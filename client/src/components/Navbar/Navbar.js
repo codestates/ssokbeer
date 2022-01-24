@@ -143,7 +143,9 @@ const Navbar = () => {
   return (
     <Nav>
       <Header>
-        <Logo src={logo} />
+        <LogoLink to="/">
+          <Logo src={logo} />
+        </LogoLink>
         <RigthNav
           isLogin={isLogin}
           isVisible={isOpen}
