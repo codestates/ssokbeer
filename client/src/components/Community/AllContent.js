@@ -23,7 +23,7 @@ const ContentBox = styled.div`
   align-items: center;
 `;
 
-const ContentHeader = styled.div`
+const ContentHeader = styled(Link)`
   font-size: 20px;
   font-weight: 500;
   padding: 20px;
@@ -67,19 +67,20 @@ const CreatedDate = styled.div`
 
 const AllContent = ({ content }) => {
   const { id, nickname, title, visit, likeCnt, like, createdAt, img } = content;
+
   return (
     <Post>
-      <FoodLink to={"detailpage"} state={{ content }}>
+      <FoodLink to={`${id}`}>
         <FoodImg src={img}></FoodImg>
       </FoodLink>
       <ContentBox>
-        <ContentHeader>{title}</ContentHeader>
+        <ContentHeader to={`${id}`}>{title}</ContentHeader>
         <Username>{nickname}</Username>
         <ViewLikeBox>
           <View>{visit}</View>
           <LikeCount> {likeCnt}</LikeCount>
           <Like primary={like}>
-            <i className="far fa-thumbs-up"></i>
+            <i className="far fa-thumbs-up">{like}</i>
           </Like>
         </ViewLikeBox>
         <CreatedDate>{createdAt}</CreatedDate>

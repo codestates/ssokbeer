@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import { postContent } from "../api";
 
 const Container = styled.div`
@@ -95,27 +94,33 @@ const Writing = () => {
   const nav = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [img, setImg] = useState("");
+  const [imgFile, setImgFile] = useState("");
+  const [pimg, setPimg] = useState("");
 
   const postData = async () => {
+    const img = new FormData();
+    img.append("file", imgFile);
     await postContent(title, content, img);
+  };
+
+  const onChange = (e) => {
+    const file = e.target.files[0];
+    setImgFile(file);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setPimg(reader.result);
+    };
   };
 
   const onSubmitValid = async () => {
     try {
       postData();
-
       nav("/community");
     } catch (e) {
       console.log(e.response);
     }
-  };
-
-  const handleFileOnChange = (e) => {
-    e.preventDefault();
-
-    setImg(URL.createObjectURL(e.target.files[0]));
-    console.log(img);
   };
 
   return (
@@ -137,13 +142,8 @@ const Writing = () => {
             setContent(e.target.value);
           }}
         ></Content>
-        <Img
-          type="file"
-          onChange={(e) => {
-            handleFileOnChange(e);
-          }}
-        />
-        <Imtest src={img} />
+        <Img type="file" onChange={(e) => onChange(e)} />
+        <Imtest src={pimg} />
         <ButtonBox>
           <CancelLink to="/community">
             <Button>취소</Button>

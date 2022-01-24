@@ -32,8 +32,8 @@ const Recommendation = ({ rankContent }) => {
     <Section>
       <RecommendText>이달의 추천 TOP</RecommendText>
       <RecommendConatiner>
-        {rankContent.map((content) => {
-          return <RecomendContent content={content} />;
+        {rankContent.map((content, idx) => {
+          return <RecomendContent key={idx} content={content} />;
         })}
       </RecommendConatiner>
     </Section>

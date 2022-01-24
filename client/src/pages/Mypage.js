@@ -2,7 +2,7 @@ import styled from "styled-components";
 /* eslint-disable */
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { getProfile, postSignup } from "../api";
+import { getProfile, patchProfile } from "../api";
 
 const Container = styled.div`
   display: flex;
@@ -82,9 +82,9 @@ const Mypage = () => {
   });
   const [user, setUser] = useState({});
   const onSubmitValid = () => {
-    const { email, nickname } = getValues();
-    postSignup({ email, nickname });
-    nav("/");
+    const { nickname, password } = getValues();
+
+    patchProfile({ nickname, password });
   };
   const getData = async () => {
     const user = await getProfile();
@@ -93,6 +93,7 @@ const Mypage = () => {
     setValue("email", user.email);
     setUser({ email: user.email, nickname: user.nickname });
   };
+
   useEffect(() => {
     getData();
   }, []);
@@ -113,7 +114,6 @@ const Mypage = () => {
         <FormColumn>
           <Label>닉네임</Label>
           <Input
-            value={getValues().nickname}
             ref={register({
               required: "닉네임을 꼭 입력해주세요.",
               validate: {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import SingleComment from "../components/Detailpage/SingleComment";
 import NewCommentForm from "../components/Detailpage/NewCommentForm";
 import axios from "axios";
@@ -140,11 +140,14 @@ const CommentForm = styled.div`
 `;
 
 const Detailpage = () => {
-  let { state } = useLocation();
-  const [singleData, setSingleData] = useState([]);
+  let { id } = useParams();
+  console.log(id);
+  // console.log(state);
+  //   const [isAdministrator, setIsadministrator] = useState(false);
+  const [singleData, setSingleData] = useState({});
 
   const getSingleData = async () => {
-    const data = await getSingleContent(state.content.id);
+    const data = await getSingleContent(id);
     setSingleData(data);
   };
 
@@ -152,15 +155,14 @@ const Detailpage = () => {
     getSingleData();
   }, []);
 
+  const handleClickModify = () => {};
+  const handleClickDelete = () => {};
+
+  const { title, img, createdAt, visit, like, content, comments } = singleData;
   const handleLikeClick = () => {
     postLike(id);
     window.location.reload();
   };
-
-  const handleClickModify = () => {};
-  const handleClickDelete = () => {};
-
-  const { title, img, createdAt, visit, like, id, content, comments } = singleData;
 
   return (
     <Container>
@@ -192,11 +194,11 @@ const Detailpage = () => {
             </Like>
           </LikeBox>
         </ButtonBox>
+        <NewCommentForm nowContentId={id} />
         <CommentForm>
-          {comments?.map((comment) => (
-            <SingleComment comment={comment} />
+          {comments?.map((comment, idx) => (
+            <SingleComment key={idx} comment={comment} />
           ))}
-          <NewCommentForm nowContentId={id} />
         </CommentForm>
       </Form>
     </Container>
