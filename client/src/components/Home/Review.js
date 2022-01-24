@@ -71,7 +71,6 @@ const ButtonNext = styled.div`
 
 const Review = () => {
   const [currentReview, setCurrentReview] = useState(0);
-<<<<<<< HEAD
   const onChangeContent = (pageDelta) => {
     const lastReviewPageNum = Reviews.length - 1;
     const newCurrentPageNum = currentReview + pageDelta;
@@ -82,17 +81,6 @@ const Review = () => {
       setCurrentReview(0);
     } else {
       setCurrentReview(newCurrentPageNum);
-=======
-  const onChangeContent = (n) => {
-    const a = currentReview + n;
-
-    if (a < 0) {
-      setCurrentReview(3);
-    } else if (a > 3) {
-      setCurrentReview(0);
-    } else {
-      setCurrentReview(a);
->>>>>>> efdc4d90e151c38dc5c8a64fc7c7cf047816a1ca
     }
   };
 

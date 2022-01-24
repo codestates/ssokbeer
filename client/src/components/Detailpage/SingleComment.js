@@ -60,11 +60,11 @@ const ModifyPopup = styled.button`
 `;
 
 const SingleComment = ({ comment }) => {
-  // const [isUser, setIsUser] = useState(false);
+  const [isUser, setIsUser] = useState(false);
 
-  // useEffect(() => {
-  //   setIsUser(Boolean(localStorage.getItem("isLogin")));
-  // });
+  useEffect(() => {
+    setIsUser(Boolean(localStorage.getItem("isLogin")));
+  });
   // const [comment, setComment] = useState([]);
 
   // const handleClickModify = () => {
@@ -80,14 +80,12 @@ const SingleComment = ({ comment }) => {
           <User>{nickname}</User>
           <Inform>{createdAt}</Inform>
         </UserBox>
-
-        {/* <i className="fas fa-ellipsis-v" onClick={handleClickModify}></i> */}
-        {/* {isUser ? ( */}
-        <ModifyBox>
-          <ModifyPopup>수정</ModifyPopup>
-          <ModifyPopup>삭제</ModifyPopup>
-        </ModifyBox>
-        {/* ) : null} */}
+        {isUser ? (
+          <ModifyBox>
+            <ModifyPopup>수정</ModifyPopup>
+            <ModifyPopup>삭제</ModifyPopup>
+          </ModifyBox>
+        ) : null}
       </CommentAlignment>
       <Comment>{content}</Comment>
     </CommentBox>

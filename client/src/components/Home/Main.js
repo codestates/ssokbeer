@@ -5,6 +5,7 @@ import wineImg from "../../img/wine.jpg";
 import Review from "./Review";
 import Findingmen from "../../img/men.png";
 import Findingwomen from "../../img/find2.png";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -49,12 +50,13 @@ const Div = styled.div`
   /* border: 1px solid black; */
 `;
 
-const Communitypage = styled.div`
+const Communitypage = styled(Link)`
   width: 100%;
   font-size: 16px;
   color: #f1c232;
   text-align: center;
   margin: 50px 0px;
+  text-decoration: none;
 `;
 
 const ReviewBox = styled.div`
@@ -92,7 +94,7 @@ const Main = () => {
       <Div>수많은 쏙비어 회원님들이</Div>
       <Div>추천해주신 맛집과 레시피</Div>
       <Div>한번 구경해볼까요?</Div>
-      <Communitypage>
+      <Communitypage to="/community">
         커뮤니티 가기 <i className="fas fa-chevron-right"></i>
       </Communitypage>
 
