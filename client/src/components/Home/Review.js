@@ -86,11 +86,11 @@ const Review = () => {
     <ImageSlide>
       <SlideBox>
         <SlideList cr={currentReview}>
-          {Reviews.map((review) => {
+          {Reviews.map((review, idx) => {
             return (
-              <SlideContent>
-                <ReviewBox>
-                  <Content>{review}</Content>
+              <SlideContent key={idx}>
+                <ReviewBox key={idx}>
+                  <Content key={idx}>{review}</Content>
                 </ReviewBox>
               </SlideContent>
             );

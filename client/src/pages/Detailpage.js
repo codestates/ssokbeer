@@ -141,7 +141,7 @@ const CommentForm = styled.div`
 
 const Detailpage = () => {
   let { id } = useParams();
-  console.log(id);
+
   // console.log(state);
   //   const [isAdministrator, setIsadministrator] = useState(false);
   const [singleData, setSingleData] = useState({});
@@ -158,11 +158,14 @@ const Detailpage = () => {
   const handleClickModify = () => {};
   const handleClickDelete = () => {};
 
-  const { title, img, createdAt, visit, like, content, comments } = singleData;
+  const { title, img, createdAt, visit, like, content, comments, userId } = singleData;
+
   const handleLikeClick = () => {
     postLike(id);
     window.location.reload();
   };
+
+  const nowUserId = localStorage.getItem("userInfo");
 
   return (
     <Container>
@@ -171,10 +174,12 @@ const Detailpage = () => {
           <ListLink to="/community">
             <Button>목록</Button>
           </ListLink>
-          <ButtonAllignment>
-            <ModifyButton onClick={handleClickModify}>수정</ModifyButton>
-            <ModifyButton onClick={handleClickDelete}>삭제</ModifyButton>
-          </ButtonAllignment>
+          {userId === nowUserId ? null : (
+            <ButtonAllignment>
+              <ModifyButton onClick={handleClickModify}>수정</ModifyButton>
+              <ModifyButton onClick={handleClickDelete}>삭제</ModifyButton>
+            </ButtonAllignment>
+          )}
         </ButtonBox>
         <Title>{title}</Title>
         <InformBox>

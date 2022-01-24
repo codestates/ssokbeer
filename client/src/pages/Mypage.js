@@ -86,6 +86,7 @@ const Mypage = () => {
 
     patchProfile({ nickname, password });
   };
+
   const getData = async () => {
     const user = await getProfile();
 
