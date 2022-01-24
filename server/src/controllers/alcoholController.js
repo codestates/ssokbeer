@@ -7,13 +7,13 @@ export const getAlcohol = async (req, res) => {
   try {
     const { type } = req.query;
     if (type === "soju") {
-      res.status(200).json({ message: "겟 알콜 리스트 성공", sojus });
+      return res.status(200).json({ message: "겟 알콜 리스트 성공", sojus });
     } else if (type === "beer") {
-      res.status(200).json({ message: "겟 알콜 리스트 성공", beers });
+      return res.status(200).json({ message: "겟 알콜 리스트 성공", beers });
     }
-    res.status(500).json({ message: "get 알콜 리스트 실패" });
+    return res.status(500).json({ message: "get 알콜 리스트 실패" });
   } catch {
-    res.status(500).json({ message: "get 알콜 리스트 실패" });
+    return res.status(500).json({ message: "get 알콜 리스트 실패" });
   }
 };
 
