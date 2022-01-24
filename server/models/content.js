@@ -15,9 +15,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   content.init(
     {
-      title: DataTypes.STRING,
       img: DataTypes.STRING,
       content: DataTypes.STRING,
+      title: DataTypes.STRING,
       like: { type: DataTypes.INTEGER, defaultValue: 0 },
       visit: { type: DataTypes.INTEGER, defaultValue: 0 },
       commentId: DataTypes.INTEGER,

@@ -8,8 +8,7 @@ const likes = db.like;
 export const getAllContent = async (req, res) => {
   try {
     const rankContent = await contents.findAll({ order: [["like", "DESC"]] });
-
-    const allContent = await contents.findAll({});
+    const allContent = await contents.findAll({ order: [["id", "DESC"]] });
     res.status(200).json({ message1: "전체 글 목록 조회", allContent, message2: "랭크 목록", rankContent });
   } catch {
     res.status(500).json({ message: "전체 글 목록 조회 실패" });
@@ -24,13 +23,14 @@ export const postContent = async (req, res) => {
     const { email } = verify(token);
 
     const userInfo = await users.findOne({ where: { email } });
-
+    // console.log(userInfo);
     const contentInfo = await contents.create({
-      usersId: userInfo.id,
+      userId: userInfo.id,
       title,
       img,
       content,
     });
+
     if (contentInfo) {
       res.status(201).json({ message: "글 작성 완료", contentInfo });
     } else {
@@ -49,7 +49,7 @@ export const getContent = async (req, res) => {
       include: { model: comments },
     });
 
-    await visitCnt.increment("visits");
+    await visitCnt.increment("visit");
     res.status(200).json({ message: "게시글 내용 조회 및 방문자 수 증가 ", visitCnt });
   } catch {
     res.status(500).json({ message: "게시글 내용 조회 및 방문실패" });

@@ -1,7 +1,3 @@
-const beer = "./beer";
-const soju = "./soju";
-const fs = require("fs");
-
 const beerName = [
   "불사조",
   "카스 후레쉬",
@@ -34,6 +30,39 @@ const beerName = [
   "여수",
   "ㅋ",
 ];
+const beerUrl = [
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/bulssajo.png?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/cass_fresh.png?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/d.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/dalseo.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/extra_cold.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/fitz.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/gangseo.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/golden.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/gwanghwamun.png?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/haeundae.png?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/hangang.png?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/india.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/jeju_pellong.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/jeju_wit.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/jeolla.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/kloud.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/max.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/ob_premier.png?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/pyeongchang.png?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/queen.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/s.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/seobinggo.png?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/seocho.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/seoul.png?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/stout.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/taegang.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/today.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/weizen.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/yeosu.png?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/beer/z.jpg?raw=true ",
+];
+
 const sojuName = [
   "잎세주 ",
   "처음처럼",
@@ -69,17 +98,57 @@ const sojuName = [
   "C1블루 자몽",
   "C1블루 로즈",
 ];
-let beerList = [];
 
-const beers = fs.readdirSync(beer, async (err, files) => {});
+let sojuUrl = [
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img1.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img2.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img3.png?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img4.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img5.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img6.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img7.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img8.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img9.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img10.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img11.png?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img12.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img13.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img14.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img15.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img16.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img17.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img18.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img19.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img20.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img21.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img22.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img23.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img24.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img25.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img26.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img27.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img28.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img29.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img30.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img31.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img32.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img33.jpg?raw=true",
+];
 
-beers.forEach((file, idx) => {
-  beerList.push({ name: beerName[idx], img: file });
+export const sojus = sojuUrl.map((url, idx) => {
+  return { name: sojuName[idx], img: url, type: "soju" };
 });
 
-let sojuList = [];
+// 음식  이름 사진 정보
 
-const sojus = fs.readdirSync(soju, async (err, files) => {});
-sojus.forEach((file, idx) => {
-  sojuList.push({ name: sojuName[idx], img: file });
-});
+// 술 하나당 2개
+
+// 전체 음식 개수 ?
+// 20 개
+// pairDish = [ [ {한식}, {중식}, {양식} ] ]
+// export const beers = beerUrl.map((url, idx) => {
+//   return { name: beerName[idx], img: url, type: "beer" };
+// });
+
+// {sojus : [{}...{}....{}],beers: [{}..{}]}  x
+// 다른방법 ?

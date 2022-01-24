@@ -12,7 +12,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 100px 15px 0px 15px;
-  /* border: 1px solid blue; */
 `;
 const Form = styled.form`
   display: flex;
@@ -39,9 +38,10 @@ const Title = styled.input`
 `;
 
 const Wrapper = styled.div`
+  width: 95%;
   .ck-editor__main {
     min-height: 400px;
-    width: 1100px;
+    width: 100%;
     > div {
       min-height: 520px;
     }
@@ -51,7 +51,7 @@ const Wrapper = styled.div`
 const ButtonBox = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 1200px;
+  width: 100%;
   /* border: 1px solid black; */
 `;
 

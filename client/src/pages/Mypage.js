@@ -1,8 +1,8 @@
 import styled from "styled-components";
 /* eslint-disable */
 import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { postSignup } from "../api";
+import { useEffect, useState } from "react";
+import { getProfile, postSignup } from "../api";
 
 const Container = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ const FormColumn = styled.div`
 const Input = styled.input`
   all: unset;
   width: 100%;
-  border-bottom: 2px solid ${(props) => (props.error ? "red" : "rgba(0, 0, 0, 0.2)")};
+  border-bottom: 1px solid ${(props) => (props.error ? "red" : "#aaa2a2")};
   &::placeholder {
     font-size: 13px;
   }
@@ -38,7 +38,7 @@ const Label = styled.label`
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
-  color: black;
+  color: gray;
   font-weight: bold;
 `;
 const Button = styled.button`
@@ -75,14 +75,20 @@ const Span = styled.span`
   color: #f45555;
   margin: 10px 0;
 `;
-
-const Signup = () => {
-  const { register, handleSubmit, errors, getValues, formState } = useForm({ mode: "onChange" });
-
+const Email = styled.h1``;
+const Mypage = () => {
+  const { register, handleSubmit, errors, getValues, formState, setValue } = useForm({ mode: "onChange" });
+  const [user, setUser] = useState({});
   const onSubmitValid = () => {
-    const { email, password, nickname } = getValues();
-    postSignup({ email, password, nickname });
+    const { email, nickname } = getValues();
+    console.log(email, nickname);
   };
+
+  useEffect(() => {
+    const user = getProfile();
+    setValue({ email: user.email, nickname: user.nickname });
+    setUser({ email: user.email, nickname: user.nickname });
+  }, []);
 
   return (
     <Container>
@@ -90,33 +96,9 @@ const Signup = () => {
         onSubmit={(e) => {
           e.preventDefault();
           handleSubmit(onSubmitValid);
-        }}
-      >
+        }}>
         <FormColumn>
-          <Label>이메일</Label>
-          <Input
-            ref={register({
-              required: "이메일을 꼭 입력해주세요.",
-              validate: {
-                check: (value) => {
-                  const regex = new RegExp(
-                    /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/
-                  );
-                  const isValid = regex.test(value);
-                  if (!isValid) {
-                    return "이메일을 정확히 입력해주세요";
-                  }
-                  if (value === "") {
-                    return "이메일을 꼭 입력해주세요";
-                  }
-                },
-              },
-            })}
-            name="email"
-            placeholder="이메일을 입력해주세요"
-            error={errors.email?.message}
-          />
-          <Span>{errors.email?.message}</Span>
+          <Email>{user.email}</Email>
         </FormColumn>
         <FormColumn>
           <Label>닉네임</Label>
@@ -135,8 +117,8 @@ const Signup = () => {
               minLength: { value: 2, message: "최소 2자 이상 입력해주세요" },
               maxLength: { value: 8, message: "최대 8자 이하로 입력해주세요" },
             })}
-            name="nickname"
-            placeholder="2~8글자"
+            name='nickname'
+            placeholder='2~8글자'
             error={errors.nickname?.message}
           />
           <Span>{errors.nickname?.message}</Span>
@@ -151,9 +133,9 @@ const Signup = () => {
                 message: "8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요",
               },
             })}
-            name="password"
-            type="password"
-            placeholder="8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요"
+            name='password'
+            type='password'
+            placeholder='8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요'
             error={errors.password?.message}
           />
           <Span>{errors.password?.message}</Span>
@@ -170,20 +152,20 @@ const Signup = () => {
                 },
               },
             })}
-            name="password2"
-            type="password"
-            placeholder="비밀번호를 한번 더 입력해 주세요"
+            name='password2'
+            type='password'
+            placeholder='비밀번호를 한번 더 입력해 주세요'
             error={errors.password2?.message}
           />
           <Span>{errors.password2?.message}</Span>
         </FormColumn>
 
         <Button onClick={onSubmitValid} disabled={!formState.isValid}>
-          가입하기
+          수정하기
         </Button>
       </Form>
     </Container>
   );
 };
 
-export default Signup;
+export default Mypage;

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../../img/ssokbeerlogo.png";
 import RigthNav from "./RigthNav";
+import axios from "axios";
 
 const Nav = styled.nav`
   width: 100%;
@@ -84,7 +85,6 @@ const SideNav = styled.div`
 const Menu = styled.div`
   margin-top: 70px;
   text-align: center;
-  /* color: rgba(0, 0, 0, 0.4); */
   font-family: "Open Sans", sans-serif;
   &:hover {
     font-weight: 800;
@@ -96,12 +96,15 @@ const SideLink = styled(Link)`
   cursor: grab;
   text-decoration: none;
   color: black;
+  padding: 0px 30px 35px 30px;
 `;
 
 const Navbar = () => {
   const side = useRef(); //
   const [isOpen, setIsOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleClickOutside = ({ target }) => {
     if (isOpen && !side?.current?.contains(target)) {
@@ -115,46 +118,60 @@ const Navbar = () => {
   const CloseSideNav = () => {
     setIsOpen(false);
   };
+  const handleClickLogout = () => {
+    localStorage.removeItem("isLogin");
+    window.location.reload();
+    navigate("/home");
+    axios.delete(`http://localhost:4000/user
+    /logout`);
+  };
+
   useEffect(() => {
     window.addEventListener("click", handleClickOutside);
     return () => {
       window.removeEventListener("click", handleClickOutside);
     };
   });
+
   useEffect(() => {
-    setIsLogin(localStorage.getItem("isLogin"));
+    setIsLogin(Boolean(localStorage.getItem("isLogin")));
   }, []);
+  console.log(isLogin);
   return (
     <Nav>
       {isOpen ? (
         <SideNav ref={side}>
-          <i onClick={CloseSideNav} className='fas fa-times' icon></i>
-          <SideLink onClick={CloseSideNav} to='/drink'>
+          <i onClick={CloseSideNav} className="fas fa-times" icon></i>
+          <SideLink onClick={CloseSideNav} to="/drink">
             <Menu>주류</Menu>
           </SideLink>
-          <SideLink onClick={CloseSideNav} to='/food'>
+          <SideLink onClick={CloseSideNav} to="/food">
             <Menu>안주</Menu>
           </SideLink>
-          <SideLink onClick={CloseSideNav} to='/community'>
-            <Menu line>커뮤니티</Menu>
+          <SideLink onClick={CloseSideNav} to="/community">
+            <Menu>커뮤니티</Menu>
           </SideLink>
           {isLogin ? (
-            <SideLink onClick={CloseSideNav} to='/mypage'>
+            <SideLink onClick={CloseSideNav} to="/mypage">
               <Menu>마이페이지</Menu>
             </SideLink>
           ) : (
-            <SideLink onClick={CloseSideNav} to='/login'>
+            <SideLink onClick={CloseSideNav} to="/login">
               <Menu>로그인</Menu>
             </SideLink>
           )}
-          <Menu>{isLogin ? "로그아웃" : null}</Menu>
+          {isLogin ? (
+            <SideLink onClick={handleClickLogout} to="/home">
+              <Menu>로그아웃</Menu>
+            </SideLink>
+          ) : null}
         </SideNav>
       ) : null}
       <Header>
-        <LogoLink to='/home'>
+        <LogoLink to="/home">
           <Logo src={logo} />
         </LogoLink>
-        <RigthNav isVisible={isOpen} ChangeMenuVisibility={ChangeMenuVisibility} />
+        <RigthNav isLogin={isLogin} isVisible={isOpen} ChangeMenuVisibility={ChangeMenuVisibility} />
       </Header>
     </Nav>
   );

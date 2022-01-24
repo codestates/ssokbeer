@@ -1,8 +1,10 @@
-import AlcolList from "../components/Home/AlcolList";
+import AlcolList from "../components/Alcol/AlcolList";
 import styled from "styled-components";
 import { AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import { beer, soju, wine } from "../dummy";
+import { useEffect, useState } from "react";
+import { alcols } from "../dummy";
+import Modal from "../components/Alcol/Modal";
+import { getAlcolData } from "../api";
 
 const Container = styled.div`
   display: flex;
@@ -61,30 +63,52 @@ const listVariants = {
       : { x: -500, opacity: 0, scale: 0, transition: { duration: 0.5 } },
 };
 
-const list = [soju, beer, wine];
-
 const Alcol = () => {
   const [visible, setVisible] = useState(0);
   const [back, setBack] = useState(false);
+  const [check, setCheck] = useState(false);
+  const [alcolId, setAlcolId] = useState();
+  const [data, setData] = useState([]);
+  const [oneAlcol, setOneAlcol] = useState({});
+
+  const list = ["soju", "beer"];
 
   const next = () => {
     setBack(false);
     setVisible((prev) => (prev < list.length - 1 ? prev + 1 : 0));
   };
+
   const previ = () => {
     setBack(true);
     setVisible((prev) => (prev > 0 ? prev - 1 : list.length - 1));
   };
 
-  return (
+  const openModal = () => setCheck((prev) => !prev);
+
+  const changeAlcolId = (id) => {
+    setAlcolId(id);
+  };
+
+  const getAlcolData = () => {
+    const datas = alcols.filter((alcol) => alcol.type === list[visible]);
+    setData(datas);
+  };
+
+  useEffect(() => {
+    getAlcolData();
+  }, [visible]);
+
+  return check ? (
+    <Modal openModal={openModal} alcolId={alcolId} />
+  ) : (
     <Container>
       <Header>
         <Button onClick={previ}>
-          <i className='fas fa-arrow-left'></i>
+          <i className="fas fa-arrow-left"></i>
         </Button>
         <Title>쏙비어 추천주류</Title>
         <Button onClick={next}>
-          <i className='fas fa-arrow-right'></i>
+          <i className="fas fa-arrow-right"></i>
         </Button>
       </Header>
       <AnimatePresence custom={back}>
@@ -93,8 +117,10 @@ const Alcol = () => {
           back={back}
           next={next}
           previ={previ}
-          data={list[visible]}
+          data={data}
           key={visible}
+          openModal={openModal}
+          changeAlcolId={changeAlcolId}
         />
       </AnimatePresence>
     </Container>
