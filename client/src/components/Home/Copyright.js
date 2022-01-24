@@ -78,7 +78,7 @@ const Copyright = () => {
         <Blanckbox />
         <ServiceBox>
           <Service>서비스소개</Service>
-          <i class="fab fa-github"></i>
+          <i className="fab fa-github"></i>
         </ServiceBox>
         <TeamInformbox>
           <MemberBox>

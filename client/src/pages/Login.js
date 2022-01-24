@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
 import axios from "axios";
+import { postLogin } from "../api";
 
 axios.defaults.withCredentials = true;
 
@@ -67,7 +68,8 @@ const LoginInput = styled.input`
   border: none;
   padding: 20px 0px;
   font-size: 15px;
-  border-bottom: ${(props) => (props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red")};
+  border-bottom: ${(props) =>
+    props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red"};
   margin-bottom: 15px;
   &:focus {
     outline: none;
@@ -146,7 +148,18 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const getUser = async () => {
+    const { email, password } = loginInfo;
+    const {
+      data,
+      data: {
+        userInfo: { id },
+      },
+    } = await postLogin({ email, password });
+    localStorage.setItem("userInfo", id);
 
+    return data;
+  };
   const navigate = useNavigate();
 
   const handleInputValue = (key) => (e) => {
@@ -154,9 +167,10 @@ const Login = () => {
   };
 
   const handleResponseSuccess = () => {
-    navigate("/drink");
     setIsLogin(true);
     localStorage.setItem("isLogin", true);
+    navigate("/drink");
+
     window.location.reload();
   };
   const handleLogin = async (e) => {
@@ -167,10 +181,7 @@ const Login = () => {
     }
 
     try {
-      const data = await axios.post(`http://localhost:4000/user/login`, {
-        email: loginInfo.email,
-        password: loginInfo.password,
-      });
+      const data = getUser();
       if (data) {
         handleResponseSuccess(data);
       }
