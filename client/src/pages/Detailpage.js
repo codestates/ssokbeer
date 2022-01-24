@@ -4,17 +4,11 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import SingleComment from "../components/Detailpage/SingleComment";
 import NewCommentForm from "../components/Detailpage/NewCommentForm";
 import axios from "axios";
-import {
-  dateToStr,
-  deleteContent,
-  formatDate,
-  getSingleContent,
-  patchContent,
-  postLike,
-} from "../api";
+import { dateToStr, deleteContent, formatDate, getSingleContent, patchContent, postLike } from "../api";
 
 const Container = styled.div`
-  width: 100%;
+  max-width: 1200px;
+  height: 100%;
   margin: 0px auto;
   display: flex;
   flex-direction: column;
@@ -28,7 +22,7 @@ const Form = styled.div`
   align-items: center;
   max-width: 1200px;
   width: 100%;
-  height: 860px;
+  height: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 `;
@@ -106,17 +100,21 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   width: 95%;
-  height: 45%;
+  height: 400px;
   margin: 0px 18px;
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 20px;
 `;
-const InputContent = styled.input`
+const InputContent = styled.textarea`
   display: flex;
   flex-direction: column;
   width: 95%;
-  height: 45%;
+  height: 400px;
   margin: 0px 18px;
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  &:focus {
+    outline: none;
+  }
 `;
 
 const LikeBox = styled.div`
@@ -230,7 +228,7 @@ const Detailpage = () => {
           <Inform>{date}</Inform>
         </InformBox>
         {isEditing ? (
-          <InputContent value={changeContent} onChange={handleCangeContent} />
+          <InputContent type="text" value={changeContent} onChange={handleCangeContent} />
         ) : (
           <Content>{content}</Content>
         )}
