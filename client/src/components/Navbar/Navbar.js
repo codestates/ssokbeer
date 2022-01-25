@@ -4,6 +4,7 @@ import styled from "styled-components";
 import logo from "../../img/ssokbeerlogo.png";
 import RigthNav from "./RigthNav";
 import axios from "axios";
+import { logout } from "../../api";
 
 const Nav = styled.nav`
   width: 100%;
@@ -118,12 +119,15 @@ const Navbar = () => {
   const CloseSideNav = () => {
     setIsOpen(false);
   };
-  const handleClickLogout = () => {
+  const handleClickLogout = async () => {
     // axios.delete(`http://localhost:4000/user/logout`);
-    setIsLogin(false);
+
     localStorage.removeItem("isLogin", false);
-    // window.location.reload();
-    // navigate("/home");
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("nickname");
+    await logout();
+    window.location.reload();
+    navigate("/");
   };
 
   useEffect(() => {
@@ -140,7 +144,9 @@ const Navbar = () => {
   return (
     <Nav>
       <Header>
-        <Logo src={logo} />
+        <LogoLink to="/">
+          <Logo src={logo} />
+        </LogoLink>
         <RigthNav
           isLogin={isLogin}
           isVisible={isOpen}

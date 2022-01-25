@@ -68,8 +68,7 @@ const LoginInput = styled.input`
   border: none;
   padding: 20px 0px;
   font-size: 15px;
-  border-bottom: ${(props) =>
-    props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red"};
+  border-bottom: ${(props) => (props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red")};
   margin-bottom: 15px;
   &:focus {
     outline: none;
@@ -153,11 +152,11 @@ const Login = () => {
     const {
       data,
       data: {
-        userInfo: { id },
+        userInfo: { id, nickname },
       },
     } = await postLogin({ email, password });
     localStorage.setItem("userInfo", id);
-
+    localStorage.setItem("nickname", nickname);
     return data;
   };
   const navigate = useNavigate();
@@ -167,7 +166,6 @@ const Login = () => {
   };
 
   const handleResponseSuccess = () => {
-    setIsLogin(true);
     localStorage.setItem("isLogin", true);
     navigate("/drink");
 
@@ -181,13 +179,24 @@ const Login = () => {
     }
 
     try {
-      const data = getUser();
+      const data = await getUser();
+      console.log(data);
       if (data) {
         handleResponseSuccess(data);
       }
     } catch (err) {
       console.log(err.response);
       setInvalid(false);
+    }
+  };
+
+  const getToken = async () => {
+    const url = new URL(window.location.href);
+    const authorizationCode = url.searchParams.get("code");
+
+    if (authorizationCode) {
+      localStorage.getItem("isLogin");
+      //서버: 토큰 풀어서(다른 엔드포인트 함수가 필요) 이메일정보 => 데이터베이스 이메일없으면 서버에서 새로운 토큰 발급
     }
   };
 
@@ -226,11 +235,11 @@ const Login = () => {
       </Screen>
       <ButtonForm>
         <ButtonContainer>
-          <OauthButton>
+          <OauthButton href="https://accounts.google.com/o/oauth2/v2/auth?client_id=874017862069-ibnrpsv2sjrb3uuvdi5ijja6cloi9255.apps.googleusercontent.com&redirect_uri=http://localhost:3000&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email">
             <i className="fab fa-google"></i>
             Google로 로그인
           </OauthButton>
-          <OauthButton>
+          <OauthButton href="https://github.com/login/oauth/authorize?client_id=46fe43a8dc9c1ac97714&scope=user:email">
             <i className="fab fa-github"></i>
             Github로 로그인
           </OauthButton>
@@ -239,4 +248,5 @@ const Login = () => {
     </Container>
   );
 };
+
 export default Login;

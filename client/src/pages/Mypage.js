@@ -38,7 +38,7 @@ const Label = styled.label`
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
-  color: gray;
+  color: black;
   font-weight: bold;
 `;
 const Button = styled.button`

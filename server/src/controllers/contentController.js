@@ -7,7 +7,6 @@ import { verify } from "../token/verify";
 const contents = db.content;
 const users = db.user;
 const comments = db.comment;
-const likes = db.like;
 
 export const getAllContent = async (req, res) => {
   try {
@@ -23,17 +22,18 @@ export const postContent = async (req, res) => {
   try {
     const { token } = req.cookies;
 
-    const { title, img, content, nickName } = req.body;
+    const { title, content, nickName } = req.body;
+
     const { email } = verify(token);
 
     const userInfo = await users.findOne({ where: { email } });
-    // console.log(userInfo);
+
     const contentInfo = await contents.create({
       userId: userInfo.id,
       nickName,
       title,
-      img,
       content,
+      img: req.files[0].path || null,
     });
 
     if (contentInfo) {
@@ -41,7 +41,8 @@ export const postContent = async (req, res) => {
     } else {
       res.status(400).json({ message: "글 작성 실패" });
     }
-  } catch {
+  } catch (e) {
+    console.log(e);
     res.status(500).json({ message: "글 작성 실패" });
   }
 };
@@ -66,9 +67,10 @@ export const updateContent = async (req, res) => {
     let { id } = req.params;
 
     id = parseInt(id);
-    const { title, img, content } = req.body;
-    await contents.update({ title, img, content }, { where: { id } });
-
+    const { title, content } = req.body;
+    const { files } = req;
+    if (!files) await contents.update({ title, content }, { where: { id } });
+    else await contents.update({ title, img: files[0].path, content }, { where: { id } });
     res.status(200).json({ message: "글 수정 완료" });
   } catch {
     res.status(500).json({ message: "글 수정 실패" });

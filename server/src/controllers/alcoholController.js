@@ -6,6 +6,7 @@ const dishes = db.dish;
 export const getAlcohol = async (req, res) => {
   try {
     const { type } = req.query;
+
     if (type === "all") {
       const all = await alcohols.findAll({});
       return res.status(200).json({ message: "모든 주류 불러오기", all });

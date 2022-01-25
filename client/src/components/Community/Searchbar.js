@@ -4,7 +4,6 @@ import styled from "styled-components";
 const Contaier = styled.div`
   display: flex;
   justify-content: center;
-  /* border: 1px solid blue; */
   /* margin: 30px 0px; */
   text-align: center;
 `;
@@ -51,9 +50,9 @@ const SearchBar = () => {
   const handleList = (event) => {
     setChoice(event.target.value);
   };
-  {
-    /* {conents.filter(content => content.title === filterText)} */
-  }
+
+  // {conents.filter(content => content.title === filterText)}
+
   return (
     <Contaier>
       <SelectBox onChange={handleList}>{options}</SelectBox>

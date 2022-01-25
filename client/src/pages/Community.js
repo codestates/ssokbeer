@@ -8,10 +8,13 @@ const Community = () => {
   const [allContent, setAllContent] = useState([]);
   const [rankContent, setRankContent] = useState([]);
 
+  const [choice, setChoice] = useState("");
+  const [textSearch, setTextSearch] = useState("");
+
   const getData = async () => {
     const { allContent, rankContent } = await getContent();
 
-    setRankContent(rankContent);
+    setRankContent(rankContent.slice(0, 4));
     setAllContent(allContent);
   };
 
@@ -22,7 +25,7 @@ const Community = () => {
   return (
     <>
       <Recommendation rankContent={rankContent} />
-      <SearchBar />
+      <SearchBar setChoice={setChoice} setTextSearch={setTextSearch} />
       <CommunityPost allContent={allContent} />
     </>
   );

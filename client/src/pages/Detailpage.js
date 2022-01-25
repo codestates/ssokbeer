@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import SingleComment from "../components/Detailpage/SingleComment";
 import NewCommentForm from "../components/Detailpage/NewCommentForm";
 import axios from "axios";
-import { getSingleContent, postLike } from "../api";
+import { dateToStr, deleteContent, formatDate, getSingleContent, patchContent, postLike } from "../api";
 
 const Container = styled.div`
-  width: 100%;
+  max-width: 1200px;
+  height: 100%;
   margin: 0px auto;
   display: flex;
   flex-direction: column;
@@ -21,7 +22,7 @@ const Form = styled.div`
   align-items: center;
   max-width: 1200px;
   width: 100%;
-  height: 860px;
+  height: 100%;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
 `;
@@ -99,9 +100,21 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   width: 95%;
-  height: 45%;
+  height: 400px;
   margin: 0px 18px;
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 20px;
+`;
+const InputContent = styled.textarea`
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  height: 400px;
+  margin: 0px 18px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  &:focus {
+    outline: none;
+  }
 `;
 
 const LikeBox = styled.div`
@@ -129,6 +142,7 @@ const Like = styled.div`
     color: ${(props) => (props.primary ? "red" : "black")};
   }
 `;
+
 const CommentForm = styled.div`
   display: flex;
   flex-direction: column;
@@ -141,13 +155,17 @@ const CommentForm = styled.div`
 
 const Detailpage = () => {
   let { id } = useParams();
+  const navigate = useNavigate();
 
   // console.log(state);
   //   const [isAdministrator, setIsadministrator] = useState(false);
   const [singleData, setSingleData] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
+  const [changeContent, setChangeContent] = useState("");
 
   const getSingleData = async () => {
     const data = await getSingleContent(id);
+
     setSingleData(data);
   };
 
@@ -155,10 +173,29 @@ const Detailpage = () => {
     getSingleData();
   }, []);
 
-  const handleClickModify = () => {};
-  const handleClickDelete = () => {};
+  const handleClickModify = async () => {
+    const change = !isEditing;
+    if (!change) {
+      await patchContent(id, { title, img, content: changeContent });
+      window.location.reload();
+    }
+    setChangeContent(content);
+    setIsEditing(change);
+  };
+
+  const handleCangeContent = (e) => {
+    setChangeContent(e.target.value);
+  };
+
+  const handleClickDelete = async () => {
+    await deleteContent(id);
+    window.location.reload();
+    navigate("/");
+  };
 
   const { title, img, createdAt, visit, like, content, comments, userId } = singleData;
+
+  const date = formatDate(createdAt);
 
   const handleLikeClick = () => {
     postLike(id);
@@ -167,6 +204,8 @@ const Detailpage = () => {
 
   const nowUserId = localStorage.getItem("userInfo");
 
+  const check = parseInt(userId) === parseInt(nowUserId);
+
   return (
     <Container>
       <Form>
@@ -174,9 +213,9 @@ const Detailpage = () => {
           <ListLink to="/community">
             <Button>목록</Button>
           </ListLink>
-          {userId === nowUserId ? null : (
+          {check && (
             <ButtonAllignment>
-              <ModifyButton onClick={handleClickModify}>수정</ModifyButton>
+              <ModifyButton onClick={handleClickModify}>{isEditing ? "완료" : "수정"}</ModifyButton>
               <ModifyButton onClick={handleClickDelete}>삭제</ModifyButton>
             </ButtonAllignment>
           )}
@@ -186,10 +225,13 @@ const Detailpage = () => {
           <User>머규</User>
           <Inform>추천 {like}</Inform>
           <Inform>조회{visit}</Inform>
-          <Inform>{createdAt}</Inform>
-          <Inform>댓글</Inform>
+          <Inform>{date}</Inform>
         </InformBox>
-        <Content>{content}</Content>
+        {isEditing ? (
+          <InputContent type="text" value={changeContent} onChange={handleCangeContent} />
+        ) : (
+          <Content>{content}</Content>
+        )}
         <ButtonBox>
           <Button>댓글</Button>
           <LikeBox>
@@ -199,7 +241,7 @@ const Detailpage = () => {
             </Like>
           </LikeBox>
         </ButtonBox>
-        <NewCommentForm nowContentId={id} />
+        <NewCommentForm nowContentId={id} nowUserId={nowUserId} />
         <CommentForm>
           {comments?.map((comment, idx) => (
             <SingleComment key={idx} comment={comment} />
