@@ -49,14 +49,13 @@ export const patchProfile = async (body) => {
   }
 };
 
-export const postContent = async () => {
+export const postContent = async (formData) => {
   try {
     await axios.post(`${URL}/content`, formData, { withCredentials: true });
   } catch (e) {
     console.log(e.response);
   }
 };
-
 
 export const getContent = async () => {
   try {

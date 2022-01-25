@@ -33,7 +33,7 @@ export const postContent = async (req, res) => {
       nickName,
       title,
       content,
-      img: req.files[0].path || null,
+      img: req.files ? req.files[0].path : null,
     });
 
     if (contentInfo) {
