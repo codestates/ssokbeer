@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const URL = "http://localhost:4000";
+
 export const postSignup = async (body) => {
   try {
     const { data } = await axios.post(`${URL}/user/signup`, body);
@@ -48,14 +49,14 @@ export const patchProfile = async (body) => {
   }
 };
 
-// export const postContent = async () => {
-//   try {
-//     console.log("포스트 발송 진입");
-//     await axios.post(`${URL}/content`, formData, { withCredentials: true });
-//   } catch (e) {
-//     console.log(e.response);
-//   }
-// };
+export const postContent = async () => {
+  try {
+    await axios.post(`${URL}/content`, formData, { withCredentials: true });
+  } catch (e) {
+    console.log(e.response);
+  }
+};
+
 
 export const getContent = async () => {
   try {
@@ -132,6 +133,16 @@ export const editComment = async (id, content) => {
 export const deleteComment = async (id) => {
   try {
     const data = await axios.delete(`${URL}/comment/${id}`);
+    return data;
+  } catch (e) {
+    console.log(e.response);
+  }
+};
+
+export const getAlcohol = async (type) => {
+  try {
+    const data = await axios.get(`${URL}/alcohol?type=${type}`);
+    console.log(data);
     return data;
   } catch (e) {
     console.log(e.response);

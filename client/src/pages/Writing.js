@@ -103,6 +103,7 @@ const Writing = () => {
     formData.append("content", content);
     formData.append("file", imgFile);
     await axios.post("http://localhost:4000/content", formData, { withCredentials: true });
+
   };
 
   const onChange = (e) => {

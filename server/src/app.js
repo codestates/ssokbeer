@@ -34,7 +34,11 @@ app.use(
 app.use(logger);
 
 db.sequelize.sync();
+
 app.use(dataSetup);
+
+app.use("/uploads", express.static("uploads"));
+
 app.use("/alcohol", alcoholRouter);
 
 app.use("/content", contentRouter);
