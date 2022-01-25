@@ -49,6 +49,7 @@ export const patchProfile = async (body) => {
   }
 };
 
+
 export const postContent = async (body) => {
   try {
     await axios.post(`${URL}/content`, body, { withCredentials: true });
@@ -56,6 +57,7 @@ export const postContent = async (body) => {
     console.log(e.response);
   }
 };
+
 
 export const getContent = async () => {
   try {

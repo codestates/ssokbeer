@@ -103,6 +103,7 @@ const Writing = () => {
     formData.append("content", content);
     formData.append("file", imgFile);
     postContent(formData);
+
   };
 
   const onChange = (e) => {
