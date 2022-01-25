@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { postContent } from "../api";
+import { postComment, postContent } from "../api";
 import axios from "axios";
 
 const Container = styled.div`
@@ -102,12 +102,12 @@ const Writing = () => {
     formData.append("title", title);
     formData.append("content", content);
     formData.append("file", imgFile);
-    await axios.post("http://localhost:4000/content", formData, { withCredentials: true });
+    postContent(formData);
 
   };
 
   const onChange = (e) => {
-    const file = e.target.files[0];
+    setImgFile(e.target.files[0]);
   };
 
   const onSubmitValid = async () => {
