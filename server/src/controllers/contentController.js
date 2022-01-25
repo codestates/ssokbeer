@@ -34,7 +34,6 @@ export const postContent = async (req, res) => {
       title,
       content,
       img: req.files ? req.files[0].path : null,
-
     });
 
     if (contentInfo) {

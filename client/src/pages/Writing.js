@@ -103,7 +103,6 @@ const Writing = () => {
     formData.append("content", content);
     formData.append("file", imgFile);
     postContent(formData);
-
   };
 
   const onChange = (e) => {
@@ -130,7 +129,7 @@ const Writing = () => {
             setTitle(e.target.value);
           }}
         ></Title>
-        <Img type="file" onChange={(e) => onChange(e)} />
+        <Img accept="image/*" type="file" onChange={(e) => onChange(e)} />
         <Content
           required
           type="textarea"
