@@ -7,10 +7,17 @@ const Post = styled.div`
   width: 100%;
   border: 1px solid grey;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
 `;
-const FoodLink = styled(Link)``;
+const FoodLink = styled(Link)`
+  width: 50%;
+  height: 100%;
+  border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const FoodImg = styled.img`
   width: 50%;
@@ -71,7 +78,7 @@ const CreatedDate = styled.div`
 const AllContent = ({ content }) => {
   const { id, nickname, title, visit, likeCnt, like, createdAt, img } = content;
 
-  console.log(like);
+  console.log(img);
   // console.log(likeCnt);
 
   const date = formatDate(createdAt);
@@ -79,7 +86,7 @@ const AllContent = ({ content }) => {
   return (
     <Post>
       <FoodLink to={`${id}`}>
-        <FoodImg src={img}></FoodImg>
+        <FoodImg src={`http://localhost:4000/${img}`}></FoodImg>
       </FoodLink>
       <ContentBox>
         <ContentHeader to={`${id}`}>{title}</ContentHeader>

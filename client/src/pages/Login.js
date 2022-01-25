@@ -152,11 +152,11 @@ const Login = () => {
     const {
       data,
       data: {
-        userInfo: { id },
+        userInfo: { id, nickname },
       },
     } = await postLogin({ email, password });
     localStorage.setItem("userInfo", id);
-
+    localStorage.setItem("nickname", nickname);
     return data;
   };
   const navigate = useNavigate();

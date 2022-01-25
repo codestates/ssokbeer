@@ -24,7 +24,7 @@ const RecomendContent = ({ content }) => {
   const { title, img } = content;
   return (
     <RecommendPost>
-      <PostImage src={img}></PostImage>
+      <PostImage src={`http://localhost:4000/${img}`}></PostImage>
       <PostTitle>{title}</PostTitle>
     </RecommendPost>
   );
