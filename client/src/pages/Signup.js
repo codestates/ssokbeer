@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { postSignup } from "../api";
 import { useNavigate } from "react-router-dom";
-
+import { setLogin, setUserId } from "../action";
+import { useDispatch, useSelector } from "react-redux";
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -78,12 +79,18 @@ const Span = styled.span`
 `;
 
 const Signup = () => {
+  const dispatch = useDispatch();
   const nav = useNavigate();
   const { register, handleSubmit, errors, getValues, formState } = useForm({ mode: "onChange" }); // 핸들섭밋이란 함수가 있음
   // 이벤트 종류  on blu 한인붙에서 다른인풋으로 넘어갈때  ,
-  const onSubmitValid = () => {
+  const onSubmitValid = async () => {
     const { email, password, nickname } = getValues();
-    postSignup({ email, password, nickname });
+    const id = await postSignup({ email, password, nickname });
+
+    localStorage.setItem("isLogin", true);
+    localStorage.setItem("userId", id);
+    dispatch(setLogin(true));
+    dispatch(setUserId(id));
     nav("/");
   };
 

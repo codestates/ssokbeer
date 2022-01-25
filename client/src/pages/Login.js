@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
 import axios from "axios";
 import { postLogin } from "../api";
+import { useDispatch, useSelector } from "react-redux";
+import { setLogin, setUserId, setSocialType } from "../action";
 
 axios.defaults.withCredentials = true;
 
@@ -68,7 +70,8 @@ const LoginInput = styled.input`
   border: none;
   padding: 20px 0px;
   font-size: 15px;
-  border-bottom: ${(props) => (props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red")};
+  border-bottom: ${(props) =>
+    props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red"};
   margin-bottom: 15px;
   &:focus {
     outline: none;
@@ -139,9 +142,10 @@ const Messagebox = styled.div`
 `;
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   const [isfullfilled, setIsFullfiled] = useState(true);
   const [invalid, setInvalid] = useState(true);
-  const [Login, setIsLogin] = useState(false);
 
   const [loginInfo, setLoginInfo] = useState({
     email: "",
@@ -152,11 +156,14 @@ const Login = () => {
     const {
       data,
       data: {
-        userInfo: { id, nickname },
+        userInfo: { id },
       },
     } = await postLogin({ email, password });
-    localStorage.setItem("userInfo", id);
-    localStorage.setItem("nickname", nickname);
+
+    localStorage.setItem("userId", id);
+
+    dispatch(setUserId(id));
+
     return data;
   };
   const navigate = useNavigate();
@@ -166,10 +173,9 @@ const Login = () => {
   };
 
   const handleResponseSuccess = () => {
+    dispatch(setLogin(true));
     localStorage.setItem("isLogin", true);
-    navigate("/drink");
-
-    window.location.reload();
+    navigate("/");
   };
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -187,16 +193,6 @@ const Login = () => {
     } catch (err) {
       console.log(err.response);
       setInvalid(false);
-    }
-  };
-
-  const getToken = async () => {
-    const url = new URL(window.location.href);
-    const authorizationCode = url.searchParams.get("code");
-
-    if (authorizationCode) {
-      localStorage.getItem("isLogin");
-      //서버: 토큰 풀어서(다른 엔드포인트 함수가 필요) 이메일정보 => 데이터베이스 이메일없으면 서버에서 새로운 토큰 발급
     }
   };
 
@@ -235,11 +231,23 @@ const Login = () => {
       </Screen>
       <ButtonForm>
         <ButtonContainer>
-          <OauthButton href="https://accounts.google.com/o/oauth2/v2/auth?client_id=874017862069-ibnrpsv2sjrb3uuvdi5ijja6cloi9255.apps.googleusercontent.com&redirect_uri=http://localhost:3000&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email">
+          <OauthButton
+            onClick={() => {
+              dispatch(setSocialType("google"));
+              localStorage.setItem("socialType", "google");
+            }}
+            href="https://accounts.google.com/o/oauth2/v2/auth?client_id=849456230902-bbj8hno72k1hhlciunde3nc0knp6i28m.apps.googleusercontent.com&redirect_uri=http://localhost:3000&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email"
+          >
             <i className="fab fa-google"></i>
             Google로 로그인
           </OauthButton>
-          <OauthButton href="https://github.com/login/oauth/authorize?client_id=46fe43a8dc9c1ac97714&scope=user:email">
+          <OauthButton
+            onClick={() => {
+              dispatch(setSocialType("github"));
+              localStorage.setItem("socialType", "github");
+            }}
+            href="https://github.com/login/oauth/authorize?client_id=46fe43a8dc9c1ac97714&scope=user:email"
+          >
             <i className="fab fa-github"></i>
             Github로 로그인
           </OauthButton>
