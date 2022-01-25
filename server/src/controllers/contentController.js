@@ -1,4 +1,7 @@
-import db from "../../models/index";
+const {
+  Sequelize: { Op },
+} = require("../../models");
+import db, { sequelize } from "../../models/index";
 import { verify } from "../token/verify";
 
 const contents = db.content;
@@ -20,13 +23,14 @@ export const postContent = async (req, res) => {
   try {
     const { token } = req.cookies;
 
-    const { title, img, content } = req.body;
+    const { title, img, content, nickName } = req.body;
     const { email } = verify(token);
 
     const userInfo = await users.findOne({ where: { email } });
     // console.log(userInfo);
     const contentInfo = await contents.create({
       userId: userInfo.id,
+      nickName,
       title,
       img,
       content,
@@ -76,9 +80,26 @@ export const deleteContent = async (req, res) => {
     const { id } = req.params;
     await contents.destroy({ where: { id } });
     res.status(201).json({ message: "글 삭제 완료" });
-  } catch {
+  } catch (e) {
     res.status(500).json({ message: "글 삭제 실패" });
   }
 };
 
-export const deleteAllContent = async (req, res) => {};
+export const search = async (req, res) => {
+  try {
+    const { type, value } = req.query;
+    let finder = {};
+    finder[type] = { [Op.like]: `%${value}%` };
+
+    const result = await contents.findAll({
+      where: {
+        [Op.or]: [finder],
+      },
+    });
+
+    return res.status(200).json({ result });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({ message: "왜 안 떠 " });
+  }
+};

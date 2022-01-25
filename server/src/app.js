@@ -34,7 +34,9 @@ app.use(
 app.use(logger);
 
 db.sequelize.sync();
+
 app.use(dataSetup);
+
 app.use("/alcohol", alcoholRouter);
 
 app.use("/content", contentRouter);
