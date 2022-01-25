@@ -3,8 +3,17 @@ import styled from "styled-components";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import SingleComment from "../components/Detailpage/SingleComment";
 import NewCommentForm from "../components/Detailpage/NewCommentForm";
-import axios from "axios";
-import { dateToStr, deleteContent, formatDate, getSingleContent, patchContent, postLike } from "../api";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  dateToStr,
+  deleteContent,
+  formatDate,
+  getSingleContent,
+  patchContent,
+  postLike,
+} from "../api";
+import { setChange } from "../action";
 
 const Container = styled.div`
   max-width: 1200px;
@@ -156,9 +165,9 @@ const CommentForm = styled.div`
 const Detailpage = () => {
   let { id } = useParams();
   const navigate = useNavigate();
+  const state = useSelector((state) => state.allReducer);
+  const dispatch = useDispatch();
 
-  // console.log(state);
-  //   const [isAdministrator, setIsadministrator] = useState(false);
   const [singleData, setSingleData] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [changeContent, setChangeContent] = useState("");
@@ -169,16 +178,14 @@ const Detailpage = () => {
     setSingleData(data);
   };
 
-  useEffect(() => {
-    getSingleData();
-  }, []);
-
   const handleClickModify = async () => {
     const change = !isEditing;
+
     if (!change) {
       await patchContent(id, { title, img, content: changeContent });
-      window.location.reload();
+      dispatch(setChange());
     }
+
     setChangeContent(content);
     setIsEditing(change);
   };
@@ -189,23 +196,24 @@ const Detailpage = () => {
 
   const handleClickDelete = async () => {
     await deleteContent(id);
-    window.location.reload();
+    dispatch(setChange());
     navigate("/");
   };
 
-  const { title, img, createdAt, visit, like, content, comments, userId } = singleData;
+  const { title, img, createdAt, visit, like, content, comments, userId, nickname } = singleData;
 
   const date = formatDate(createdAt);
 
-  const handleLikeClick = () => {
-    postLike(id);
-    window.location.reload();
+  const handleLikeClick = async () => {
+    await postLike(id);
+    dispatch(setChange());
   };
 
-  const nowUserId = localStorage.getItem("userInfo");
+  const check = parseInt(userId) === parseInt(state.userId);
 
-  const check = parseInt(userId) === parseInt(nowUserId);
-
+  useEffect(() => {
+    getSingleData();
+  }, [state.change]);
   return (
     <Container>
       <Form>
@@ -222,7 +230,7 @@ const Detailpage = () => {
         </ButtonBox>
         <Title>{title}</Title>
         <InformBox>
-          <User>머규</User>
+          <User>{nickname}</User>
           <Inform>추천 {like}</Inform>
           <Inform>조회{visit}</Inform>
           <Inform>{date}</Inform>
@@ -241,7 +249,7 @@ const Detailpage = () => {
             </Like>
           </LikeBox>
         </ButtonBox>
-        <NewCommentForm nowContentId={id} nowUserId={nowUserId} />
+        <NewCommentForm nowContentId={id} nowUserId={state.userId} />
         <CommentForm>
           {comments?.map((comment, idx) => (
             <SingleComment key={idx} comment={comment} />

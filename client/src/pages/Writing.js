@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { postComment, postContent } from "../api";
-import axios from "axios";
+import { postContent } from "../api";
+import { useDispatch, useSelector } from "react-redux";
+import { setChange, setWriting } from "../action";
 
 const Container = styled.div`
   width: 100%;
@@ -92,6 +93,8 @@ const Button = styled.button`
 const Imtest = styled.img``;
 
 const Writing = () => {
+  const dispatch = useDispatch();
+
   const nav = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -111,7 +114,10 @@ const Writing = () => {
 
   const onSubmitValid = async () => {
     try {
-      postData();
+      await postData();
+
+      dispatch(setChange());
+
       nav("/community");
     } catch (e) {
       console.log(e.response);

@@ -54,6 +54,7 @@ const View = styled.div`
   font-size: 16px;
   padding: 10px;
 `;
+
 const LikeCount = styled.div`
   font-size: 16px;
   padding: 10px;
@@ -78,7 +79,6 @@ const CreatedDate = styled.div`
 const AllContent = ({ content }) => {
   const { id, nickname, title, visit, likeCnt, like, createdAt, img } = content;
 
-  console.log(img);
   // console.log(likeCnt);
 
   const date = formatDate(createdAt);

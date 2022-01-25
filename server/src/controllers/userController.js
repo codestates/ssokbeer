@@ -6,22 +6,6 @@ import { verify } from "../token/verify";
 const users = db.user;
 const contents = db.content;
 
-export const nickCheck = async (req, res) => {
-  let { nickname } = req.body;
-  let isNick = await users.findOne({ where: { nickname } });
-  isNick = Boolean(isNick);
-
-  return res.status(200).json({ nickname: isNick });
-};
-
-export const emailCheck = async (req, res) => {
-  let { email } = req.body;
-  let isEmail = await users.findOne({ where: { email } });
-  isEmail = Boolean(isEmail);
-
-  return res.status(200).json({ email: isEmail });
-};
-
 export const postSignup = async (req, res) => {
   const { nickname, email, password } = req.body;
 
@@ -44,7 +28,7 @@ export const postSignup = async (req, res) => {
     });
 
     res.cookie("token", token);
-    res.status(201).json({ token });
+    res.status(201).json({ result });
   } catch (e) {
     console.log(e);
     res.status(500).json({ message: "회원가입실패" });

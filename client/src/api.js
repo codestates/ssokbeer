@@ -2,10 +2,24 @@ import axios from "axios";
 
 const URL = "http://localhost:4000";
 
+export const sociaLogin = async (type, code) => {
+  try {
+    const { data } = await axios.post(`${URL}/oauth/${type}`, { code });
+    console.log(data);
+  } catch (e) {
+    console.log(e.response);
+  }
+};
+
 export const postSignup = async (body) => {
   try {
-    const { data } = await axios.post(`${URL}/user/signup`, body);
-    console.log(data);
+    const {
+      data: {
+        result: { id },
+      },
+    } = await axios.post(`${URL}/user/signup`, body);
+
+    return id;
   } catch (e) {
     console.log(e.response);
   }
@@ -153,6 +167,7 @@ export const getAlcohol = async (type) => {
     console.log(e.response);
   }
 };
+
 export const getSingleAlcohol = async (id) => {
   try {
     const {
@@ -161,6 +176,30 @@ export const getSingleAlcohol = async (id) => {
 
     return oneAlcohol;
   } catch (e) {
+    console.log(e.response);
+  }
+};
+
+export const search = async (type, value) => {
+  try {
+    const {
+      data: { result },
+    } = await axios.get(`${URL}/content/search?type=${type}&value=${value}`);
+    return result;
+  } catch (e) {
+    console.log(e.response);
+  }
+};
+export const postSocialLogin = async (type, code) => {
+  console.log(type, code);
+  try {
+    const {
+      data: { id },
+    } = await axios.post(`${URL}/oauth/${type}`, { code });
+    console.log(id);
+    return id;
+  } catch (e) {
+    localStorage.removeItem("socialType");
     console.log(e.response);
   }
 };
