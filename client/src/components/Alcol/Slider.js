@@ -8,6 +8,11 @@ const ImageSlide = styled.div`
   width: 100%;
   margin: auto;
 `;
+
+const Container = styled.div`
+  width: 1080px;
+  margin: 0 auto;
+`;
 const SlideBox = styled.div`
   position: relative;
   width: 1080px;
