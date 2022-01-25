@@ -48,17 +48,14 @@ export const patchProfile = async (body) => {
   }
 };
 
-export const postContent = async (title, content, img) => {
-  try {
-    await axios.post(`${URL}/content`, {
-      title,
-      content,
-      img,
-    });
-  } catch (e) {
-    console.log(e.response);
-  }
-};
+// export const postContent = async () => {
+//   try {
+//     console.log("포스트 발송 진입");
+//     await axios.post(`${URL}/content`, formData, { withCredentials: true });
+//   } catch (e) {
+//     console.log(e.response);
+//   }
+// };
 
 export const getContent = async () => {
   try {

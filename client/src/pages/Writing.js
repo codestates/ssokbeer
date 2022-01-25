@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { postContent } from "../api";
+import axios from "axios";
 
 const Container = styled.div`
   width: 100%;
@@ -36,14 +37,13 @@ const Title = styled.input`
   }
 `;
 
-const Content = styled.input`
-  text-decoration: none;
-  border: none;
+const Content = styled.textarea`
+  display: flex;
+  flex-direction: column;
   width: 95%;
-  padding: 20px 0px 10px 0px;
-  font-size: 25px;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
-  margin-bottom: 15px;
+  height: 500px;
+  margin: 0px 18px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   &:focus {
     outline: none;
   }
@@ -54,7 +54,8 @@ const Img = styled.input`
   border: none;
   width: 95%;
   padding: 20px 0px 10px 0px;
-  font-size: 25px;
+  font-size: 20px;
+  color: grey;
   border-bottom: 2px solid rgba(0, 0, 0, 0.2);
   margin-bottom: 15px;
   &:focus {
@@ -95,23 +96,17 @@ const Writing = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [imgFile, setImgFile] = useState("");
-  const [pimg, setPimg] = useState("");
 
   const postData = async () => {
-    const img = new FormData();
-    img.append("file", imgFile);
-    await postContent(title, content, img);
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("file", imgFile);
+    await axios.post("http://localhost:4000/content", formData, { withCredentials: true });
   };
 
   const onChange = (e) => {
     const file = e.target.files[0];
-    setImgFile(file);
-
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      setPimg(reader.result);
-    };
   };
 
   const onSubmitValid = async () => {
@@ -134,16 +129,15 @@ const Writing = () => {
             setTitle(e.target.value);
           }}
         ></Title>
+        <Img type="file" onChange={(e) => onChange(e)} />
         <Content
           required
-          type="text"
-          placeholder="내용을 입력하세요"
+          type="textarea"
           onChange={(e) => {
             setContent(e.target.value);
           }}
         ></Content>
-        <Img type="file" onChange={(e) => onChange(e)} />
-        <Imtest src={pimg} />
+
         <ButtonBox>
           <CancelLink to="/community">
             <Button>취소</Button>
