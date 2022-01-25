@@ -49,9 +49,10 @@ export const patchProfile = async (body) => {
   }
 };
 
-export const postContent = async () => {
+
+export const postContent = async (body) => {
   try {
-    await axios.post(`${URL}/content`, formData, { withCredentials: true });
+    await axios.post(`${URL}/content`, body, { withCredentials: true });
   } catch (e) {
     console.log(e.response);
   }
@@ -141,9 +142,15 @@ export const deleteComment = async (id) => {
 
 export const getAlcohol = async (type) => {
   try {
-    const data = await axios.get(`${URL}/alcohol?type=${type}`);
-    console.log(data);
-    return data;
+    const {
+      data: { beer, soju },
+    } = await axios.get(`${URL}/alcohol?type=${type}`);
+
+    if (beer) {
+      return beer;
+    } else if (soju) {
+      return soju;
+    }
   } catch (e) {
     console.log(e.response);
   }
