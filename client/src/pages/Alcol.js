@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import Modal from "../components/Alcol/Modal";
 import Slider from "../components/Alcol/Slider";
 import beer from "../img/beer.png";
 import soju from "../img/soju.jpeg";
@@ -16,7 +17,7 @@ const CheckBox = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  width: 70%;
+  width: 75%;
   margin: 15px 0px;
 `;
 
@@ -37,13 +38,23 @@ const BeverageName = styled.div`
   color: #444444;
   font-weight: 600;
   /* margin: 0px 148px 0px 153px; */
-  min-width: 180px;
+  width: 75%;
   margin: 14px auto;
   text-align: center;
 `;
 
 const Alcol = () => {
-  return (
+  const [id, setId] = useState(1);
+  const [check, setCheck] = useState(false);
+
+  const openModal = (id) => {
+    setId(id);
+    setCheck((prev) => !prev);
+  };
+
+  return check ? (
+    <Modal openModal={openModal} id={id} />
+  ) : (
     <Container>
       <CheckBox>
         <BeverageImg src={beer} />
@@ -53,7 +64,8 @@ const Alcol = () => {
         <BeverageName>맥주</BeverageName>
         <BeverageName>소주</BeverageName>
       </NameConatiner>
-      <Slider></Slider>
+      <Slider type={"beer"} openModal={openModal} />
+      <Slider type={"soju"} openModal={openModal} />
     </Container>
   );
 };

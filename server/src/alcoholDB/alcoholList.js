@@ -86,7 +86,6 @@ const sojuName = [
 
 const sojuUrl = [
   "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img1.jpg?raw=true",
-  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img2.jpg?raw=true",
   "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img3.png?raw=true",
   "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img4.jpg?raw=true",
   "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img5.jpg?raw=true",

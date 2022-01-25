@@ -9,20 +9,22 @@ const ImageSlide = styled.div`
   width: 100%;
   margin: auto;
 `;
-
+const Name = styled.div`
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: 0px;
+`;
 const SlideBox = styled.div`
-  position: relative;
   width: ${(props) => (props.isPc ? "880px" : "220px")};
 
   margin: 100px auto;
   overflow-x: hidden;
-
-  /* height: 300px; */
 `;
 
 const SlideList = styled.div`
   display: flex;
-  /* justify-content: center; */
+  height: 250px;
   width: 5500px;
   transition: all 300ms ease 0s;
   overflow: hidden;
@@ -30,10 +32,11 @@ const SlideList = styled.div`
 `;
 
 const SlideContent = styled.div`
-  display: table;
+  display: flex;
+  flex-direction: column;
+  position: relative;
   float: left;
   width: 200px;
-  /* height: 200px; */
   margin: 0px 10px;
 `;
 
@@ -42,13 +45,14 @@ const Picture = styled.div`
   vertical-align: middle;
   text-align: center;
   margin: 10px 10px;
+  position: relative;
 `;
 
 const Img = styled.img`
   width: 100%;
   height: 200px;
   border-radius: 10%;
-  border: 1px solid black;
+  border: 1px solid gray;
 `;
 
 const ButtonStyle = styled.div`
@@ -97,44 +101,42 @@ const SojuButtonNext = styled.div`
   background-color: red;
 `;
 
-const Slider = () => {
+const Slider = ({ type, openModal }) => {
   const isPc = useMediaQuery({ query: "(min-width: 768px)" }, undefined);
   const [beer, setBeer] = useState([]);
-  const [soju, setSoju] = useState([]);
 
   const getData = async () => {
-    setBeer(await getAlcohol("beer"));
-    setSoju(await getAlcohol("soju"));
+    setBeer(await getAlcohol(type));
   };
 
   useEffect(() => {
     getData();
   }, []);
 
-  const [currentImage, setCurrentImage] = useState(3);
-  const onChangeBeerContent = (pageDelta) => {
+  const [currentImage, setCurrentImage] = useState(0);
+  const onChangeContent = (pageDelta) => {
     const lastReviewPageNum = beer.length - 1;
     const newCurrentPageNum = currentImage + pageDelta;
 
     if (newCurrentPageNum < 0) {
-      setCurrentImage(lastReviewPageNum);
-    } else if (newCurrentPageNum > lastReviewPageNum) {
+      setCurrentImage(lastReviewPageNum - 3);
+    } else if (newCurrentPageNum > lastReviewPageNum - 3) {
       setCurrentImage(0);
     } else {
       setCurrentImage(newCurrentPageNum);
     }
   };
-  console.log(isPc);
   return (
     <ImageSlide>
       <SlideBox isPc={isPc}>
         <SlideList ci={currentImage} isPc={isPc}>
           {beer.map((beer, idx) => {
             return (
-              <SlideContent key={idx}>
+              <SlideContent onClick={() => openModal(beer.id)} key={idx}>
                 <Picture>
                   <Img src={beer.img} />
                 </Picture>
+                <Name>{beer.name} </Name>
               </SlideContent>
             );
           })}
@@ -154,33 +156,6 @@ const Slider = () => {
       >
         <i className="fas fa-chevron-right"></i>
       </BeerButtonNext>
-      <SlideBox isPc={isPc}>
-        <SlideList isPc={isPc}>
-          {soju.map((alcol, idx) => {
-            return (
-              <SlideContent key={idx}>
-                <Picture>
-                  <Img src={alcol.img} />
-                </Picture>
-              </SlideContent>
-            );
-          })}
-        </SlideList>
-      </SlideBox>
-      <SojuButtonPrev
-        onClick={() => {
-          onChangeContent(-1);
-        }}
-      >
-        <i className="fas fa-chevron-left"></i>
-      </SojuButtonPrev>
-      <SojuButtonNext
-        onClick={() => {
-          onChangeContent(+1);
-        }}
-      >
-        <i className="fas fa-chevron-right"></i>
-      </SojuButtonNext>
     </ImageSlide>
   );
 };

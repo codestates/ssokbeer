@@ -153,6 +153,17 @@ export const getAlcohol = async (type) => {
     console.log(e.response);
   }
 };
+export const getSingleAlcohol = async (id) => {
+  try {
+    const {
+      data: { oneAlcohol },
+    } = await axios.get(`${URL}/alcohol/detail?id=${id}`);
+
+    return oneAlcohol;
+  } catch (e) {
+    console.log(e.response);
+  }
+};
 
 export const formatDate = (date) => {
   let d = new Date(date),
