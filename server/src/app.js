@@ -34,6 +34,7 @@ app.use(
 app.use(logger);
 
 db.sequelize.sync();
+
 app.use(dataSetup);
 
 app.use("/uploads", express.static("uploads"));
