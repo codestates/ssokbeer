@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { postLike } from "../../api";
 
@@ -24,7 +24,7 @@ const RecomendContent = ({ content }) => {
   const { title, img } = content;
   return (
     <RecommendPost>
-      <PostImage src={`http://localhost:4000/${img}`}></PostImage>
+      <PostImage src={`https://api.bom-ko.com/${img}`}></PostImage>
       <PostTitle>{title}</PostTitle>
     </RecommendPost>
   );

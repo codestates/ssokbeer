@@ -29,11 +29,7 @@ const Community = () => {
   return (
     <>
       <Recommendation rankContent={rankContent} />
-      <SearchBar
-        setChoice={setChoice}
-        setTextSearch={setTextSearch}
-        handleSearchClick={handleSearchClick}
-      />
+      <SearchBar setChoice={setChoice} setTextSearch={setTextSearch} handleSearchClick={handleSearchClick} />
       <CommunityPost allContent={allContent} />
     </>
   );

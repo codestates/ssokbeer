@@ -25,15 +25,18 @@ const ServiceBox = styled.div`
   display: flex;
   align-items: center;
   color: #444444;
+  min-width: 300px;
   margin: 0px 10px;
   i {
     font-size: 30px;
   }
 `;
 
-const Service = styled.div`
+const Service = styled.a`
   font-size: 25px;
   margin-right: 10px;
+  color: #444444;
+  text-decoration: none;
 `;
 
 const TeamInformbox = styled.div`
@@ -53,8 +56,8 @@ const MemberBox = styled.div`
   font-size: 22px;
   display: flex;
   justify-content: space-between;
-  border: 1px solid red;
 `;
+
 const GithubLink = styled.a`
   text-decoration: none;
   color: #444444;
@@ -69,8 +72,8 @@ const Divbox = styled.div`
   /* border: 1px solid red; */
   margin: 3px 10px;
   color: #444444;
+  min-width: 500px;
 `;
-const Member = styled.div``;
 
 const Copyright = () => {
   return (
@@ -78,7 +81,7 @@ const Copyright = () => {
       <InformContainer>
         <Blanckbox />
         <ServiceBox>
-          <Service>서비스소개</Service>
+          <Service href="https://github.com/codestates/ssokbeer">서비스소개</Service>
           <i className="fab fa-github"></i>
         </ServiceBox>
         <TeamInformbox>

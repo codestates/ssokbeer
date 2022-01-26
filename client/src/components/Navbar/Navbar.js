@@ -44,7 +44,7 @@ const SideNav = styled.div`
   right: 0;
   top: 0;
   width: 40%;
-  height: 100vh;
+  height: 200vh;
   background-color: white;
   display: flex;
   flex-direction: column;

@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import SingleComment from "../components/Detailpage/SingleComment";
 import NewCommentForm from "../components/Detailpage/NewCommentForm";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  dateToStr,
-  deleteContent,
-  formatDate,
-  getSingleContent,
-  patchContent,
-  postLike,
-} from "../api";
+import { deleteContent, formatDate, getSingleContent, patchContent, postLike } from "../api";
 import { setChange } from "../action";
 
 const Container = styled.div`
@@ -105,7 +98,8 @@ const Inform = styled.div`
   margin-left: 6px;
 `;
 
-const Content = styled.div`
+const ContentBox = styled.div`
+  align-items: center;
   display: flex;
   flex-direction: column;
   width: 95%;
@@ -114,6 +108,18 @@ const Content = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 20px;
 `;
+
+const Content = styled.div`
+  margin: 20px 0px;
+  width: 100%;
+`;
+
+const ContentImg = styled.img`
+  width: 50%;
+  height: 90%;
+  text-align: center;
+`;
+
 const InputContent = styled.textarea`
   display: flex;
   flex-direction: column;
@@ -238,7 +244,10 @@ const Detailpage = () => {
         {isEditing ? (
           <InputContent type="text" value={changeContent} onChange={handleCangeContent} />
         ) : (
-          <Content>{content}</Content>
+          <ContentBox>
+            <ContentImg src={`https://api.bom-ko.com/${img}`}></ContentImg>
+            <Content>{content}</Content>
+          </ContentBox>
         )}
         <ButtonBox>
           <Button>댓글</Button>
