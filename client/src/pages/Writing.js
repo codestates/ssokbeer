@@ -109,7 +109,9 @@ const Writing = () => {
     e.preventDefault();
     try {
       await postData();
-      nav("/community");
+      setTimeout(() => {
+        nav("/community");
+      }, 200);
     } catch (e) {
       console.log(e.response);
     }

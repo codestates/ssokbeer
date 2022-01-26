@@ -15,12 +15,11 @@ const Nav = styled.nav`
 `;
 
 const Header = styled.header`
-  /* position: relative; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 70px;
-  padding: 10px 20px;
+  padding: 10px 10px;
   box-shadow: 0 4px 4px -4px #f1c74c;
   background-color: white;
   i {
@@ -52,8 +51,6 @@ const SideNav = styled.div`
   animation: slidein 0.7s ease-in-out;
   animation: boxFade 0.5s ease-out;
   border: 0.5px solid grey;
-
-  /* background-color: rgba(247, 227, 171, 0.4); */
 
   i {
     text-align: right;
@@ -124,8 +121,6 @@ const Navbar = () => {
     setIsOpen(false);
   };
   const handleClickLogout = async () => {
-    // axios.delete(`http://localhost:4000/user/logout`);
-
     localStorage.removeItem("isLogin");
     localStorage.removeItem("userId");
     localStorage.removeItem("socialType");

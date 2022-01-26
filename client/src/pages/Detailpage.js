@@ -136,6 +136,7 @@ const LikeBox = styled.div`
   border-radius: 3px;
   border: 1px solid #bcbcbc;
   font-size: 15px;
+  cursor: pointer;
 `;
 
 const LikeCount = styled.div`
@@ -184,7 +185,7 @@ const Detailpage = () => {
     if (!change) {
       await patchContent(id, { title, img, content: changeContent });
     }
-
+    getSingleData();
     setChangeContent(content);
     setIsEditing(change);
   };
@@ -247,10 +248,10 @@ const Detailpage = () => {
         )}
         <ButtonBox>
           <Button>댓글</Button>
-          <LikeBox>
+          <LikeBox onClick={handleLikeClick}>
             <LikeCount>{like}</LikeCount>
             <Like primary={like}>
-              <i className='far fa-thumbs-up' onClick={handleLikeClick}></i>
+              <i className='far fa-thumbs-up'></i>
             </Like>
           </LikeBox>
         </ButtonBox>

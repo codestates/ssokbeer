@@ -46,7 +46,6 @@ const WritingLink = styled(Link)`
 
 const PostSection = styled.section`
   width: 100%;
-  padding: 0px 15px;
   background-color: rgba(255, 255, 255);
 `;
 
@@ -54,12 +53,12 @@ const PostConatiner = styled.div`
   width: 100%;
   margin: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-  grid-auto-rows: 370px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: 200px;
   grid-gap: 24px;
 `;
 
-const CommunityPost = ({ allContent, setCount }) => {
+const CommunityPost = ({ allContent }) => {
   const state = useSelector((state) => state.allReducer);
 
   return (
@@ -71,7 +70,7 @@ const CommunityPost = ({ allContent, setCount }) => {
         </CommunityHeader>
         {state.isLogin && (
           <WritingLink to='/writing'>
-            <Button onClick={() => setCount((prev) => prev + 1)}>글쓰기</Button>
+            <Button>글쓰기</Button>
           </WritingLink>
         )}
       </CommunityNav>

@@ -1,14 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { IMG_BASE, URL } from "../../api";
 
-const RecommendPost = styled.div`
-  /* height: 280px; */
+const RecommendPost = styled(Link)`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  text-decoration: none;
+  color: black;
 `;
 const PostImage = styled.img`
   width: 100%;
@@ -23,9 +25,9 @@ const PostTitle = styled.div`
 const RecomendContent = ({ content }) => {
   const { title, img } = content;
   return (
-    <RecommendPost>
+    <RecommendPost to={`${content.id}`}>
       <PostImage src={img ? `${URL}/${img}` : IMG_BASE}></PostImage>
-      <PostTitle>{title}</PostTitle>
+      <PostTitle>{title.length < 7 ? title : `${title.slice(0, 7)}...`}</PostTitle>
     </RecommendPost>
   );
 };
