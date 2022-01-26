@@ -16,6 +16,4 @@ contentRouter.route("/:id(\\d+)").get(getContent).delete(deleteContent).patch(vi
 contentRouter.route("/search").get(search);
 contentRouter.route("/edit/:id").patch(uploadFiles.array("file"), updateContent);
 
-// contentRouter.route("/admin/del").delete(deleteAllContent);
-
 export default contentRouter;

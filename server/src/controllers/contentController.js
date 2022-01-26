@@ -1,7 +1,7 @@
 const {
   Sequelize: { Op },
 } = require("../../models");
-import db, { sequelize } from "../../models/index";
+import db from "../../models/index";
 import { verify } from "../token/verify";
 
 const contents = db.content;
@@ -82,6 +82,7 @@ export const deleteContent = async (req, res) => {
     await contents.destroy({ where: { id } });
     res.status(201).json({ message: "글 삭제 완료" });
   } catch (e) {
+    console.log(e);
     res.status(500).json({ message: "글 삭제 실패" });
   }
 };
@@ -89,7 +90,6 @@ export const deleteContent = async (req, res) => {
 export const search = async (req, res) => {
   try {
     const { type, value } = req.query;
-    console.log(type, value);
     let finder = {};
     finder[type] = { [Op.like]: `%${value}%` };
 

@@ -60,7 +60,7 @@ export const patchProfile = async (body) => {
 
 export const postContent = async (body) => {
   try {
-    await axios.post(`${URL}/content`, body, { withCredentials: true });
+    await axios.post(`${URL}/content`, body, cookieOption);
   } catch (e) {}
 };
 
@@ -159,12 +159,10 @@ export const search = async (type, value) => {
   } catch (e) {}
 };
 export const postSocialLogin = async (type, code) => {
-  console.log(type, code);
   try {
     const {
       data: { id },
-    } = await axios.post(`${URL}/oauth/${type}`, { code });
-    console.log(id);
+    } = await axios.post(`${URL}/oauth/${type}`, { code }, cookieOption);
     return id;
   } catch (e) {
     localStorage.removeItem("socialType");

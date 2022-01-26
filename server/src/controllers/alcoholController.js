@@ -1,5 +1,4 @@
 import db from "../../models/index";
-import { sojus, beers } from "../alcoholDB/alcoholList";
 const alcohols = db.alcohol;
 const dishes = db.dish;
 

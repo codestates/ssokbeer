@@ -41,7 +41,9 @@ export const googleLogin = async (req, res) => {
     }
 
     const token = jwt.sign({ email }, process.env.ACCESS_SECRET, { expiresIn: "6h" });
-    return res.cookie("token", token).json({ message: "ok", id: user.dataValues.id });
+    return res
+      .cookie("token", token, { sameSite: "None", secure: true })
+      .json({ message: "ok", id: user.dataValues.id });
   } catch (e) {
     console.log(e);
   }
