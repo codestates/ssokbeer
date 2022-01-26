@@ -1,7 +1,6 @@
 import styled from "styled-components";
 /* eslint-disable */
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 import { postSignup } from "../api";
 import { useNavigate } from "react-router-dom";
 import { setLogin, setUserId } from "../action";

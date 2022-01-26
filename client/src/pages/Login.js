@@ -152,9 +152,7 @@ const Login = () => {
   });
 
   const url = new URL(window.location.href);
-
   const code = url.searchParams.get("code");
-
   const getUser = async () => {
     const { email, password } = loginInfo;
     const {
@@ -165,7 +163,6 @@ const Login = () => {
     } = await postLogin({ email, password });
     localStorage.setItem("userId", id);
     dispatch(setUserId(id));
-
     return data;
   };
 
