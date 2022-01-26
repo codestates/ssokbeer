@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { deleteComment, editComment } from "../../api";
+import { useDispatch, useSelector } from "react-redux";
+import { setChange } from "../../action";
 
 const CommentBox = styled.div`
   display: flex;
@@ -68,19 +70,19 @@ const ModifyPopup = styled.button`
 `;
 
 const SingleComment = ({ comment }) => {
+  const state = useSelector((state) => state.allReducer);
+  const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [changeContent, setChangeContent] = useState("");
-
-  const nowUserId = localStorage.getItem("userInfo");
-
   const { nickname, createdAt, content, userId, id } = comment;
 
   const handleEdit = async () => {
     const change = !isEditing;
     if (!change) {
       await editComment(id, changeContent);
-      window.location.reload();
+      dispatch(setChange());
     }
+
     setChangeContent(content);
     setIsEditing(change);
   };
@@ -91,10 +93,10 @@ const SingleComment = ({ comment }) => {
 
   const handleDelete = async () => {
     await deleteComment(id);
-    window.location.reload();
+    dispatch(setChange());
   };
 
-  const check = parseInt(userId) === parseInt(nowUserId);
+  const check = parseInt(userId) === parseInt(state.userId);
 
   return (
     <CommentBox>
@@ -112,7 +114,11 @@ const SingleComment = ({ comment }) => {
         )}
       </CommentAlignment>
 
-      {isEditing ? <EditComment value={changeContent} onChange={handlechangeContent} /> : <Comment>{content}</Comment>}
+      {isEditing ? (
+        <EditComment value={changeContent} onChange={handlechangeContent} />
+      ) : (
+        <Comment>{content}</Comment>
+      )}
     </CommentBox>
   );
 };

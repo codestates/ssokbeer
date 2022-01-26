@@ -22,26 +22,23 @@ const Input = styled.input`
 
 const Button = styled.button``;
 
-const SearchBar = () => {
-  const [choice, setChoice] = useState("");
-  const [textSearch, setTextSearch] = useState("");
-
+const SearchBar = ({ setChoice, setTextSearch, handleSearchClick }) => {
   const handleChange = (e) => {
     setTextSearch(e.target.value);
   };
 
-  const handleSearchClick = () => {};
-
   const handleKeyPress = (e) => {
-    if ((e.type = "Enter")) {
+    if (e.type === "Enter") {
       handleSearchClick();
     }
   };
 
-  const lists = ["제목", "글쓴이", "내용", "작성한글"];
+  const lists = ["제목", "글쓴이", "내용"];
+  const EngList = ["title", "nickname", "content"];
+
   const options = lists.map((list, i) => {
     return (
-      <option key={i} value={list}>
+      <option key={i} value={EngList[i]}>
         {list}
       </option>
     );
@@ -55,11 +52,10 @@ const SearchBar = () => {
 
   return (
     <Contaier>
-      <SelectBox onChange={handleList}>{options}</SelectBox>
+      <SelectBox onInput={handleList}>{options}</SelectBox>
       <Input
         type="text"
         placeholder="현재 게시판 내용 검색"
-        value={textSearch}
         onChange={handleChange}
         onKeyPress={handleKeyPress}
       ></Input>

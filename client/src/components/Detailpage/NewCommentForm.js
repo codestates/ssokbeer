@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import TimeCounting from "time-counting";
-import { v4 as uuidv4 } from "uuid";
-import axios from "axios";
 import { postComment } from "../../api";
+import { useDispatch, useSelector } from "react-redux";
+import { setChange } from "../../action";
 
 const WritingAllignment = styled.div`
   display: flex;
@@ -42,7 +40,7 @@ const CommentButton = styled.button`
 
 const NewCommentForm = ({ nowContentId, nowUserId }) => {
   const [newComment, setNewComment] = useState("");
-
+  const dispatch = useDispatch();
   const handleChangeComment = (e) => {
     setNewComment(e.target.value);
   };
@@ -52,9 +50,8 @@ const NewCommentForm = ({ nowContentId, nowUserId }) => {
       content: newComment,
       contentId: nowContentId,
     };
-    console.log("클릭버튼");
     await postComment(comment);
-    window.location.reload();
+    dispatch(setChange());
   };
 
   return (
