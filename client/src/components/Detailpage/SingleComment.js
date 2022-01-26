@@ -1,65 +1,55 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { deleteComment, editComment } from "../../api";
+import { deleteComment, editComment, formatDate } from "../../api";
 import { useSelector } from "react-redux";
 
 const CommentBox = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 95%;
-  margin: 20px;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+  height: 80px;
+  border-bottom: 1px solid #c0c1a2;
 `;
 
 const CommentAlignment = styled.div`
   display: flex;
-  justify-content: space-between;
-  i {
-    color: grey;
-    font-size: 15px;
-  }
+  flex-direction: column;
+  overflow: hidden;
 `;
 const UserBox = styled.div`
   display: flex;
+  align-items: center;
+  margin-bottom: 5px;
 `;
 const User = styled.div`
-  margin: 0px 8px 0px 5px;
+  font-size: 18px;
+  margin-right: 10px;
+  font-weight: bold;
 `;
 const Inform = styled.div`
   color: grey;
-  margin-left: 6px;
+  font-weight: 600;
 `;
 
-const Comment = styled.div`
-  font-size: 18px;
-`;
+const Comment = styled.div``;
 const EditComment = styled.input`
-  font-size: 18px;
   &:focus {
     outline: none;
   }
 `;
 
 const ModifyBox = styled.div`
-  height: 50px;
   display: flex;
   align-items: center;
-  justify-self: center;
-  margin: 0px;
-  i {
-    text-align: right;
-  }
 `;
 const ModifyPopup = styled.button`
-  width: 100px;
-  padding: 5px 5px 5px 3px;
-  margin: 3px;
-  width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  text-align: center;
   background-color: white;
   border-radius: 3px;
-  font-size: 14px;
   cursor: grab;
+  width: 50px;
+  height: 50%;
 `;
 
 const SingleComment = ({ comment, getSingleData }) => {
@@ -94,18 +84,21 @@ const SingleComment = ({ comment, getSingleData }) => {
       <CommentAlignment>
         <UserBox>
           <User>{nickname}</User>
-          <Inform>{createdAt}</Inform>
+          <Inform>{formatDate(createdAt)}</Inform>
         </UserBox>
-
-        {check && (
-          <ModifyBox>
-            <ModifyPopup onClick={handleEdit}>{isEditing ? "완료" : "수정"}</ModifyPopup>
-            <ModifyPopup onClick={handleDelete}>삭제</ModifyPopup>
-          </ModifyBox>
+        {isEditing ? (
+          <EditComment value={changeContent} onChange={handlechangeContent} />
+        ) : (
+          <Comment>{content}</Comment>
         )}
       </CommentAlignment>
 
-      {isEditing ? <EditComment value={changeContent} onChange={handlechangeContent} /> : <Comment>{content}</Comment>}
+      {check && (
+        <ModifyBox>
+          <ModifyPopup onClick={handleEdit}>{isEditing ? "완료" : "수정"}</ModifyPopup>
+          <ModifyPopup onClick={handleDelete}>삭제</ModifyPopup>
+        </ModifyBox>
+      )}
     </CommentBox>
   );
 };
