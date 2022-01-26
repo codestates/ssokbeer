@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { formatDate } from "../../api";
+import { formatDate, IMG_BASE, URL } from "../../api";
 
 const Post = styled.div`
   width: 100%;
   border: 1px solid grey;
   display: flex;
-  /* justify-content: space-around; */
   align-items: center;
 `;
 const FoodLink = styled(Link)`
@@ -46,7 +45,6 @@ const Username = styled.div`
 
 const ViewLikeBox = styled.div`
   display: flex;
-  /* justify-content: space-between; */
   width: 65%;
 `;
 
@@ -79,22 +77,12 @@ const CreatedDate = styled.div`
 
 const AllContent = ({ content }) => {
   const { id, nickname, title, visit, likeCnt, like, createdAt, img } = content;
-
-  // console.log(likeCnt);
-
   const date = formatDate(createdAt);
 
   return (
     <Post>
       <FoodLink to={`${id}`}>
-        <FoodImg
-          src={
-            img
-              ? `http://localhost:4000/${img}`
-              : "https://github.com/StrummingDown/ssokbeerImg/blob/main/ssokbeerlogo.png?raw=true"
-          }
-        ></FoodImg>
-
+        <FoodImg src={img ? `${URL}/${img}` : IMG_BASE}></FoodImg>
       </FoodLink>
       <ContentBox>
         <ContentHeader to={`${id}`}>{title}</ContentHeader>
@@ -103,7 +91,7 @@ const AllContent = ({ content }) => {
           <View>조회{visit}</View>
           <LikeCount> {likeCnt}</LikeCount>
           <Like primary={like}>
-            <i className="far fa-thumbs-up">{like}</i>
+            <i className='far fa-thumbs-up'>{like}</i>
           </Like>
         </ViewLikeBox>
         <CreatedDate>{date}</CreatedDate>

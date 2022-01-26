@@ -81,27 +81,6 @@ const BeerButtonNext = styled(ButtonStyle)`
   right: 60px;
 `;
 
-const SojuButtonPrev = styled.div`
-  left: -3px;
-  position: absolute;
-  top: 480px;
-  width: 100px;
-  height: 100px;
-  padding: 15px;
-  vertical-align: middle;
-  background-color: red;
-`;
-const SojuButtonNext = styled.div`
-  right: -10px;
-  position: absolute;
-  top: 480px;
-  width: 100px;
-  height: 100px;
-  padding: 15px;
-  vertical-align: middle;
-  background-color: red;
-`;
-
 const Slider = ({ type, openModal }) => {
   const isPc = useMediaQuery({ query: "(min-width: 768px)" }, undefined);
   const [beer, setBeer] = useState([]);
@@ -146,16 +125,14 @@ const Slider = ({ type, openModal }) => {
       <BeerButtonPrev
         onClick={() => {
           onChangeContent(-1);
-        }}
-      >
-        <i className="fas fa-chevron-left"></i>
+        }}>
+        <i className='fas fa-chevron-left'></i>
       </BeerButtonPrev>
       <BeerButtonNext
         onClick={() => {
           onChangeContent(+1);
-        }}
-      >
-        <i className="fas fa-chevron-right"></i>
+        }}>
+        <i className='fas fa-chevron-right'></i>
       </BeerButtonNext>
     </ImageSlide>
   );

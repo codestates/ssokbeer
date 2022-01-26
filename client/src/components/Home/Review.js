@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const Reviews = [
   "커뮤니티에서 인생레시피 발견했어요",
@@ -102,16 +102,14 @@ const Review = () => {
       <ButtonPrev
         onClick={() => {
           onChangeContent(-1);
-        }}
-      >
-        <i className="fas fa-chevron-left"></i>
+        }}>
+        <i className='fas fa-chevron-left'></i>
       </ButtonPrev>
       <ButtonNext
         onClick={() => {
           onChangeContent(+1);
-        }}
-      >
-        <i className="fas fa-chevron-right"></i>
+        }}>
+        <i className='fas fa-chevron-right'></i>
       </ButtonNext>
     </ImageSlide>
   );

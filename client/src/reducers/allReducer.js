@@ -7,7 +7,6 @@ const allReducer = (state = initialState, action) => {
     case LOGIN:
       clone = Object.assign({}, state);
       clone.isLogin = action.isLogin; //액션에서 직접 트루펄스 적어줘야함
-      console.log(clone);
       return clone;
 
     case SOCIAL_LOGIN:

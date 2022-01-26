@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
 import axios from "axios";
 import { postLogin, postSocialLogin } from "../api";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setLogin, setUserId, setSocialType } from "../action";
 
 axios.defaults.withCredentials = true;
@@ -151,24 +151,9 @@ const Login = () => {
     password: "",
   });
 
-  const state = useSelector((state) => state.allReducer);
   const url = new URL(window.location.href);
 
   const code = url.searchParams.get("code");
-
-  const getSocial = async () => {
-    const id = await postSocialLogin(state.socialType, code);
-
-    localStorage.setItem("userId", id);
-
-    localStorage.setItem("isLogin", true);
-  };
-
-  useEffect(() => {
-    if (code) {
-      getSocial();
-    }
-  }, []);
 
   const getUser = async () => {
     const { email, password } = loginInfo;
@@ -178,8 +163,6 @@ const Login = () => {
         userInfo: { id },
       },
     } = await postLogin({ email, password });
-    console.log("@@@@");
-    console.log(id);
     localStorage.setItem("userId", id);
     dispatch(setUserId(id));
 
@@ -204,7 +187,6 @@ const Login = () => {
 
     try {
       const data = await getUser();
-      console.log(data);
       if (data) {
         handleResponseSuccess(data);
       }
@@ -215,10 +197,6 @@ const Login = () => {
   };
 
   const isPc = useMediaQuery({ query: "(min-width: 768px)" });
-
-  const url = new URL(window.location.href);
-
-  const code = url.searchParams.get("code");
 
   const getSocial = async () => {
     const id = await postSocialLogin(localStorage.getItem("socialType"), code);
@@ -246,23 +224,21 @@ const Login = () => {
       <Screen>
         <LoginForm>
           <LoginInput
-            type="text"
+            type='text'
             placeholder={isfullfilled ? "Email" : "이메일을 입력해주세요"}
             fullfilled={isfullfilled}
-            onChange={handleInputValue("email")}
-          ></LoginInput>
+            onChange={handleInputValue("email")}></LoginInput>
           {invalid ? null : <Messagebox>이메일을 다시 확인해주세요</Messagebox>}
           <LoginInput
-            type="password"
+            type='password'
             placeholder={isfullfilled ? "password" : "비밀번호를 입력해주세요"}
             fullfilled={isfullfilled}
-            onChange={handleInputValue("password")}
-          ></LoginInput>
+            onChange={handleInputValue("password")}></LoginInput>
           {invalid ? null : <Messagebox>비밀번호를 다시 확인해주세요</Messagebox>}
-          <Button type="submit" onClick={handleLogin} pc={isPc}>
+          <Button type='submit' onClick={handleLogin} pc={isPc}>
             로그인
           </Button>
-          <SignUpLink to="/signup">
+          <SignUpLink to='/signup'>
             <SignUp>아직 회원이 아니신가요?</SignUp>
           </SignUpLink>
         </LoginForm>
@@ -274,11 +250,8 @@ const Login = () => {
               localStorage.setItem("socialType", "google");
               dispatch(setSocialType("google"));
             }}
-
-            href="https://accounts.google.com/o/oauth2/v2/auth?client_id=849456230902-bbj8hno72k1hhlciunde3nc0knp6i28m.apps.googleusercontent.com&redirect_uri=http://ssokbeer-bucket-depoly.s3-website.ap-northeast-2.amazonaws.com/login&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email"
-
-          >
-            <i className="fab fa-google"></i>
+            href='https://accounts.google.com/o/oauth2/v2/auth?client_id=849456230902-bbj8hno72k1hhlciunde3nc0knp6i28m.apps.googleusercontent.com&redirect_uri=http://ssokbeer-bucket-depoly.s3-website.ap-northeast-2.amazonaws.com/login&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email'>
+            <i className='fab fa-google'></i>
             Google로 로그인
           </OauthButton>
           <OauthButton
@@ -286,9 +259,8 @@ const Login = () => {
               localStorage.setItem("socialType", "github");
               dispatch(setSocialType("github"));
             }}
-            href="https://github.com/login/oauth/authorize?client_id=8ab7b64fccca8e5e12c7&scope=user:email"
-          >
-            <i className="fab fa-github"></i>
+            href='https://github.com/login/oauth/authorize?client_id=8ab7b64fccca8e5e12c7&scope=user:email'>
+            <i className='fab fa-github'></i>
             Github로 로그인
           </OauthButton>
         </ButtonContainer>

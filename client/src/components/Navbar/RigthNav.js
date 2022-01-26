@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
 
@@ -43,46 +43,41 @@ const Button = styled.button`
 const RigthNav = ({ isLogin, isVisible, ChangeMenuVisibility, handleClickLogout }) => {
   const closeMenu = () => ChangeMenuVisibility(false);
 
-  // const handleClickLogout = () => {
-  //   localStorage.removeItem("isLogin");
-  //   // window.location.reload();
-  // };
-
   const isPc = useMediaQuery({ query: "(min-width: 768px)" }, undefined, closeMenu);
 
   return isPc ? (
     <PcContainer>
-      <PageLink to="/">
+      <PageLink to='/'>
         <Page>홈</Page>
       </PageLink>
-      <PageLink to="/drink">
+      <PageLink to='/drink'>
         <Page>주류</Page>
       </PageLink>
-      <PageLink to="/community">
+      <PageLink to='/community'>
         <Page>커뮤니티</Page>
       </PageLink>
       {isLogin ? (
-        <ButtonLink to="/mypage">
+        <ButtonLink to='/mypage'>
           <Button>마이페이지</Button>
         </ButtonLink>
       ) : (
-        <ButtonLink to="/login">
+        <ButtonLink to='/login'>
           <Button>로그인</Button>
         </ButtonLink>
       )}
       {isLogin ? (
-        <ButtonLink to="/">
+        <ButtonLink to='/'>
           <Button onClick={handleClickLogout}>로그아웃</Button>
         </ButtonLink>
       ) : (
-        <ButtonLink to="/signup">
+        <ButtonLink to='/signup'>
           <Button>회원가입</Button>
         </ButtonLink>
       )}
     </PcContainer>
   ) : (
     <MobileNav>
-      {isVisible ? undefined : <i className="fas fa-bars" onClick={() => ChangeMenuVisibility(!isVisible)}></i>}
+      {isVisible ? undefined : <i className='fas fa-bars' onClick={() => ChangeMenuVisibility(!isVisible)}></i>}
     </MobileNav>
   );
 };

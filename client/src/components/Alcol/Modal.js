@@ -1,8 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getAlcohol, getSingleAlcohol } from "../../api";
-import { alcols } from "../../dummy";
+import { getSingleAlcohol } from "../../api";
 
 const Back = styled.div`
   position: fixed;
@@ -64,7 +63,6 @@ const FoodContainer = styled.div`
   flex-direction: column;
   width: 50%;
   height: 100%;
-  /* border-left: 1px solid blue; */
 `;
 const ImgContainer = styled.div`
   height: 100%;
@@ -78,7 +76,6 @@ const FoodLineBox = styled.div`
   justify-content: space-evenly;
   width: 90%;
   height: 42%;
-  /* border: 1px solid rgba(0, 0, 0, 0.2); */
 `;
 
 const Img = styled.img`
@@ -128,12 +125,12 @@ const Modal = ({ openModal, id }) => {
   useEffect(() => {
     getAlcolById();
   }, []);
-  // console.log(data);
+
   return (
     <ModalContainer>
       <AnimatePresence>
         <Container initial={{ scale: 0 }} animate={{ scale: 1 }}>
-          <i onClick={openModal} className="fas fa-times close"></i>
+          <i onClick={openModal} className='fas fa-times close'></i>
           <ImgContainer>
             <AlcholCotainer>
               <Img src={data.img}></Img>

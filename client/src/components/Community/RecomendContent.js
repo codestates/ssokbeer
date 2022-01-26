@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { postLike } from "../../api";
+import { IMG_BASE, URL } from "../../api";
 
 const RecommendPost = styled.div`
   /* height: 280px; */
@@ -24,7 +24,7 @@ const RecomendContent = ({ content }) => {
   const { title, img } = content;
   return (
     <RecommendPost>
-      <PostImage src={`https://api.bom-ko.com/${img}`}></PostImage>
+      <PostImage src={img ? `${URL}/${img}` : IMG_BASE}></PostImage>
       <PostTitle>{title}</PostTitle>
     </RecommendPost>
   );

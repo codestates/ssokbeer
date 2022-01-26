@@ -37,7 +37,6 @@ const BeverageName = styled.div`
   size: 13px;
   color: #444444;
   font-weight: 600;
-  /* margin: 0px 148px 0px 153px; */
   width: 75%;
   margin: 14px auto;
   text-align: center;

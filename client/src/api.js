@@ -1,6 +1,9 @@
 import axios from "axios";
 
-const URL = "https://api.bom-ko.com";
+// "https://api.bom-ko.com";
+export const URL = "http://localhost:4000";
+export const IMG_BASE = "https://github.com/StrummingDown/ssokbeerImg/blob/main/ssokbeerlogo.png?raw=true";
+
 const cookieOption = {
   headers: {
     Accept: "application/json",
@@ -58,8 +61,7 @@ export const logout = async () => {
 
 export const patchProfile = async (body) => {
   try {
-    const data = await axios.patch(`${URL}/user/profile`, body, cookieOption);
-    console.log(data);
+    await axios.patch(`${URL}/user/profile`, body, cookieOption);
   } catch (e) {
     console.log(e.response);
   }
@@ -78,7 +80,6 @@ export const getContent = async () => {
     const {
       data: { allContent, rankContent },
     } = await axios.get(`${URL}/content`, cookieOption);
-    console.log("겟 컨텐츠 성공");
 
     return { allContent, rankContent };
   } catch (e) {
@@ -98,7 +99,6 @@ export const patchContent = async (id, body) => {
 export const deleteContent = async (id) => {
   try {
     await axios.delete(`${URL}/content/${id}`, cookieOption);
-    console.log("딜리트 컨텐츠 성공");
   } catch (e) {
     console.log(e.response);
   }
@@ -210,7 +210,6 @@ export const formatDate = (date) => {
   let d = new Date(date),
     month = "" + (d.getMonth() + 1),
     day = "" + d.getDate(),
-    year = d.getFullYear(),
     hour = d.getHours(),
     minute = d.getMinutes();
   if (month.length < 2) month = "0" + month;

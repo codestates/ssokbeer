@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { postContent } from "../api";
-import { useDispatch, useSelector } from "react-redux";
-import { setChange, setWriting } from "../action";
 
 const Container = styled.div`
   width: 100%;
@@ -68,7 +66,6 @@ const ButtonBox = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  /* border: 1px solid black; */
 `;
 
 const CancelLink = styled(Link)`
@@ -90,11 +87,7 @@ const Button = styled.button`
   }
 `;
 
-const Imtest = styled.img``;
-
 const Writing = () => {
-  const dispatch = useDispatch();
-
   const nav = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -112,12 +105,11 @@ const Writing = () => {
     setImgFile(e.target.files[0]);
   };
 
-  const onSubmitValid = async () => {
+  const onSubmitValid = async (e) => {
+    e.preventDefault();
     try {
       await postData();
       nav("/community");
-
-      window.location.reload();
     } catch (e) {
       console.log(e.response);
     }
@@ -128,26 +120,24 @@ const Writing = () => {
       <Form>
         <Title
           required
-          type="text"
-          placeholder="제목을 입력하세요"
+          type='text'
+          placeholder='제목을 입력하세요'
           onChange={(e) => {
             setTitle(e.target.value);
-          }}
-        ></Title>
-        <Img accept="image/*" type="file" onChange={(e) => onChange(e)} />
+          }}></Title>
+        <Img accept='image/*' type='file' onChange={(e) => onChange(e)} />
         <Content
           required
-          type="textarea"
+          type='textarea'
           onChange={(e) => {
             setContent(e.target.value);
-          }}
-        ></Content>
+          }}></Content>
 
         <ButtonBox>
-          <CancelLink to="/community">
+          <CancelLink to='/community'>
             <Button>취소</Button>
           </CancelLink>
-          <Button type="submit" onClick={onSubmitValid}>
+          <Button type='submit' onClick={onSubmitValid}>
             등록
           </Button>
         </ButtonBox>

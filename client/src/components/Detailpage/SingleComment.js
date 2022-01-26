@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { deleteComment, editComment } from "../../api";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,7 +24,6 @@ const UserBox = styled.div`
 `;
 const User = styled.div`
   margin: 0px 8px 0px 5px;
-  /* border: 1px solid red; */
 `;
 const Inform = styled.div`
   color: grey;
@@ -114,11 +113,7 @@ const SingleComment = ({ comment }) => {
         )}
       </CommentAlignment>
 
-      {isEditing ? (
-        <EditComment value={changeContent} onChange={handlechangeContent} />
-      ) : (
-        <Comment>{content}</Comment>
-      )}
+      {isEditing ? <EditComment value={changeContent} onChange={handlechangeContent} /> : <Comment>{content}</Comment>}
     </CommentBox>
   );
 };
