@@ -52,7 +52,7 @@ const Img = styled.img`
   width: 100%;
   height: 200px;
   border-radius: 10%;
-  border: 1px solid gray;
+  border: 1px solid #f1c232;
 `;
 
 const ButtonStyle = styled.div`

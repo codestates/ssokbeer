@@ -1,10 +1,20 @@
 import axios from "axios";
 
 const URL = "http://localhost:4000";
+const cookieOption = {
+  headers: {
+    Accept: "application/json",
 
+    "Content-Type": "application/json",
+
+    Cache: "no-cache",
+  },
+
+  withCredentials: true,
+};
 export const postSignup = async (body) => {
   try {
-    const { data } = await axios.post(`${URL}/user/signup`, body);
+    const { data } = await axios.post(`${URL}/user/signup`, body, cookieOption);
     console.log(data);
   } catch (e) {
     console.log(e.response);
@@ -12,7 +22,7 @@ export const postSignup = async (body) => {
 };
 
 export const postLogin = async (body) => {
-  const data = await axios.post(`${URL}/user/login`, body);
+  const data = await axios.post(`${URL}/user/login`, body, cookieOption);
   return data;
 };
 
@@ -22,7 +32,7 @@ export const getProfile = async () => {
       data: {
         userInfo: { email, nickname },
       },
-    } = await axios.get(`${URL}/user/profile`);
+    } = await axios.get(`${URL}/user/profile`, cookieOption);
 
     return { email, nickname };
   } catch (e) {
@@ -33,7 +43,7 @@ export const getProfile = async () => {
 
 export const logout = async () => {
   try {
-    const data = await axios.delete(`${URL}/user/logout`);
+    const data = await axios.delete(`${URL}/user/logout`, cookieOption);
     return data;
   } catch (e) {
     console.log(e.response);
@@ -42,7 +52,7 @@ export const logout = async () => {
 
 export const patchProfile = async (body) => {
   try {
-    const data = await axios.patch(`${URL}/user/profile`, body);
+    const data = await axios.patch(`${URL}/user/profile`, body, cookieOption);
     console.log(data);
   } catch (e) {
     console.log(e.response);
@@ -61,7 +71,7 @@ export const getContent = async () => {
   try {
     const {
       data: { allContent, rankContent },
-    } = await axios.get(`${URL}/content`);
+    } = await axios.get(`${URL}/content`, cookieOption);
     console.log("겟 컨텐츠 성공");
 
     return { allContent, rankContent };
@@ -72,7 +82,7 @@ export const getContent = async () => {
 
 export const patchContent = async (id, body) => {
   try {
-    await axios.patch(`${URL}/content/edit/${id}`, body);
+    await axios.patch(`${URL}/content/edit/${id}`, body, cookieOption);
     console.log("패치 컨텐츠 성공");
   } catch (e) {
     console.log(e.response);
@@ -81,7 +91,7 @@ export const patchContent = async (id, body) => {
 
 export const deleteContent = async (id) => {
   try {
-    await axios.delete(`${URL}/content/${id}`);
+    await axios.delete(`${URL}/content/${id}`, cookieOption);
     console.log("딜리트 컨텐츠 성공");
   } catch (e) {
     console.log(e.response);
@@ -90,7 +100,7 @@ export const deleteContent = async (id) => {
 
 export const postLike = async (id) => {
   try {
-    const like = await axios.post(`${URL}/like/${id}`);
+    const like = await axios.post(`${URL}/like/${id}`, {}, cookieOption);
 
     return like;
   } catch (e) {
@@ -102,7 +112,7 @@ export const getSingleContent = async (id) => {
   try {
     const {
       data: { visitCnt },
-    } = await axios.get(`${URL}/content/${id}`);
+    } = await axios.get(`${URL}/content/${id}`, cookieOption);
 
     return visitCnt;
   } catch (e) {
@@ -112,7 +122,7 @@ export const getSingleContent = async (id) => {
 
 export const postComment = async (comment) => {
   try {
-    const data = await axios.post(`${URL}/comment`, comment);
+    const data = await axios.post(`${URL}/comment`, comment, cookieOption);
 
     return data;
   } catch (e) {
@@ -122,7 +132,7 @@ export const postComment = async (comment) => {
 
 export const editComment = async (id, content) => {
   try {
-    const data = await axios.patch(`${URL}/comment/${id}`, { content });
+    const data = await axios.patch(`${URL}/comment/${id}`, { content }, cookieOption);
     return data;
   } catch (e) {
     console.log(e.response);
@@ -131,7 +141,7 @@ export const editComment = async (id, content) => {
 
 export const deleteComment = async (id) => {
   try {
-    const data = await axios.delete(`${URL}/comment/${id}`);
+    const data = await axios.delete(`${URL}/comment/${id}`, cookieOption);
     return data;
   } catch (e) {
     console.log(e.response);
@@ -142,7 +152,7 @@ export const getAlcohol = async (type) => {
   try {
     const {
       data: { beer, soju },
-    } = await axios.get(`${URL}/alcohol?type=${type}`);
+    } = await axios.get(`${URL}/alcohol?type=${type}`, cookieOption);
 
     if (beer) {
       return beer;
@@ -157,7 +167,7 @@ export const getSingleAlcohol = async (id) => {
   try {
     const {
       data: { oneAlcohol },
-    } = await axios.get(`${URL}/alcohol/detail?id=${id}`);
+    } = await axios.get(`${URL}/alcohol/detail?id=${id}`, cookieOption);
 
     return oneAlcohol;
   } catch (e) {
