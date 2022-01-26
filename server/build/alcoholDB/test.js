@@ -1,7 +1,7 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true,
+  value: true
 });
 exports.dishList = void 0;
 
@@ -14,3 +14,4 @@ let dishKey = Object.keys(dishData);
 for (let i = 0; i < dishKey.length; i++) {
   dishList.push(dishData[dishKey[i]]);
 }
+

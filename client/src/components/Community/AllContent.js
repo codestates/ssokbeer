@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../api";
@@ -7,20 +7,20 @@ const Post = styled.div`
   width: 100%;
   border: 1px solid grey;
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   align-items: center;
 `;
 const FoodLink = styled(Link)`
   width: 50%;
   height: 100%;
-  border: 1px solid red;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 70px;
 `;
 
 const FoodImg = styled.img`
-  width: 50%;
+  width: 70%;
   height: 70%;
   border-radius: 50%;
 `;
@@ -53,6 +53,7 @@ const ViewLikeBox = styled.div`
 const View = styled.div`
   font-size: 16px;
   padding: 10px;
+  min-width: 70px;
 `;
 
 const LikeCount = styled.div`
@@ -86,13 +87,19 @@ const AllContent = ({ content }) => {
   return (
     <Post>
       <FoodLink to={`${id}`}>
-        <FoodImg src={`http://localhost:4000/${img}`}></FoodImg>
+        <FoodImg
+          src={
+            img
+              ? `http://api.bom-ko.com/${img}`
+              : "https://github.com/StrummingDown/ssokbeerImg/blob/main/ssokbeerlogo.png?raw=true"
+          }
+        ></FoodImg>
       </FoodLink>
       <ContentBox>
         <ContentHeader to={`${id}`}>{title}</ContentHeader>
         <Username>{nickname}</Username>
         <ViewLikeBox>
-          <View>view{visit}</View>
+          <View>조회{visit}</View>
           <LikeCount> {likeCnt}</LikeCount>
           <Like primary={like}>
             <i className="far fa-thumbs-up">{like}</i>

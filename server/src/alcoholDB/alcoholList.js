@@ -83,9 +83,9 @@ const sojuName = [
   "맛있는 참",
   "오투린",
 ];
-
 const sojuUrl = [
   "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img1.jpg?raw=true",
+  "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img2.jpg?raw=true",
   "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img3.png?raw=true",
   "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img4.jpg?raw=true",
   "https://github.com/StrummingDown/ssokbeerImg/blob/main/soju/img5.jpg?raw=true",
@@ -115,17 +115,6 @@ const sojuUrl = [
 export const sojus = sojuUrl.map((url, idx) => {
   return { name: sojuName[idx], img: url, type: "soju" };
 });
-
-// 음식  이름 사진 정보
-
-// 술 하나당 2개
-
-// 전체 음식 개수 ?
-// 20 개
-// pairDish = [ [ {한식}, {중식}, {양식} ] ]
 export const beers = beerUrl.map((url, idx) => {
   return { name: beerName[idx], img: url, type: "beer" };
 });
-
-// {sojus : [{}...{}....{}],beers: [{}..{}]}  x
-// 다른방법 ?

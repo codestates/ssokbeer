@@ -14,6 +14,7 @@ const Name = styled.div`
   text-align: center;
   position: absolute;
   bottom: 0px;
+  color: #444444;
 `;
 const SlideBox = styled.div`
   width: ${(props) => (props.isPc ? "880px" : "220px")};
@@ -52,7 +53,7 @@ const Img = styled.img`
   width: 100%;
   height: 200px;
   border-radius: 10%;
-  border: 1px solid #f1c232;
+  /* border: 1px solid #f1c232; */
 `;
 
 const ButtonStyle = styled.div`

@@ -45,8 +45,6 @@ const SearchBar = ({ setChoice, setTextSearch, handleSearchClick }) => {
   });
 
   const handleList = (event) => {
-    console.log("event.target.value");
-    console.log(event.target.value);
     setChoice(event.target.value);
   };
 
