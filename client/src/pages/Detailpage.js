@@ -5,7 +5,7 @@ import SingleComment from "../components/Detailpage/SingleComment";
 import NewCommentForm from "../components/Detailpage/NewCommentForm";
 import { useDispatch, useSelector } from "react-redux";
 
-import { deleteContent, formatDate, getSingleContent, patchContent, postLike } from "../api";
+import { deleteContent, formatDate, getSingleContent, IMG_BASE, patchContent, postLike, URL } from "../api";
 import { setChange } from "../action";
 
 const Container = styled.div`
@@ -46,7 +46,6 @@ const Button = styled.button`
   all: unset;
   color: black;
   padding: 8px 8px;
-  /* margin: 30px; */
   border-radius: 3px;
   cursor: pointer;
   border: 1px solid #bcbcbc;
@@ -72,7 +71,6 @@ const Title = styled.div`
   width: 95%;
   padding: 20px 0px 10px 0px;
   font-size: 25px;
-  /* border: 1px solid black; */
   &:focus {
     outline: none;
   }
@@ -89,12 +87,10 @@ const InformBox = styled.div`
 
 const User = styled.div`
   margin: 0px 8px 0px 5px;
-  /* border: 1px solid red; */
 `;
 
 const Inform = styled.div`
   color: grey;
-  /* border: 1px solid pink; */
   margin-left: 6px;
 `;
 
@@ -180,7 +176,6 @@ const Detailpage = () => {
 
   const getSingleData = async () => {
     const data = await getSingleContent(id);
-
     setSingleData(data);
   };
 
@@ -189,7 +184,6 @@ const Detailpage = () => {
 
     if (!change) {
       await patchContent(id, { title, img, content: changeContent });
-      dispatch(setChange());
     }
 
     setChangeContent(content);
@@ -202,8 +196,7 @@ const Detailpage = () => {
 
   const handleClickDelete = async () => {
     await deleteContent(id);
-    dispatch(setChange());
-    navigate("/");
+    navigate("/community");
   };
 
   const { title, img, createdAt, visit, like, content, comments, userId, nickname } = singleData;
@@ -216,7 +209,7 @@ const Detailpage = () => {
   };
 
   const check = parseInt(userId) === parseInt(state.userId);
-  console.log(state.userId);
+
   useEffect(() => {
     getSingleData();
   }, [state.change]);
@@ -224,7 +217,7 @@ const Detailpage = () => {
     <Container>
       <Form>
         <ButtonBox>
-          <ListLink to="/community">
+          <ListLink to='/community'>
             <Button>목록</Button>
           </ListLink>
           {check && (
@@ -242,10 +235,10 @@ const Detailpage = () => {
           <Inform>{date}</Inform>
         </InformBox>
         {isEditing ? (
-          <InputContent type="text" value={changeContent} onChange={handleCangeContent} />
+          <InputContent type='text' value={changeContent} onChange={handleCangeContent} />
         ) : (
           <ContentBox>
-            <ContentImg src={`https://api.bom-ko.com/${img}`}></ContentImg>
+            <ContentImg src={img ? `${URL}/${img}` : IMG_BASE}></ContentImg>
             <Content>{content}</Content>
           </ContentBox>
         )}
@@ -254,7 +247,7 @@ const Detailpage = () => {
           <LikeBox>
             <LikeCount>{like}</LikeCount>
             <Like primary={like}>
-              <i className="far fa-thumbs-up" onClick={handleLikeClick}></i>
+              <i className='far fa-thumbs-up' onClick={handleLikeClick}></i>
             </Like>
           </LikeBox>
         </ButtonBox>

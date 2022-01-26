@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { postComment } from "../../api";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setChange } from "../../action";
 
 const WritingAllignment = styled.div`
@@ -57,7 +57,7 @@ const NewCommentForm = ({ nowContentId, nowUserId }) => {
   return (
     <WritingAllignment>
       <CommentWriting
-        type="text"
+        type='text'
         onChange={handleChangeComment}
         placeholder={!nowUserId && "댓글을 작성 하려면 로그인 하세요"}
       />

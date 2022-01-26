@@ -4,7 +4,6 @@ import styled from "styled-components";
 const Contaier = styled.div`
   display: flex;
   justify-content: center;
-  /* border: 1px solid blue; */
   padding-top: 100px;
   text-align: center;
 `;
@@ -52,12 +51,11 @@ const MobileSearchBar = () => {
     <Contaier>
       <SelectBox onChange={handleList}>{options}</SelectBox>
       <Input
-        type="text"
-        placeholder="현재 게시판 내용 검색"
+        type='text'
+        placeholder='현재 게시판 내용 검색'
         value={textSearch}
         onChange={handleChange}
-        onKeyPress={handleKeyPress}
-      ></Input>
+        onKeyPress={handleKeyPress}></Input>
       <Button onClick={handleSearchClick}>검색</Button>
     </Contaier>
   );

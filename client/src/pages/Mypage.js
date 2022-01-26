@@ -56,20 +56,7 @@ const Button = styled.button`
   }
   transition: 0.4s;
 `;
-const Valid = styled.button`
-  all: unset;
-  padding: 10px 15px;
-  background-color: #fbf0d2;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  color: gray;
-  opacity: ${(props) => (props.disabled ? 0.6 : 1)};
-  &:hover {
-    background-color: ${(props) => (props.disabled ? "" : "#ffdc77")};
-  }
-  transition: 0.4s;
-`;
+
 const Span = styled.span`
   font-size: 14px;
   font-weight: bold;
@@ -112,8 +99,7 @@ const Mypage = () => {
           handleSubmit(onSubmitValid);
           //첫번째 인자는 모든 유효성검사를 통과했을때 실행하는 함수
           //두번째 인자는 유효성 검사를 하나라도 통과를 못했을때 실행하는 함수
-        }}
-      >
+        }}>
         <FormColumn>
           <Email>{user.email}</Email>
         </FormColumn>
@@ -135,8 +121,8 @@ const Mypage = () => {
               minLength: { value: 2, message: "최소 2자 이상 입력해주세요" },
               maxLength: { value: 8, message: "최대 8자 이하로 입력해주세요" },
             })}
-            name="nickname"
-            placeholder="2~8글자"
+            name='nickname'
+            placeholder='2~8글자'
             error={errors.nickname?.message}
           />
           <Span>{errors.nickname?.message}</Span>
@@ -153,9 +139,9 @@ const Mypage = () => {
                     message: "8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요",
                   },
                 })}
-                name="password"
-                type="password"
-                placeholder="8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요"
+                name='password'
+                type='password'
+                placeholder='8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요'
                 error={errors.password?.message}
               />
               <Span>{errors.password?.message}</Span>
@@ -172,9 +158,9 @@ const Mypage = () => {
                     },
                   },
                 })}
-                name="password2"
-                type="password"
-                placeholder="비밀번호를 한번 더 입력해 주세요"
+                name='password2'
+                type='password'
+                placeholder='비밀번호를 한번 더 입력해 주세요'
                 error={errors.password2?.message}
               />
               <Span>{errors.password2?.message}</Span>
