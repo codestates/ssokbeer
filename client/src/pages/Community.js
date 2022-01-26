@@ -14,7 +14,7 @@ const Community = () => {
   const getData = async () => {
     const { allContent, rankContent } = await getContent();
 
-    setRankContent(rankContent.slice(0, 4));
+    setRankContent(rankContent.slice(0, 3));
     setAllContent(allContent);
   };
   const handleSearchClick = async () => {

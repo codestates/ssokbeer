@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
 
 const Reviews = [
   "커뮤니티에서 인생레시피 발견했어요",
@@ -9,9 +10,12 @@ const Reviews = [
 ];
 const ImageSlide = styled.div`
   position: relative;
-  width: 400px;
+  width: 250px;
   height: 100%;
   margin: auto;
+  @media screen and (min-width: 768px) {
+    width: 400px;
+  }
 `;
 
 const SlideBox = styled.div`
@@ -26,16 +30,22 @@ const SlideList = styled.div`
   width: 1700px;
   transition: all 30ms ease 0s;
   overflow: hidden;
-  transform: translate3d(${(props) => props.cr * -400}px, 0px, 0px);
+  transform: translate3d(${(props) => props.cr * -250}px, 0px, 0px);
+  @media screen and (min-width: 768px) {
+    transform: translate3d(${(props) => props.cr * -400}px, 0px, 0px);
+  }
 `;
 
 const SlideContent = styled.div`
   display: table;
   float: left;
-  width: 400px;
+  width: 250px;
   height: 200px;
 
   text-align: center;
+  @media screen and (min-width: 768px) {
+    width: 400px;
+  }
 `;
 
 const ReviewBox = styled.div`
@@ -71,6 +81,7 @@ const ButtonNext = styled.div`
 
 const Review = () => {
   const [currentReview, setCurrentReview] = useState(0);
+  const isPc = useMediaQuery({ query: "(min-width: 768px)" }, undefined);
   const onChangeContent = (pageDelta) => {
     const lastReviewPageNum = Reviews.length - 1;
     const newCurrentPageNum = currentReview + pageDelta;
@@ -85,12 +96,12 @@ const Review = () => {
   };
 
   return (
-    <ImageSlide>
-      <SlideBox>
-        <SlideList cr={currentReview}>
+    <ImageSlide isPc={isPc}>
+      <SlideBox isPc={isPc}>
+        <SlideList cr={currentReview} isPc={isPc}>
           {Reviews.map((review, idx) => {
             return (
-              <SlideContent key={idx}>
+              <SlideContent key={idx} isPc={isPc}>
                 <ReviewBox key={idx}>
                   <Content key={idx}>{review}</Content>
                 </ReviewBox>

@@ -38,8 +38,6 @@ const Content = styled.div`
   font-size: 20px;
   color: #444444;
   text-align: center;
-
-  /* border: 1px solid red; */
 `;
 
 const Div = styled.div`
@@ -47,7 +45,6 @@ const Div = styled.div`
   font-size: 16px;
   color: #444444;
   text-align: center;
-  /* border: 1px solid black; */
 `;
 
 const Communitypage = styled(Link)`
@@ -63,7 +60,7 @@ const ReviewBox = styled.div`
   height: 100%;
   width: 100%;
   background-color: white;
-  margin: 200px;
+  margin: 200px 0;
 `;
 
 const Img = styled.img`
@@ -87,15 +84,14 @@ const Main = () => {
       <ReviewBox>
         <Review></Review>
       </ReviewBox>
-      {/* <WineImg src={wineImg} /> */}
       <div>
         <Img src={Findingwomen}></Img>
       </div>
       <Div>수많은 쏙비어 회원님들이</Div>
       <Div>추천해주신 맛집과 레시피</Div>
       <Div>한번 구경해볼까요?</Div>
-      <Communitypage to="/community">
-        커뮤니티 가기 <i className="fas fa-chevron-right"></i>
+      <Communitypage to='/community'>
+        커뮤니티 가기 <i className='fas fa-chevron-right'></i>
       </Communitypage>
 
       <div>
