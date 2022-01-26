@@ -210,7 +210,7 @@ const Detailpage = () => {
   };
 
   const check = parseInt(userId) === parseInt(state.userId);
-
+  console.log(state.userId);
   useEffect(() => {
     getSingleData();
   }, [state.change]);

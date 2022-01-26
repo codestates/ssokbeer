@@ -116,8 +116,6 @@ const Writing = () => {
     try {
       await postData();
 
-      dispatch(setChange());
-
       nav("/community");
     } catch (e) {
       console.log(e.response);
