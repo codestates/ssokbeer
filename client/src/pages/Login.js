@@ -159,9 +159,9 @@ const Login = () => {
         userInfo: { id },
       },
     } = await postLogin({ email, password });
-
+    console.log("@@@@");
+    console.log(id);
     localStorage.setItem("userId", id);
-
     dispatch(setUserId(id));
 
     return data;
@@ -233,8 +233,8 @@ const Login = () => {
         <ButtonContainer>
           <OauthButton
             onClick={() => {
-              dispatch(setSocialType("google"));
               localStorage.setItem("socialType", "google");
+              dispatch(setSocialType("google"));
             }}
             href="https://accounts.google.com/o/oauth2/v2/auth?client_id=849456230902-bbj8hno72k1hhlciunde3nc0knp6i28m.apps.googleusercontent.com&redirect_uri=http://localhost:3000&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email"
           >
@@ -243,8 +243,8 @@ const Login = () => {
           </OauthButton>
           <OauthButton
             onClick={() => {
-              dispatch(setSocialType("github"));
               localStorage.setItem("socialType", "github");
+              dispatch(setSocialType("github"));
             }}
             href="https://github.com/login/oauth/authorize?client_id=46fe43a8dc9c1ac97714&scope=user:email"
           >

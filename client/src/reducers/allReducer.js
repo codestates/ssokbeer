@@ -25,6 +25,7 @@ const allReducer = (state = initialState, action) => {
       clone.change += 1; //구글이냐 깃허브냐
 
       return clone;
+
     default:
       return state;
   }
