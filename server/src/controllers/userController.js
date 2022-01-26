@@ -39,7 +39,7 @@ export const signout = async (req, res) => {
     const { token } = req.cookies;
     const { email } = verify(token);
     await users.destroy({ where: { email } });
-    res.clearCookie("token");
+    res.clearCookie("token", { sameSite: "None", secure: true });
     res.status(201).json({ message: "회원탈퇴 성공" });
   } catch {
     res.status(500).json({ message: "회원탈퇴 실패" });
@@ -132,7 +132,7 @@ export const postLogin = async (req, res) => {
 
 export const logout = async (req, res) => {
   try {
-    res.clearCookie("token");
+    res.clearCookie("token", { sameSite: "None", secure: true });
     res.json({ message: "로그아웃 되었습니다" });
   } catch {
     return res.status(500).json({ message: "로그아웃 실패" });
