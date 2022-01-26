@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Contaier = styled.div`
   display: flex;
   justify-content: center;
-  /* margin: 30px 0px; */
   text-align: center;
 `;
 
@@ -48,17 +47,14 @@ const SearchBar = ({ setChoice, setTextSearch, handleSearchClick }) => {
     setChoice(event.target.value);
   };
 
-  // {conents.filter(content => content.title === filterText)}
-
   return (
     <Contaier>
       <SelectBox onInput={handleList}>{options}</SelectBox>
       <Input
-        type="text"
-        placeholder="현재 게시판 내용 검색"
+        type='text'
+        placeholder='현재 게시판 내용 검색'
         onChange={handleChange}
-        onKeyPress={handleKeyPress}
-      ></Input>
+        onKeyPress={handleKeyPress}></Input>
       <Button onClick={handleSearchClick}>검색</Button>
     </Contaier>
   );

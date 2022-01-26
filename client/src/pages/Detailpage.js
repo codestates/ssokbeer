@@ -3,10 +3,9 @@ import styled from "styled-components";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import SingleComment from "../components/Detailpage/SingleComment";
 import NewCommentForm from "../components/Detailpage/NewCommentForm";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { deleteContent, formatDate, getSingleContent, patchContent, postLike } from "../api";
-import { setChange } from "../action";
+import { deleteContent, formatDate, getSingleContent, IMG_BASE, patchContent, postLike, URL, visitPlus } from "../api";
 
 const Container = styled.div`
   max-width: 1200px;
@@ -46,7 +45,6 @@ const Button = styled.button`
   all: unset;
   color: black;
   padding: 8px 8px;
-  /* margin: 30px; */
   border-radius: 3px;
   cursor: pointer;
   border: 1px solid #bcbcbc;
@@ -72,7 +70,6 @@ const Title = styled.div`
   width: 95%;
   padding: 20px 0px 10px 0px;
   font-size: 25px;
-  /* border: 1px solid black; */
   &:focus {
     outline: none;
   }
@@ -89,12 +86,10 @@ const InformBox = styled.div`
 
 const User = styled.div`
   margin: 0px 8px 0px 5px;
-  /* border: 1px solid red; */
 `;
 
 const Inform = styled.div`
   color: grey;
-  /* border: 1px solid pink; */
   margin-left: 6px;
 `;
 
@@ -141,6 +136,7 @@ const LikeBox = styled.div`
   border-radius: 3px;
   border: 1px solid #bcbcbc;
   font-size: 15px;
+  cursor: pointer;
 `;
 
 const LikeCount = styled.div`
@@ -172,15 +168,14 @@ const Detailpage = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const state = useSelector((state) => state.allReducer);
-  const dispatch = useDispatch();
 
   const [singleData, setSingleData] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [changeContent, setChangeContent] = useState("");
+  const [like, setLike] = useState(0);
 
   const getSingleData = async () => {
     const data = await getSingleContent(id);
-
     setSingleData(data);
   };
 
@@ -189,9 +184,8 @@ const Detailpage = () => {
 
     if (!change) {
       await patchContent(id, { title, img, content: changeContent });
-      dispatch(setChange());
     }
-
+    getSingleData();
     setChangeContent(content);
     setIsEditing(change);
   };
@@ -202,29 +196,32 @@ const Detailpage = () => {
 
   const handleClickDelete = async () => {
     await deleteContent(id);
-    dispatch(setChange());
-    navigate("/");
+    navigate("/community");
   };
 
-  const { title, img, createdAt, visit, like, content, comments, userId, nickname } = singleData;
+  const { title, img, createdAt, visit, content, comments, userId, nickname } = singleData;
 
   const date = formatDate(createdAt);
 
   const handleLikeClick = async () => {
-    await postLike(id);
-    dispatch(setChange());
+    const {
+      data: { likeCount },
+    } = await postLike(id);
+    setLike(likeCount);
   };
 
   const check = parseInt(userId) === parseInt(state.userId);
-  console.log(state.userId);
+
   useEffect(() => {
     getSingleData();
-  }, [state.change]);
+    visitPlus(id);
+  }, []);
+
   return (
     <Container>
       <Form>
         <ButtonBox>
-          <ListLink to="/community">
+          <ListLink to='/community'>
             <Button>목록</Button>
           </ListLink>
           {check && (
@@ -242,26 +239,26 @@ const Detailpage = () => {
           <Inform>{date}</Inform>
         </InformBox>
         {isEditing ? (
-          <InputContent type="text" value={changeContent} onChange={handleCangeContent} />
+          <InputContent type='text' value={changeContent} onChange={handleCangeContent} />
         ) : (
           <ContentBox>
-            <ContentImg src={`https://api.bom-ko.com/${img}`}></ContentImg>
+            <ContentImg src={img ? `${URL}/${img}` : IMG_BASE}></ContentImg>
             <Content>{content}</Content>
           </ContentBox>
         )}
         <ButtonBox>
           <Button>댓글</Button>
-          <LikeBox>
+          <LikeBox onClick={handleLikeClick}>
             <LikeCount>{like}</LikeCount>
             <Like primary={like}>
-              <i className="far fa-thumbs-up" onClick={handleLikeClick}></i>
+              <i className='far fa-thumbs-up'></i>
             </Like>
           </LikeBox>
         </ButtonBox>
-        <NewCommentForm nowContentId={id} nowUserId={state.userId} />
+        <NewCommentForm nowContentId={id} nowUserId={state.userId} getSingleData={getSingleData} />
         <CommentForm>
           {comments?.map((comment, idx) => (
-            <SingleComment key={idx} comment={comment} />
+            <SingleComment key={idx} comment={comment} getSingleData={getSingleData} id={id} />
           ))}
         </CommentForm>
       </Form>

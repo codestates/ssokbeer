@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { deleteComment, editComment } from "../../api";
-import { useDispatch, useSelector } from "react-redux";
-import { setChange } from "../../action";
+import { useSelector } from "react-redux";
 
 const CommentBox = styled.div`
   display: flex;
@@ -24,20 +23,16 @@ const UserBox = styled.div`
 `;
 const User = styled.div`
   margin: 0px 8px 0px 5px;
-  /* border: 1px solid red; */
 `;
 const Inform = styled.div`
   color: grey;
-  /* border: 1px solid pink; */
   margin-left: 6px;
 `;
 
 const Comment = styled.div`
-  /* border: 1px solid black; */
   font-size: 18px;
 `;
 const EditComment = styled.input`
-  /* border: 1px solid black; */
   font-size: 18px;
   &:focus {
     outline: none;
@@ -45,7 +40,6 @@ const EditComment = styled.input`
 `;
 
 const ModifyBox = styled.div`
-  /* width: 100%; */
   height: 50px;
   display: flex;
   align-items: center;
@@ -54,7 +48,6 @@ const ModifyBox = styled.div`
   i {
     text-align: right;
   }
-  /* border: 1px solid blue; */
 `;
 const ModifyPopup = styled.button`
   width: 100px;
@@ -69,9 +62,8 @@ const ModifyPopup = styled.button`
   cursor: grab;
 `;
 
-const SingleComment = ({ comment }) => {
+const SingleComment = ({ comment, getSingleData }) => {
   const state = useSelector((state) => state.allReducer);
-  const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [changeContent, setChangeContent] = useState("");
   const { nickname, createdAt, content, userId, id } = comment;
@@ -80,11 +72,10 @@ const SingleComment = ({ comment }) => {
     const change = !isEditing;
     if (!change) {
       await editComment(id, changeContent);
-      dispatch(setChange());
     }
-
     setChangeContent(content);
     setIsEditing(change);
+    getSingleData();
   };
 
   const handlechangeContent = (e) => {
@@ -93,7 +84,7 @@ const SingleComment = ({ comment }) => {
 
   const handleDelete = async () => {
     await deleteComment(id);
-    dispatch(setChange());
+    getSingleData();
   };
 
   const check = parseInt(userId) === parseInt(state.userId);
@@ -114,11 +105,7 @@ const SingleComment = ({ comment }) => {
         )}
       </CommentAlignment>
 
-      {isEditing ? (
-        <EditComment value={changeContent} onChange={handlechangeContent} />
-      ) : (
-        <Comment>{content}</Comment>
-      )}
+      {isEditing ? <EditComment value={changeContent} onChange={handlechangeContent} /> : <Comment>{content}</Comment>}
     </CommentBox>
   );
 };

@@ -1,6 +1,5 @@
 import db from "../../models/index";
 import { dishList } from "../alcoholDB/test";
-const dishData = require("../alcoholDB/dishes");
 const dishes = db.dish;
 export const postDish = async (req, res) => {
   try {

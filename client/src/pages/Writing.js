@@ -66,7 +66,6 @@ const ButtonBox = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  /* border: 1px solid black; */
 `;
 
 const CancelLink = styled(Link)`
@@ -106,12 +105,13 @@ const Writing = () => {
     setImgFile(e.target.files[0]);
   };
 
-  const onSubmitValid = async () => {
+  const onSubmitValid = async (e) => {
+    e.preventDefault();
     try {
       await postData();
-      nav("/community");
-
-      window.location.reload();
+      setTimeout(() => {
+        nav("/community");
+      }, 200);
     } catch (e) {
       console.log(e.response);
     }
@@ -122,26 +122,24 @@ const Writing = () => {
       <Form>
         <Title
           required
-          type="text"
-          placeholder="제목을 입력하세요"
+          type='text'
+          placeholder='제목을 입력하세요'
           onChange={(e) => {
             setTitle(e.target.value);
-          }}
-        ></Title>
-        <Img accept="image/*" type="file" onChange={(e) => onChange(e)} />
+          }}></Title>
+        <Img accept='image/*' type='file' onChange={(e) => onChange(e)} />
         <Content
           required
-          type="textarea"
+          type='textarea'
           onChange={(e) => {
             setContent(e.target.value);
-          }}
-        ></Content>
+          }}></Content>
 
         <ButtonBox>
-          <CancelLink to="/community">
+          <CancelLink to='/community'>
             <Button>취소</Button>
           </CancelLink>
-          <Button type="submit" onClick={onSubmitValid}>
+          <Button type='submit' onClick={onSubmitValid}>
             등록
           </Button>
         </ButtonBox>

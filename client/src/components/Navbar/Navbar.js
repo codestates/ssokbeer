@@ -6,7 +6,7 @@ import RigthNav from "./RigthNav";
 
 import { logout } from "../../api";
 import { useDispatch, useSelector } from "react-redux";
-import { setLogin, setSocialType, setUserId, setUserInfo } from "../../action";
+import { setLogin, setSocialType, setUserId } from "../../action";
 
 const Nav = styled.nav`
   width: 100%;
@@ -15,12 +15,11 @@ const Nav = styled.nav`
 `;
 
 const Header = styled.header`
-  /* position: relative; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 70px;
-  padding: 10px 20px;
+  padding: 10px 10px;
   box-shadow: 0 4px 4px -4px #f1c74c;
   background-color: white;
   i {
@@ -52,8 +51,6 @@ const SideNav = styled.div`
   animation: slidein 0.7s ease-in-out;
   animation: boxFade 0.5s ease-out;
   border: 0.5px solid grey;
-
-  /* background-color: rgba(247, 227, 171, 0.4); */
 
   i {
     text-align: right;
@@ -124,8 +121,6 @@ const Navbar = () => {
     setIsOpen(false);
   };
   const handleClickLogout = async () => {
-    // axios.delete(`http://localhost:4000/user/logout`);
-
     localStorage.removeItem("isLogin");
     localStorage.removeItem("userId");
     localStorage.removeItem("socialType");
@@ -151,7 +146,7 @@ const Navbar = () => {
   return (
     <Nav>
       <Header>
-        <LogoLink to="/">
+        <LogoLink to='/'>
           <Logo src={logo} />
         </LogoLink>
         <RigthNav
@@ -163,31 +158,31 @@ const Navbar = () => {
       </Header>
       {isOpen ? (
         <SideNav ref={side}>
-          <i onClick={CloseSideNav} className="fas fa-times" icon></i>
-          <SideLink onClick={CloseSideNav} to="/">
+          <i onClick={CloseSideNav} className='fas fa-times'></i>
+          <SideLink onClick={CloseSideNav} to='/'>
             <Menu>홈</Menu>
           </SideLink>
-          <SideLink onClick={CloseSideNav} to="/drink">
+          <SideLink onClick={CloseSideNav} to='/drink'>
             <Menu>주류</Menu>
           </SideLink>
-          <SideLink onClick={CloseSideNav} to="/community">
+          <SideLink onClick={CloseSideNav} to='/community'>
             <Menu>커뮤니티</Menu>
           </SideLink>
           {state.isLogin ? (
-            <SideLink onClick={CloseSideNav} to="/mypage">
+            <SideLink onClick={CloseSideNav} to='/mypage'>
               <Menu>마이페이지</Menu>
             </SideLink>
           ) : (
-            <SideLink onClick={CloseSideNav} to="/login">
+            <SideLink onClick={CloseSideNav} to='/login'>
               <Menu>로그인</Menu>
             </SideLink>
           )}
           {state.isLogin ? (
-            <SideLink onClick={handleClickLogout} to="/">
+            <SideLink onClick={handleClickLogout} to='/'>
               <Menu>로그아웃</Menu>
             </SideLink>
           ) : (
-            <SideLink onClick={CloseSideNav} to="/signup">
+            <SideLink onClick={CloseSideNav} to='/signup'>
               <Menu>회원가입</Menu>
             </SideLink>
           )}

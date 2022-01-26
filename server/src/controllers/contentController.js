@@ -1,7 +1,7 @@
 const {
   Sequelize: { Op },
 } = require("../../models");
-import db, { sequelize } from "../../models/index";
+import db from "../../models/index";
 import { verify } from "../token/verify";
 
 const contents = db.content;
@@ -55,8 +55,7 @@ export const getContent = async (req, res) => {
       include: { model: comments },
     });
 
-    await visitCnt.increment("visit");
-    res.status(200).json({ message: "게시글 내용 조회 및 방문자 수 증가 ", visitCnt });
+    res.status(200).json({ visitCnt });
   } catch {
     res.status(500).json({ message: "게시글 내용 조회 및 방문실패" });
   }
@@ -83,6 +82,7 @@ export const deleteContent = async (req, res) => {
     await contents.destroy({ where: { id } });
     res.status(201).json({ message: "글 삭제 완료" });
   } catch (e) {
+    console.log(e);
     res.status(500).json({ message: "글 삭제 실패" });
   }
 };
@@ -90,7 +90,6 @@ export const deleteContent = async (req, res) => {
 export const search = async (req, res) => {
   try {
     const { type, value } = req.query;
-    console.log(type, value);
     let finder = {};
     finder[type] = { [Op.like]: `%${value}%` };
 
@@ -104,5 +103,20 @@ export const search = async (req, res) => {
   } catch (e) {
     console.log(e);
     return res.status(500).json({ message: "왜 안 떠 " });
+  }
+};
+
+export const visitContent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    let visitCnt = await contents.findOne({
+      where: { id },
+      include: { model: comments },
+    });
+
+    await visitCnt.increment("visit");
+    res.status(200).end();
+  } catch {
+    res.status(500).json({ message: "게시글 내용 조회 및 방문실패" });
   }
 };

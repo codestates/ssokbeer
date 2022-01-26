@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import { verify } from "../token/verify";
 
 const users = db.user;
-const contents = db.content;
 
 export const postSignup = async (req, res) => {
   const { nickname, email, password } = req.body;
@@ -59,7 +58,6 @@ export const getProfile = async (req, res) => {
     const userInfo = await users.findOne({
       where: { email },
     });
-    console.log(userInfo);
 
     res.status(200).json({ message: "내정보 불러오기 성공", userInfo });
   } catch {
@@ -68,7 +66,6 @@ export const getProfile = async (req, res) => {
 };
 
 export const editProfile = async (req, res) => {
-  // let { id } = req.params;
   try {
     const { token } = req.cookies;
     if (!token) {
@@ -118,11 +115,6 @@ export const postLogin = async (req, res) => {
     }
 
     const ok = await bcrypt.compare(password, user.dataValues.password);
-    console.log("@@@@@@@@@@@@@@@@@@@@@@");
-    console.log(user.dataValues.password);
-
-    console.log(password);
-    console.log(ok);
     if (!ok) {
       return res.status(401).json({ message: "비밀번호가 다릅니다" });
     }

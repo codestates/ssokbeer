@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { postComment } from "../../api";
-import { useDispatch, useSelector } from "react-redux";
-import { setChange } from "../../action";
 
 const WritingAllignment = styled.div`
   display: flex;
@@ -38,9 +36,8 @@ const CommentButton = styled.button`
   }
 `;
 
-const NewCommentForm = ({ nowContentId, nowUserId }) => {
+const NewCommentForm = ({ nowContentId, nowUserId, getSingleData, id }) => {
   const [newComment, setNewComment] = useState("");
-  const dispatch = useDispatch();
   const handleChangeComment = (e) => {
     setNewComment(e.target.value);
   };
@@ -51,13 +48,13 @@ const NewCommentForm = ({ nowContentId, nowUserId }) => {
       contentId: nowContentId,
     };
     await postComment(comment);
-    dispatch(setChange());
+    await getSingleData(id);
   };
 
   return (
     <WritingAllignment>
       <CommentWriting
-        type="text"
+        type='text'
         onChange={handleChangeComment}
         placeholder={!nowUserId && "댓글을 작성 하려면 로그인 하세요"}
       />

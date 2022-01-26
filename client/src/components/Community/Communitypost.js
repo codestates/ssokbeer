@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import AllContent from "./AllContent";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   max-width: 1280px;
@@ -16,7 +17,6 @@ const CommunityNav = styled.nav`
   justify-content: space-between;
   align-items: center;
   margin: 20px 0px;
-  /* border: 1px solid blue; */
 `;
 const CommunityHeader = styled.header`
   font-size: 17px;
@@ -46,32 +46,33 @@ const WritingLink = styled(Link)`
 
 const PostSection = styled.section`
   width: 100%;
-  padding: 0px 15px;
   background-color: rgba(255, 255, 255);
-  /* border: 1px solid blue; */
 `;
 
 const PostConatiner = styled.div`
   width: 100%;
   margin: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-  grid-auto-rows: 370px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: 200px;
   grid-gap: 24px;
-  /* border: 1px solid red; */
 `;
 
 const CommunityPost = ({ allContent }) => {
+  const state = useSelector((state) => state.allReducer);
+
   return (
     <Container>
       <CommunityNav>
         <CommunityHeader>
           오늘은 뭐먹을래?
-          <i className="fas fa-utensils"></i>
+          <i className='fas fa-utensils'></i>
         </CommunityHeader>
-        <WritingLink to="/writing">
-          <Button>글쓰기</Button>
-        </WritingLink>
+        {state.isLogin && (
+          <WritingLink to='/writing'>
+            <Button>글쓰기</Button>
+          </WritingLink>
+        )}
       </CommunityNav>
       <PostSection>
         <PostConatiner>

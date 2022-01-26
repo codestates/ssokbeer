@@ -34,7 +34,6 @@ export const githubLogin = async (req, res) => {
     .replace(/[^a-z]+/g, "")
     .substr(0, 5);
   if (!user) {
-    console.log("유저 생성");
     user = await users.create({
       email,
       nickname,
@@ -45,5 +44,7 @@ export const githubLogin = async (req, res) => {
     expiresIn: "6h",
   });
 
-  return res.cookie("token", token).json({ message: "소셜 로그인 완료 및 쿠키 전송", id: user.dataValues.id });
+  return res
+    .cookie("token", token, { sameSite: "None", secure: true })
+    .json({ message: "소셜 로그인 완료 및 쿠키 전송", id: user.dataValues.id });
 };
