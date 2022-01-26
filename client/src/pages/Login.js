@@ -274,9 +274,7 @@ const Login = () => {
               localStorage.setItem("socialType", "google");
               dispatch(setSocialType("google"));
             }}
-
             href="https://accounts.google.com/o/oauth2/v2/auth?client_id=849456230902-bbj8hno72k1hhlciunde3nc0knp6i28m.apps.googleusercontent.com&redirect_uri=http://ssokbeer-bucket-depoly.s3-website.ap-northeast-2.amazonaws.com/login&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email"
-
           >
             <i className="fab fa-google"></i>
             Google로 로그인

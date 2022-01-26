@@ -24,7 +24,13 @@ const RecomendContent = ({ content }) => {
   const { title, img } = content;
   return (
     <RecommendPost>
-      <PostImage src={`https://api.bom-ko.com/${img}`}></PostImage>
+      <PostImage
+        src={
+          img
+            ? `https://api.bom-ko.com/${img}`
+            : "https://github.com/StrummingDown/ssokbeerImg/blob/main/ssokbeerlogo.png?raw=true"
+        }
+      ></PostImage>
       <PostTitle>{title}</PostTitle>
     </RecommendPost>
   );
