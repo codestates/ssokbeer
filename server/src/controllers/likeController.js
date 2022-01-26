@@ -23,10 +23,12 @@ export const like = async (req, res) => {
     if (!created) {
       likes.destroy({ where: { userId: userInfo.id } });
       await contents.increment({ like: -1 }, { where: { id: contentId } });
-      return res.status(201).json({ message: "추천 취소" });
+      const data = await contents.findOne({ where: { id: contentId } });
+      return res.status(201).json({ message: "추천 취소", likeCount: data.like });
     } else {
       await contents.increment({ like: 1 }, { where: { id: contentId } });
-      res.status(201).json({ message: "추천 성공", userInfo });
+      const data = await contents.findOne({ where: { id: contentId } });
+      res.status(201).json({ message: "추천 성공", likeCount: data.like });
     }
   } catch {
     res.status(500).json({ message: "추천 요청 실패" });

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { postComment } from "../../api";
-import { useDispatch } from "react-redux";
-import { setChange } from "../../action";
 
 const WritingAllignment = styled.div`
   display: flex;
@@ -38,9 +36,8 @@ const CommentButton = styled.button`
   }
 `;
 
-const NewCommentForm = ({ nowContentId, nowUserId }) => {
+const NewCommentForm = ({ nowContentId, nowUserId, getSingleData, id }) => {
   const [newComment, setNewComment] = useState("");
-  const dispatch = useDispatch();
   const handleChangeComment = (e) => {
     setNewComment(e.target.value);
   };
@@ -51,7 +48,7 @@ const NewCommentForm = ({ nowContentId, nowUserId }) => {
       contentId: nowContentId,
     };
     await postComment(comment);
-    dispatch(setChange());
+    await getSingleData(id);
   };
 
   return (
