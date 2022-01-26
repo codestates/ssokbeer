@@ -90,7 +90,7 @@ const AllContent = ({ content }) => {
         <FoodImg
           src={
             img
-              ? `http://api.bom-ko.com/${img}`
+              ? `https://api.bom-ko.com/${img}`
               : "https://github.com/StrummingDown/ssokbeerImg/blob/main/ssokbeerlogo.png?raw=true"
           }
         ></FoodImg>
