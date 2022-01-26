@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-
 import Copyright from "../components/Home/Copyright";
 import Main from "../components/Home/Main";
+
 
 const Container = styled.div`
   display: flex;
