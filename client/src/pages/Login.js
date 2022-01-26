@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
 import axios from "axios";
-import { postLogin } from "../api";
+import { postLogin, postSocialLogin } from "../api";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogin, setUserId, setSocialType } from "../action";
 
@@ -70,8 +70,7 @@ const LoginInput = styled.input`
   border: none;
   padding: 20px 0px;
   font-size: 15px;
-  border-bottom: ${(props) =>
-    props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red"};
+  border-bottom: ${(props) => (props.fullfilled ? "2px solid rgba(0, 0, 0, 0.2)" : "2px solid red")};
   margin-bottom: 15px;
   &:focus {
     outline: none;
@@ -151,6 +150,26 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  const state = useSelector((state) => state.allReducer);
+  const url = new URL(window.location.href);
+
+  const code = url.searchParams.get("code");
+
+  const getSocial = async () => {
+    const id = await postSocialLogin(state.socialType, code);
+
+    localStorage.setItem("userId", id);
+
+    localStorage.setItem("isLogin", true);
+  };
+
+  useEffect(() => {
+    if (code) {
+      getSocial();
+    }
+  }, []);
+
   const getUser = async () => {
     const { email, password } = loginInfo;
     const {
@@ -236,7 +255,7 @@ const Login = () => {
               localStorage.setItem("socialType", "google");
               dispatch(setSocialType("google"));
             }}
-            href="https://accounts.google.com/o/oauth2/v2/auth?client_id=849456230902-bbj8hno72k1hhlciunde3nc0knp6i28m.apps.googleusercontent.com&redirect_uri=http://localhost:3000&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email"
+            href="https://accounts.google.com/o/oauth2/v2/auth?client_id=849456230902-bbj8hno72k1hhlciunde3nc0knp6i28m.apps.googleusercontent.com&redirect_uri=http://ssokbeer-bucket-depoly.s3-website.ap-northeast-2.amazonaws.com/login&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email"
           >
             <i className="fab fa-google"></i>
             Google로 로그인

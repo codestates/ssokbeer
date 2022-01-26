@@ -44,7 +44,7 @@ const SideNav = styled.div`
   right: 0;
   top: 0;
   width: 40%;
-  height: 100vh;
+  height: 200vh;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -187,7 +187,11 @@ const Navbar = () => {
             <SideLink onClick={handleClickLogout} to="/">
               <Menu>로그아웃</Menu>
             </SideLink>
-          ) : null}
+          ) : (
+            <SideLink onClick={CloseSideNav} to="/signup">
+              <Menu>회원가입</Menu>
+            </SideLink>
+          )}
         </SideNav>
       ) : null}
     </Nav>
