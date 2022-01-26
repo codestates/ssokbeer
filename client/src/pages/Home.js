@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Copyright from "../components/Home/Copyright";
 import Main from "../components/Home/Main";
 
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;

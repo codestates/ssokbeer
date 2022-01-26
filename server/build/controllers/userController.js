@@ -261,10 +261,7 @@ const postLogin = async (req, res) => {
     }
 
     const ok = await _bcrypt.default.compare(password, user.dataValues.password);
-    console.log("@@@@@@@@@@@@@@@@@@@@@@");
-    console.log(user.dataValues.password);
-    console.log(password);
-    console.log(ok);
+
 
     if (!ok) {
       return res.status(401).json({
