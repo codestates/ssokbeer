@@ -2,7 +2,7 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import db from "../../../models/index";
 
-const users = db.users;
+const users = db.user;
 
 export const githubLogin = async (req, res) => {
   const { code } = req.body;

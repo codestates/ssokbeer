@@ -20,7 +20,7 @@ module.exports = {
       like: {
         type: Sequelize.INTEGER,
       },
-      nickName: {
+      nickname: {
         type: Sequelize.STRING,
       },
       visit: {

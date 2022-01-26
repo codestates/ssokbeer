@@ -3,8 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../../img/ssokbeerlogo.png";
 import RigthNav from "./RigthNav";
-import axios from "axios";
+
 import { logout } from "../../api";
+import { useDispatch, useSelector } from "react-redux";
+import { setLogin, setSocialType, setUserId, setUserInfo } from "../../action";
 
 const Nav = styled.nav`
   width: 100%;
@@ -101,9 +103,11 @@ const SideLink = styled(Link)`
 `;
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.allReducer);
+
   const side = useRef(); //
   const [isOpen, setIsOpen] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
 
   const navigate = useNavigate();
 
@@ -122,11 +126,13 @@ const Navbar = () => {
   const handleClickLogout = async () => {
     // axios.delete(`http://localhost:4000/user/logout`);
 
-    localStorage.removeItem("isLogin", false);
-    localStorage.removeItem("userInfo");
-    localStorage.removeItem("nickname");
+    localStorage.removeItem("isLogin");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("socialType");
     await logout();
-    window.location.reload();
+    dispatch(setLogin(false));
+    dispatch(setUserId(null));
+    dispatch(setSocialType(null));
     navigate("/");
   };
 
@@ -138,8 +144,10 @@ const Navbar = () => {
   });
 
   useEffect(() => {
-    setIsLogin(Boolean(localStorage.getItem("isLogin")));
-  }, [isLogin]);
+    dispatch(setLogin(Boolean(localStorage.getItem("isLogin")))); //이성의끈
+    dispatch(setUserId(localStorage.getItem("userId")));
+    dispatch(setSocialType(localStorage.getItem("socialType")));
+  }, []);
 
   return (
     <Nav>
@@ -148,7 +156,7 @@ const Navbar = () => {
           <Logo src={logo} />
         </LogoLink>
         <RigthNav
-          isLogin={isLogin}
+          isLogin={state.isLogin}
           isVisible={isOpen}
           ChangeMenuVisibility={ChangeMenuVisibility}
           handleClickLogout={handleClickLogout}
@@ -166,7 +174,7 @@ const Navbar = () => {
           <SideLink onClick={CloseSideNav} to="/community">
             <Menu>커뮤니티</Menu>
           </SideLink>
-          {isLogin ? (
+          {state.isLogin ? (
             <SideLink onClick={CloseSideNav} to="/mypage">
               <Menu>마이페이지</Menu>
             </SideLink>
@@ -175,11 +183,15 @@ const Navbar = () => {
               <Menu>로그인</Menu>
             </SideLink>
           )}
-          {isLogin ? (
+          {state.isLogin ? (
             <SideLink onClick={handleClickLogout} to="/">
               <Menu>로그아웃</Menu>
             </SideLink>
-          ) : null}
+          ) : (
+            <SideLink onClick={CloseSideNav} to="/signup">
+              <Menu>회원가입</Menu>
+            </SideLink>
+          )}
         </SideNav>
       ) : null}
     </Nav>

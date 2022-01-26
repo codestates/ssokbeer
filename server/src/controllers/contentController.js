@@ -22,7 +22,7 @@ export const postContent = async (req, res) => {
   try {
     const { token } = req.cookies;
 
-    const { title, content, nickName } = req.body;
+    const { title, content } = req.body;
 
     const { email } = verify(token);
 
@@ -30,7 +30,7 @@ export const postContent = async (req, res) => {
 
     const contentInfo = await contents.create({
       userId: userInfo.id,
-      nickName,
+      nickname: userInfo.nickname,
       title,
       content,
       img: req.files ? req.files[0].path : null,
@@ -90,6 +90,7 @@ export const deleteContent = async (req, res) => {
 export const search = async (req, res) => {
   try {
     const { type, value } = req.query;
+    console.log(type, value);
     let finder = {};
     finder[type] = { [Op.like]: `%${value}%` };
 
