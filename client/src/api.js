@@ -2,15 +2,6 @@ import axios from "axios";
 
 const URL = "http://localhost:4000";
 
-export const sociaLogin = async (type, code) => {
-  try {
-    const { data } = await axios.post(`${URL}/oauth/${type}`, { code });
-    console.log(data);
-  } catch (e) {
-    console.log(e.response);
-  }
-};
-
 export const postSignup = async (body) => {
   try {
     const {

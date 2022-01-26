@@ -26,18 +26,13 @@ const Community = () => {
   };
 
   useEffect(() => {
-    dispatch(setChange());
     getData();
-  }, [state.change]);
+  }, []);
 
   return (
     <>
       <Recommendation rankContent={rankContent} />
-      <SearchBar
-        setChoice={setChoice}
-        setTextSearch={setTextSearch}
-        handleSearchClick={handleSearchClick}
-      />
+      <SearchBar setChoice={setChoice} setTextSearch={setTextSearch} handleSearchClick={handleSearchClick} />
       <CommunityPost allContent={allContent} />
     </>
   );
