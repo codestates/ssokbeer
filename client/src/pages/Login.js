@@ -151,25 +151,6 @@ const Login = () => {
     password: "",
   });
 
-  const state = useSelector((state) => state.allReducer);
-  const url = new URL(window.location.href);
-
-  const code = url.searchParams.get("code");
-
-  const getSocial = async () => {
-    const id = await postSocialLogin(state.socialType, code);
-
-    localStorage.setItem("userId", id);
-
-    localStorage.setItem("isLogin", true);
-  };
-
-  useEffect(() => {
-    if (code) {
-      getSocial();
-    }
-  }, []);
-
   const getUser = async () => {
     const { email, password } = loginInfo;
     const {
@@ -178,8 +159,7 @@ const Login = () => {
         userInfo: { id },
       },
     } = await postLogin({ email, password });
-    console.log("@@@@");
-    console.log(id);
+
     localStorage.setItem("userId", id);
     dispatch(setUserId(id));
 
@@ -204,7 +184,7 @@ const Login = () => {
 
     try {
       const data = await getUser();
-      console.log(data);
+
       if (data) {
         handleResponseSuccess(data);
       }

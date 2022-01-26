@@ -27,7 +27,7 @@ export const postSignup = async (req, res) => {
       expiresIn: "3h",
     });
 
-    res.cookie("token", token);
+    res.cookie("token", token, { sameSite: "None", secure: true });
     res.status(201).json({ result });
   } catch (e) {
     console.log(e);
@@ -131,7 +131,7 @@ export const postLogin = async (req, res) => {
       expiresIn: "3h",
     });
 
-    res.cookie("token", token);
+    res.cookie("token", token, { sameSite: "None", secure: true });
     res.status(200).json({ userInfo: user.dataValues, token });
   } catch {
     return res.status(500).json({ message: "로그인 실패" });
