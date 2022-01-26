@@ -61,7 +61,7 @@ const PostConatiner = styled.div`
 
 const CommunityPost = ({ allContent, setCount }) => {
   const state = useSelector((state) => state.allReducer);
-  console.log(state.isLogin);
+
   return (
     <Container>
       <CommunityNav>
@@ -69,9 +69,11 @@ const CommunityPost = ({ allContent, setCount }) => {
           오늘은 뭐먹을래?
           <i className='fas fa-utensils'></i>
         </CommunityHeader>
-        <WritingLink to='/writing'>
-          <Button onClick={() => setCount((prev) => prev + 1)}>글쓰기</Button>
-        </WritingLink>
+        {state.isLogin && (
+          <WritingLink to='/writing'>
+            <Button onClick={() => setCount((prev) => prev + 1)}>글쓰기</Button>
+          </WritingLink>
+        )}
       </CommunityNav>
       <PostSection>
         <PostConatiner>

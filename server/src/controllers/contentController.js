@@ -55,8 +55,7 @@ export const getContent = async (req, res) => {
       include: { model: comments },
     });
 
-    await visitCnt.increment("visit");
-    res.status(200).json({ message: "게시글 내용 조회 및 방문자 수 증가 ", visitCnt });
+    res.status(200).json({ visitCnt });
   } catch {
     res.status(500).json({ message: "게시글 내용 조회 및 방문실패" });
   }
@@ -104,5 +103,20 @@ export const search = async (req, res) => {
   } catch (e) {
     console.log(e);
     return res.status(500).json({ message: "왜 안 떠 " });
+  }
+};
+
+export const visitContent = async (req, res) => {
+  try {
+    const { id } = req.params;
+    let visitCnt = await contents.findOne({
+      where: { id },
+      include: { model: comments },
+    });
+
+    await visitCnt.increment("visit");
+    res.status(200).end();
+  } catch {
+    res.status(500).json({ message: "게시글 내용 조회 및 방문실패" });
   }
 };

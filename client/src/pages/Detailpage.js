@@ -3,10 +3,9 @@ import styled from "styled-components";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import SingleComment from "../components/Detailpage/SingleComment";
 import NewCommentForm from "../components/Detailpage/NewCommentForm";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { deleteContent, formatDate, getSingleContent, IMG_BASE, patchContent, postLike, URL } from "../api";
-import { setChange } from "../action";
+import { deleteContent, formatDate, getSingleContent, IMG_BASE, patchContent, postLike, URL, visitPlus } from "../api";
 
 const Container = styled.div`
   max-width: 1200px;
@@ -168,11 +167,11 @@ const Detailpage = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const state = useSelector((state) => state.allReducer);
-  const dispatch = useDispatch();
 
   const [singleData, setSingleData] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [changeContent, setChangeContent] = useState("");
+  const [like, setLike] = useState(0);
 
   const getSingleData = async () => {
     const data = await getSingleContent(id);
@@ -199,20 +198,24 @@ const Detailpage = () => {
     navigate("/community");
   };
 
-  const { title, img, createdAt, visit, like, content, comments, userId, nickname } = singleData;
+  const { title, img, createdAt, visit, content, comments, userId, nickname } = singleData;
 
   const date = formatDate(createdAt);
 
   const handleLikeClick = async () => {
-    await postLike(id);
-    dispatch(setChange());
+    const {
+      data: { likeCount },
+    } = await postLike(id);
+    setLike(likeCount);
   };
 
   const check = parseInt(userId) === parseInt(state.userId);
 
   useEffect(() => {
     getSingleData();
-  }, [state.change]);
+    visitPlus(id);
+  }, []);
+
   return (
     <Container>
       <Form>
@@ -251,10 +254,10 @@ const Detailpage = () => {
             </Like>
           </LikeBox>
         </ButtonBox>
-        <NewCommentForm nowContentId={id} nowUserId={state.userId} />
+        <NewCommentForm nowContentId={id} nowUserId={state.userId} getSingleData={getSingleData} />
         <CommentForm>
           {comments?.map((comment, idx) => (
-            <SingleComment key={idx} comment={comment} />
+            <SingleComment key={idx} comment={comment} getSingleData={getSingleData} id={id} />
           ))}
         </CommentForm>
       </Form>

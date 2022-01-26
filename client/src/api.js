@@ -216,3 +216,7 @@ export const formatDate = (date) => {
   if (day.length < 2) day = "0" + day;
   return `${month}월 ${day}일 ${hour}시 ${minute}분`;
 };
+
+export const visitPlus = async (id) => {
+  await axios.patch(`${URL}/content/${id}`);
+};
