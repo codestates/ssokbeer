@@ -146,7 +146,6 @@ const Navbar = () => {
   useEffect(() => {
     dispatch(setLogin(Boolean(localStorage.getItem("isLogin")))); //이성의끈
     dispatch(setUserId(localStorage.getItem("userId")));
-    dispatch(setSocialType(localStorage.getItem("socialType")));
   }, []);
 
   return (

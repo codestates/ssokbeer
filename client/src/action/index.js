@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 // action types
 export const LOGIN = "LOGIN";
 export const SOCIAL_LOGIN = "SOCIAL_LOGIN";

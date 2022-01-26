@@ -142,7 +142,7 @@ const Messagebox = styled.div`
 
 const Login = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [isfullfilled, setIsFullfiled] = useState(true);
   const [invalid, setInvalid] = useState(true);
 
@@ -185,7 +185,6 @@ const Login = () => {
 
     return data;
   };
-  const navigate = useNavigate();
 
   const handleInputValue = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
@@ -216,6 +215,26 @@ const Login = () => {
   };
 
   const isPc = useMediaQuery({ query: "(min-width: 768px)" });
+
+  const url = new URL(window.location.href);
+
+  const code = url.searchParams.get("code");
+
+  const getSocial = async () => {
+    const id = await postSocialLogin(localStorage.getItem("socialType"), code);
+
+    localStorage.setItem("userId", id);
+    localStorage.setItem("isLogin", true);
+    dispatch(setUserId(id));
+    dispatch(setLogin(true));
+    navigate("/drink");
+  };
+
+  useEffect(() => {
+    if (code) {
+      getSocial();
+    }
+  }, []);
 
   return (
     <Container>
@@ -255,7 +274,9 @@ const Login = () => {
               localStorage.setItem("socialType", "google");
               dispatch(setSocialType("google"));
             }}
+
             href="https://accounts.google.com/o/oauth2/v2/auth?client_id=849456230902-bbj8hno72k1hhlciunde3nc0knp6i28m.apps.googleusercontent.com&redirect_uri=http://ssokbeer-bucket-depoly.s3-website.ap-northeast-2.amazonaws.com/login&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email"
+
           >
             <i className="fab fa-google"></i>
             Google로 로그인
@@ -265,7 +286,7 @@ const Login = () => {
               localStorage.setItem("socialType", "github");
               dispatch(setSocialType("github"));
             }}
-            href="https://github.com/login/oauth/authorize?client_id=46fe43a8dc9c1ac97714&scope=user:email"
+            href="https://github.com/login/oauth/authorize?client_id=8ab7b64fccca8e5e12c7&scope=user:email"
           >
             <i className="fab fa-github"></i>
             Github로 로그인

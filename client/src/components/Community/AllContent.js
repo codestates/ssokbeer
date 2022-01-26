@@ -87,7 +87,14 @@ const AllContent = ({ content }) => {
   return (
     <Post>
       <FoodLink to={`${id}`}>
-        <FoodImg src={`https://api.bom-ko.com/${img}`}></FoodImg>
+        <FoodImg
+          src={
+            img
+              ? `http://localhost:4000/${img}`
+              : "https://github.com/StrummingDown/ssokbeerImg/blob/main/ssokbeerlogo.png?raw=true"
+          }
+        ></FoodImg>
+
       </FoodLink>
       <ContentBox>
         <ContentHeader to={`${id}`}>{title}</ContentHeader>

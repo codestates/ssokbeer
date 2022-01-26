@@ -19,26 +19,31 @@ export const githubLogin = async (req, res) => {
       headers: { accept: "application/json" },
     }
   );
-  const { data } = await axios.get(" https://api.github.com/user", {
+  const { data } = await axios.get(" https://api.github.com/user/emails", {
     headers: {
       Authorization: `token ${access_token}`,
     },
   });
+
   const { email } = data.find((email) => email.primary === true && email.verified === true);
-
-  const user = await users.findOne({
-    email,
+  let user = await users.findOne({
+    where: { email },
   });
-
+  const nickname = Math.random()
+    .toString(36)
+    .replace(/[^a-z]+/g, "")
+    .substr(0, 5);
   if (!user) {
-    await users.create({
+    console.log("유저 생성");
+    user = await users.create({
       email,
+      nickname,
     });
   }
 
-  const token = jwt.sign({ email }, process.env.JWT_ACCESS, {
+  const token = jwt.sign({ email }, process.env.ACCESS_SECRET, {
     expiresIn: "6h",
   });
 
-  return res.cookie("token", token).json({ message: "소셜 로그인 완료 및 쿠키 전송" });
+  return res.cookie("token", token).json({ message: "소셜 로그인 완료 및 쿠키 전송", id: user.dataValues.id });
 };

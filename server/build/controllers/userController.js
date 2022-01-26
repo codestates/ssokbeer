@@ -262,6 +262,7 @@ const postLogin = async (req, res) => {
 
     const ok = await _bcrypt.default.compare(password, user.dataValues.password);
 
+
     if (!ok) {
       return res.status(401).json({
         message: "비밀번호가 다릅니다"

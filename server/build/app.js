@@ -44,6 +44,7 @@ app.use((0, _cors.default)({
   cookie: {
     maxAge: 24 * 6 * 60 * 10000,
     httpOnly: false,
+
     secure: true,
     sameSite: "None"
   }

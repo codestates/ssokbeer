@@ -26,9 +26,8 @@ const Community = () => {
   };
 
   useEffect(() => {
-    dispatch(setChange());
     getData();
-  }, [state.change]);
+  }, []);
 
   return (
     <>

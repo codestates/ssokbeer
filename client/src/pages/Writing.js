@@ -115,8 +115,9 @@ const Writing = () => {
   const onSubmitValid = async () => {
     try {
       await postData();
-
       nav("/community");
+
+      window.location.reload();
     } catch (e) {
       console.log(e.response);
     }

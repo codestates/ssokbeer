@@ -59,6 +59,7 @@ export const getProfile = async (req, res) => {
     const userInfo = await users.findOne({
       where: { email },
     });
+    console.log(userInfo);
 
     res.status(200).json({ message: "내정보 불러오기 성공", userInfo });
   } catch {
@@ -77,14 +78,16 @@ export const editProfile = async (req, res) => {
     let { email } = verify(token);
 
     let { nickname, password } = req.body;
-    if (!nickname || !password) {
+    if (!nickname) {
       return res.status(400).json({ message: "닉네임,이메일 또는 비밀번호가 공백입니다" });
     }
 
-    password = await bcrypt.hash(password, 5);
-
-    await users.update({ nickname, password }, { where: { email } });
-
+    if (password) {
+      password = await bcrypt.hash(password, 5);
+      await users.update({ nickname, password }, { where: { email } });
+    } else if (!password) {
+      await users.update({ nickname }, { where: { email } });
+    }
     const userInfo = await users.findOne({ where: { email } });
 
     res.status(200).json({ message: "정보수정완료 ", userInfo });
@@ -115,6 +118,11 @@ export const postLogin = async (req, res) => {
     }
 
     const ok = await bcrypt.compare(password, user.dataValues.password);
+    console.log("@@@@@@@@@@@@@@@@@@@@@@");
+    console.log(user.dataValues.password);
+
+    console.log(password);
+    console.log(ok);
     if (!ok) {
       return res.status(401).json({ message: "비밀번호가 다릅니다" });
     }

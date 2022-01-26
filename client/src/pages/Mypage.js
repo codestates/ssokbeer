@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { getProfile, patchProfile } from "../api";
+import { useNavigate } from "react-router";
 
 const Container = styled.div`
   display: flex;
@@ -76,23 +77,27 @@ const Span = styled.span`
   margin: 10px 0;
 `;
 const Email = styled.h1``;
+
 const Mypage = () => {
   const { register, handleSubmit, errors, getValues, formState, setValue } = useForm({
     mode: "onChange",
   });
+  const navigate = useNavigate();
   const [user, setUser] = useState({});
-  const onSubmitValid = () => {
+  const [check, setCheck] = useState(false);
+  const onSubmitValid = async () => {
     const { nickname, password } = getValues();
 
-    patchProfile({ nickname, password });
+    await patchProfile({ nickname, password });
+    navigate("/drink");
   };
 
   const getData = async () => {
     const user = await getProfile();
-
     setValue("nickname", user.nickname);
     setValue("email", user.email);
     setUser({ email: user.email, nickname: user.nickname });
+    setCheck(localStorage.getItem("socialType"));
   };
 
   useEffect(() => {
@@ -136,42 +141,46 @@ const Mypage = () => {
           />
           <Span>{errors.nickname?.message}</Span>
         </FormColumn>
-        <FormColumn>
-          <Label>비밀번호</Label>
-          <Input
-            ref={register({
-              required: "비밀번호를 꼭 입력해주세요.",
-              pattern: {
-                value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-                message: "8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요",
-              },
-            })}
-            name="password"
-            type="password"
-            placeholder="8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요"
-            error={errors.password?.message}
-          />
-          <Span>{errors.password?.message}</Span>
-        </FormColumn>
-        <FormColumn>
-          <Label>비밀번호 확인</Label>
-          <Input
-            ref={register({
-              required: "비밀번호를 꼭 입력해주세요",
-              validate: {
-                matchPassword: (value) => {
-                  const { password } = getValues();
-                  return password === value || "비밀번호가 일치하지 않습니다.";
-                },
-              },
-            })}
-            name="password2"
-            type="password"
-            placeholder="비밀번호를 한번 더 입력해 주세요"
-            error={errors.password2?.message}
-          />
-          <Span>{errors.password2?.message}</Span>
-        </FormColumn>
+        {check ? null : (
+          <>
+            <FormColumn>
+              <Label>비밀번호</Label>
+              <Input
+                ref={register({
+                  required: "비밀번호를 꼭 입력해주세요.",
+                  pattern: {
+                    value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                    message: "8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요",
+                  },
+                })}
+                name="password"
+                type="password"
+                placeholder="8자이상 / 영문 / 숫자 / 특수문자를 조합해주세요"
+                error={errors.password?.message}
+              />
+              <Span>{errors.password?.message}</Span>
+            </FormColumn>
+            <FormColumn>
+              <Label>비밀번호 확인</Label>
+              <Input
+                ref={register({
+                  required: "비밀번호를 꼭 입력해주세요",
+                  validate: {
+                    matchPassword: (value) => {
+                      const { password } = getValues();
+                      return password === value || "비밀번호가 일치하지 않습니다.";
+                    },
+                  },
+                })}
+                name="password2"
+                type="password"
+                placeholder="비밀번호를 한번 더 입력해 주세요"
+                error={errors.password2?.message}
+              />
+              <Span>{errors.password2?.message}</Span>
+            </FormColumn>
+          </>
+        )}
         <Button onClick={onSubmitValid} disabled={!formState.isValid}>
           수정하기
         </Button>
