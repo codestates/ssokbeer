@@ -157,10 +157,7 @@ const Like = styled.div`
 const CommentForm = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
-  height: 45%;
-  margin: 0px 18px;
   background-color: rgba(0, 0, 0, 0.04);
 `;
 
@@ -172,11 +169,12 @@ const Detailpage = () => {
   const [singleData, setSingleData] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [changeContent, setChangeContent] = useState("");
-  const [like, setLike] = useState(0);
+  const [like, setLike] = useState();
 
   const getSingleData = async () => {
     const data = await getSingleContent(id);
     setSingleData(data);
+    setLike(data.like);
   };
 
   const handleClickModify = async () => {
@@ -255,7 +253,7 @@ const Detailpage = () => {
             </Like>
           </LikeBox>
         </ButtonBox>
-        <NewCommentForm nowContentId={id} nowUserId={state.userId} getSingleData={getSingleData} />
+        {state.userId && <NewCommentForm nowContentId={id} nowUserId={state.userId} getSingleData={getSingleData} />}
         <CommentForm>
           {comments?.map((comment, idx) => (
             <SingleComment key={idx} comment={comment} getSingleData={getSingleData} id={id} />
