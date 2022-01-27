@@ -1,6 +1,6 @@
 <h1> 🍺 내집인데 술집같이, 쏙 비어 🍻 </h1>
 
-<img src= "https://github.com/StrummingDown/ssokbeerImg/blob/main/ssokbeerlogo.png?raw=true"  width = "450 " height = "250" backgroud-color : white/>
+<img src= "https://github.com/StrummingDown/ssokbeerImg/blob/main/ssokbeerlogo.png?raw=true"  width = "500 " height = "250" />
 
 <h3><a href=http://ssokbeer-bucket-depoly.s3-website.ap-northeast-2.amazonaws.com/>쏙비어 바로가기</a></h3>
 
@@ -34,4 +34,4 @@ COVID-19로 인한 거리두기로 인해, 어디를 가든지, 걱정되지 않
 
 </br>
 <h2> 🛠 기술 스택 </h2>
-<img src="https://github.com/codestates/ssokbeer/blob/main/ssokbeerStack.png?raw=true" width = "768 " height = "600"/>
+<img src="https://github.com/codestates/ssokbeer/blob/main/ssokbeerStack.png?raw=true" width = "800 " height = "600"/>
