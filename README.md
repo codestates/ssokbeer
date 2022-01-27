@@ -40,7 +40,7 @@ COVID-19로 인한 거리두기로 인해, 어디를 가든지, 걱정되지 않
 </br>
 <h2> 🛠 기술 스택 </h2>
 <h3> Front-end </h3>
-https://img.shields.io/badge/FRONT-JS-%23F7DF1E?style=for-the-badge&logo=JavaScript
+<img src="https://img.shields.io/badge/FRONT-JS-%23F7DF1E?style=for-the-badge&logo=JavaScript" />
 <h3> Back-end </h3>
 
 
