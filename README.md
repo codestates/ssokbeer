@@ -39,15 +39,13 @@ COVID-19로 인한 거리두기로 인해, 어디를 가든지, 걱정되지 않
 
 </br>
 <h2> 🛠 기술 스택 </h2>
-<h3> Front-end </h3>
+
 <img src="https://img.shields.io/badge/FRONT-REACT-%2361DAFB?style=for-the-badge&logo=React" />
 <img src="https://img.shields.io/badge/FRONT-REDUX-%23764ABC?style=for-the-badge&logo=Redux" />
 <img src="https://img.shields.io/badge/FRONT-STYLED--COMPONENT-%23DB7093?style=for-the-badge&logo=styled-components" />
 <img src="https://img.shields.io/badge/FRONT-REACT%20ROUTER-%23CA4245?style=for-the-badge&logo=React%20Router" />
 <img src="https://img.shields.io/badge/DEPLOY-AWS-%23232F3E?style=for-the-badge&logo=Amazon%20AWS" />
-	  
-<h3> Back-end </h3>
-
+</hr>
 <img src="https://img.shields.io/badge/BACK-EXPRESS-%2317202C?style=for-the-badge" />
 <img src="https://img.shields.io/badge/BACK-MYSQL-%234479A1?style=for-the-badge&logo=MySQL" />
 <img src="https://img.shields.io/badge/BACK-SEQUELIZE-%2352B0E7?style=for-the-badge&logo=Sequelize" />
