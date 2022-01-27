@@ -3,3 +3,31 @@
 <img src= "https://github.com/StrummingDown/ssokbeerImg/blob/main/ssokbeerlogo.png?raw=true" />
 
 <h3><a href=http://ssokbeer-bucket-depoly.s3-website.ap-northeast-2.amazonaws.com/>쏙비어 바로가기</a></h3>
+
+</br>
+
+COVID-19로 인한 거리두기로 인해, 어디를 가든지, 걱정되지 않으셨나요 ?
+
+사회적 거리두기로 인해 빠른 귀가가 불편하셨던적 또한 있으셨나요 ? 
+
+이제 이런 걱정들과 불안함을 내려 놓아도 됩니다 !
+
+어디를 갈지, 어떤 술을 먹을지, 안주를 어떻게 할지, 고민이라면, '쏙비어' 를 이용해 보세요.
+
+밖으로 나가서 술집을 가지 않아도, 메뉴 고민을 하지 않아도, 내 집에서 즐길 수 있습니다.
+
+코로나로부터 안전하고, 아늑한 내집에서 술집처럼 즐겨보세요.  
+ 
+
+<h3> '쏙비어' 에서는 </h3>
+
+🍺 다양한 종류의 맥주와 소주를 구경해 볼 수 있습니다.
+🫕 선택한 주류에 알맞게 어울리는 안주를 추천해 드립니다.
+🙋🏼 커뮤니티를 이용해, 다른 사용자와 먹었던 레시피를 공유하고, 소통할 수 있습니다.
+🌈 좋아요 기능으로 인기 있는 게시물을 상단에서 한눈에 볼 수 있습니다.
+👌🏻 반복되는 회원가입이 귀찮으셨나요? 소셜 로그인도 가능합니다.
+
+
+</br>
+<h2> 🛠 기술 스택 </h2>
+<img src="https://github.com/codestates/ssokbeer/blob/main/ssokbeerStack.png?raw=true" width = "400 " height = "300"/>
