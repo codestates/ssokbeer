@@ -34,7 +34,7 @@ COVID-19로 인한 거리두기로 인해, 어디를 가든지, 걱정되지 않
 
 </br>
 <h2> 🧬흐름도 </h2>
-<img src="https://github.com/codestates/ssokbeer/blob/main/ssokbeerStack.png?raw=true" width = "800 " height = "600"/>
+<img src="https://github.com/codestates/ssokbeer/blob/main/ssokbeer_stack_architecture.png?raw=true" width = "800 " height = "600"/>
 
 
 </br>
