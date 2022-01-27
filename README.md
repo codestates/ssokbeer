@@ -1,6 +1,6 @@
 <h1> 🍺 내집인데 술집같이, 쏙 비어 🍻 </h1>
 
-<img src= "https://github.com/StrummingDown/ssokbeerImg/blob/main/ssokbeerlogo.png?raw=true" />
+<img src= "https://github.com/StrummingDown/ssokbeerImg/blob/main/ssokbeerlogo.png?raw=true"  width = "400 " height = "300"/>
 
 <h3><a href=http://ssokbeer-bucket-depoly.s3-website.ap-northeast-2.amazonaws.com/>쏙비어 바로가기</a></h3>
 
@@ -21,13 +21,17 @@ COVID-19로 인한 거리두기로 인해, 어디를 가든지, 걱정되지 않
 
 <h3> '쏙비어' 에서는 </h3>
 
-🍺 다양한 종류의 맥주와 소주를 구경해 볼 수 있습니다.
-🫕 선택한 주류에 알맞게 어울리는 안주를 추천해 드립니다.
-🙋🏼 커뮤니티를 이용해, 다른 사용자와 먹었던 레시피를 공유하고, 소통할 수 있습니다.
-🌈 좋아요 기능으로 인기 있는 게시물을 상단에서 한눈에 볼 수 있습니다.
-👌🏻 반복되는 회원가입이 귀찮으셨나요? 소셜 로그인도 가능합니다.
+🍺 다양한 종류의 맥주와 소주를 구경해 볼 수 있습니다. </br>
+
+🫕 선택한 주류에 알맞게 어울리는 안주를 추천해 드립니다. </br>
+
+🙋🏼 커뮤니티를 이용해, 다른 사용자와 먹었던 레시피를 공유하고, 소통할 수 있습니다. </br>
+
+🌈 좋아요 기능으로 인기 있는 게시물을 상단에서 한눈에 볼 수 있습니다. </br>
+
+👌🏻 반복되는 회원가입이 귀찮으셨나요? 소셜 로그인도 가능합니다. </br>
 
 
 </br>
 <h2> 🛠 기술 스택 </h2>
-<img src="https://github.com/codestates/ssokbeer/blob/main/ssokbeerStack.png?raw=true" width = "400 " height = "300"/>
+<img src="https://github.com/codestates/ssokbeer/blob/main/ssokbeerStack.png?raw=true" width = "768 " height = "600"/>
