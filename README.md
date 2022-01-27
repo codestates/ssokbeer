@@ -35,3 +35,20 @@ COVID-19로 인한 거리두기로 인해, 어디를 가든지, 걱정되지 않
 </br>
 <h2> 🛠 기술 스택 </h2>
 <img src="https://github.com/codestates/ssokbeer/blob/main/ssokbeerStack.png?raw=true" width = "800 " height = "600"/>
+
+
+
+<h2> 👩‍👩‍👦‍👦 Team </h2>
+<table border="1">
+	<th>Front</th>
+	<th>Full</th>
+  <th>Full</th>
+  <th>Back</th>
+	<tr><!-- 첫번째 줄 시작 -->
+    <td><a href="https://github.com/sophiecode1105">이채영</a></td>
+    <td><a href="https://github.com/codingbe">김정환</a></td>
+    <td><a href="https://github.com/kongjin">진공</a></td>
+    <td><a href="https://github.com/StrummingDown">윤대규</a></td>
+	</tr><!-- 첫번째 줄 끝 -->
+    </table>
+
